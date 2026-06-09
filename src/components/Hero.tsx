@@ -32,34 +32,34 @@ export default function Hero({ personal, roleText }: HeroProps) {
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
-            <p className="mb-5 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.22em] text-cyan before:h-px before:w-7 before:bg-cyan">
+            <p className="mb-5 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.22em] text-amber before:h-px before:w-7 before:bg-amber">
               {personal.eyebrow}
             </p>
             <h1 className="mb-4 text-[clamp(3rem,8vw,6.6rem)] font-black uppercase leading-[0.9] tracking-tight text-text">
               {personal.firstName}
               <br />
-              {personal.lastName} <span className="text-accent">{personal.suffixName}</span>
+              {personal.lastName} <span className="text-rose">{personal.suffixName}</span>
             </h1>
             <div className="mb-5 font-mono text-[clamp(2.6rem,10vw,8rem)] font-bold leading-none text-transparent opacity-20 [-webkit-text-stroke:1px_#E8EEF8]">
               AI ENGINEER
             </div>
             <p className="mb-3 flex min-h-8 flex-wrap items-center gap-2 text-lg text-muted sm:text-2xl">
               <span>{personal.rolePrefix}</span>
-              <span className="font-medium text-cyan">{roleText}</span>
-              <span className="cursor-blink inline-block h-6 w-0.5 bg-cyan align-middle" />
+              <span className="font-medium text-violet">{roleText}</span>
+              <span className="cursor-blink inline-block h-6 w-0.5 bg-amber align-middle" />
             </p>
             <p className="mb-9 max-w-xl text-base leading-7 text-muted">{personal.heroDescription}</p>
 
             <div className="mb-10 flex flex-wrap gap-3">
               <a
                 href="#projects"
-                className="inline-flex items-center rounded-full bg-text px-6 py-3 text-sm font-bold text-bg transition-all hover:-translate-y-0.5 hover:bg-cyan"
+                className="inline-flex items-center rounded-full bg-accent px-6 py-3 text-sm font-bold text-bg transition-all hover:-translate-y-0.5 hover:bg-amber"
               >
                 {ACTION_LABELS.viewProjects}
               </a>
               <a
                 href={personal.resumeUrl}
-                className="inline-flex items-center rounded-full border border-border px-6 py-3 text-sm font-medium text-text transition-all hover:-translate-y-0.5 hover:border-cyan hover:text-cyan"
+                className="inline-flex items-center rounded-full border border-border px-6 py-3 text-sm font-medium text-text transition-all hover:-translate-y-0.5 hover:border-violet hover:text-violet"
               >
                 {ACTION_LABELS.downloadResume}
               </a>
@@ -74,7 +74,7 @@ export default function Hero({ personal, roleText }: HeroProps) {
                     key={link.label}
                     href={link.href}
                     aria-label={link.label}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card/60 text-muted transition-all hover:border-cyan hover:bg-cyan/10 hover:text-cyan"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card/60 text-muted transition-all hover:border-amber hover:bg-amber/10 hover:text-amber"
                     target={link.href.startsWith('http') ? '_blank' : undefined}
                     rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
                   >
@@ -92,7 +92,7 @@ export default function Hero({ personal, roleText }: HeroProps) {
 
           <div className="hero-console relative hidden min-h-[520px] lg:block">
             <div className="floating-card absolute left-4 top-6 w-56 rounded-2xl border border-border bg-card/85 p-5 shadow-2xl shadow-accent/10 backdrop-blur">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Lounge 1</p>
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-amber">Lounge 1</p>
               <p className="mt-10 text-4xl font-black text-text">{personal.shortName}</p>
               <p className="mt-1 text-sm text-muted">{personal.tagline}</p>
             </div>
@@ -104,8 +104,8 @@ export default function Hero({ personal, roleText }: HeroProps) {
               <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted">{personal.country}</p>
               <p className="mt-1 text-2xl font-bold text-text">{personal.location}</p>
             </div>
-            <div className="floating-card floating-card-slow absolute bottom-10 left-12 w-80 rounded-2xl border border-cyan/30 bg-bg/80 p-5 font-mono text-xs text-muted shadow-2xl shadow-cyan/10 backdrop-blur">
-              <p className="text-cyan">$ run goutham --vivid</p>
+            <div className="floating-card floating-card-slow absolute bottom-10 left-12 w-80 rounded-2xl border border-rose/30 bg-bg/80 p-5 font-mono text-xs text-muted shadow-2xl shadow-rose/10 backdrop-blur">
+              <p className="text-rose">$ run goutham --vivid</p>
               <div className="mt-3 space-y-1">
                 {HERO_TERMINAL.map((line) => (
                   <p key={line.label}>

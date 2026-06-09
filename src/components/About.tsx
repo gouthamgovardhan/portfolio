@@ -15,12 +15,12 @@ export default function About({ personal }: AboutProps) {
       <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[1fr_1.25fr]">
         <div className="group relative max-w-sm lg:max-w-none">
           <div
-            className="city-visual relative flex aspect-[4/5] items-end overflow-hidden rounded-[2rem] border border-border bg-card p-6 transition-all duration-500 group-hover:-translate-y-1 group-hover:border-cyan"
+            className="city-visual relative flex aspect-[4/5] items-end overflow-hidden rounded-[2rem] border border-border bg-card p-6 transition-all duration-500 group-hover:-translate-y-1 group-hover:border-amber"
             style={cityVisualStyle}
           >
             {/* Replace inner content with: <img src={personal.resumeUrl.replace('resume.pdf','profile.jpg')} className="w-full h-full object-cover" /> */}
             <div className="relative z-10">
-              <p className="mb-4 font-mono text-xs uppercase tracking-[0.22em] text-cyan">{personal.locationEyebrow}</p>
+              <p className="mb-4 font-mono text-xs uppercase tracking-[0.22em] text-amber">{personal.locationEyebrow}</p>
               <p className="text-5xl font-black uppercase text-text">{personal.country}</p>
               <p className="mt-2 font-mono text-xs text-muted">{personal.coordinates}</p>
               <p className="font-mono text-xs text-muted">{personal.timezone}</p>
@@ -48,11 +48,11 @@ export default function About({ personal }: AboutProps) {
               </div>
             ))}
           </div>
-          <p className="mt-8 border-l border-cyan pl-5 text-lg font-medium text-text">{personal.aboutQuote}</p>
+          <p className="mt-8 border-l border-rose pl-5 text-lg font-medium text-text">{personal.aboutQuote}</p>
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             {PERSONA_TRAITS.map((trait) => (
               <article key={trait.label} className="rounded-2xl border border-border-dim bg-surface/70 p-5">
-                <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-cyan">{trait.label}</h3>
+                <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-violet">{trait.label}</h3>
                 <p className="mt-3 text-sm leading-6 text-muted">{trait.description}</p>
               </article>
             ))}

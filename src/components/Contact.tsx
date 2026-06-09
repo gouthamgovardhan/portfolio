@@ -13,7 +13,7 @@ export default function Contact({ personal }: ContactProps) {
           {[...WORKFLOW_STEPS, ...WORKFLOW_STEPS].map((step, index) => (
             <span
               key={`${step.label}-${index}`}
-              className="rounded-full border border-border-dim bg-bg/70 px-5 py-1 font-mono text-xs uppercase tracking-[0.2em] text-muted"
+              className="rounded-full border border-border-dim bg-bg/70 px-5 py-1 font-mono text-xs uppercase tracking-[0.2em] text-amber"
             >
               {step.label}
             </span>
@@ -35,7 +35,7 @@ export default function Contact({ personal }: ContactProps) {
               <a
                 key={`${personal.name}-${link.label}`}
                 href={link.href}
-                className="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-medium text-text transition-all hover:-translate-y-0.5 hover:border-accent hover:text-accent-h"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-medium text-text transition-all hover:-translate-y-0.5 hover:border-rose hover:text-rose"
                 target={link.href.startsWith('http') ? '_blank' : undefined}
                 rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
               >

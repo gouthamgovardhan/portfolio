@@ -29,7 +29,7 @@ export default function Navbar() {
           <span className="text-accent">.</span>
         </a>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-5 lg:flex xl:gap-7">
           {NAV_LINKS.map((link) => {
             const active = activeId === link.id
             const isContact = link.id === 'contact'
@@ -40,7 +40,7 @@ export default function Navbar() {
                 href={link.href}
                 className={
                   isContact
-                    ? 'rounded-md bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-h'
+                    ? 'rounded-md bg-accent px-4 py-2 text-sm font-medium text-bg transition-colors hover:bg-accent-h'
                     : `text-sm font-medium transition-colors hover:text-text ${
                         active ? 'text-accent-h' : 'text-muted'
                       }`
@@ -54,7 +54,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border text-text md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border text-text lg:hidden"
           aria-label={ACTION_LABELS.menu}
           aria-expanded={open}
           onClick={() => setOpen((value) => !value)}
@@ -64,7 +64,7 @@ export default function Navbar() {
       </div>
 
       <div
-        className={`border-b border-border bg-bg/95 px-6 py-4 backdrop-blur-lg md:hidden ${
+        className={`border-b border-border bg-bg/95 px-6 py-4 backdrop-blur-lg lg:hidden ${
           open ? 'flex flex-col gap-3' : 'hidden'
         }`}
       >

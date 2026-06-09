@@ -66,28 +66,65 @@ export interface TerminalLine {
   value: string
 }
 
+export interface CapabilityItem {
+  label: string
+  title: string
+  description: string
+  proof: string
+  tags: string[]
+  accent: 'cyan' | 'accent' | 'emerald' | 'amber' | 'rose' | 'violet'
+}
+
+export interface BuildMode {
+  label: string
+  title: string
+  description: string
+  items: string[]
+  tone: 'cyan' | 'accent' | 'emerald' | 'amber' | 'rose' | 'violet'
+}
+
+export interface ProductPillar {
+  label: string
+  title: string
+  description: string
+  metric: string
+  tone: 'cyan' | 'accent' | 'emerald' | 'amber' | 'rose' | 'violet'
+}
+
+export interface RoleFit {
+  role: string
+  pitch: string
+  strengths: string[]
+}
+
+export interface ProofPoint {
+  label: string
+  value: string
+  detail: string
+}
+
 export const PERSONAL = {
   name: 'Goutham Reddy S',
   shortName: 'GR',
   firstName: 'Goutham',
   lastName: 'Reddy',
   suffixName: 'S.',
-  tagline: 'AI Engineer',
+  tagline: 'AI x Salesforce x Backend Engineer',
   eyebrow: 'Currently shipping at Visionet Systems',
   rolePrefix: 'I am building like a',
   heroDescription:
-    'Bengaluru-based AI engineer turning RAG, agents, APIs, and messy enterprise workflows into things people can actually use.',
+    'Bengaluru-based AI engineer turning RAG, agents, Salesforce automation, and backend APIs into usable production workflows.',
   roles: [
-    'AI Engineer',
-    'RAG Architect',
-    'Backend Systems Builder',
-    'Agentic AI Developer',
-    'Salesforce Developer',
+    'AI Systems Builder',
+    'RAG + Agent Engineer',
+    'Backend API Engineer',
+    'Salesforce Automation Developer',
+    'Production-Minded Builder',
   ],
   bio: [
-    'I am a Computer Science Engineer from Bengaluru who likes building AI systems that escape the notebook and survive real users. My core belief: Deploy beats Demo.',
-    'At Visionet Systems, I work on LLM-powered agentic systems for enterprise workflows, including RAG chat, multi-model evaluation, routing, and automation that has served 1000+ users.',
-    'After work I keep poking at agent architectures, eval loops, backend patterns, and the strange little details that make AI products feel fast, useful, and alive.',
+    'I am a Computer Science Engineer from Bengaluru who builds AI systems that escape the notebook and survive real users. My core belief: Deploy beats Demo.',
+    'At Visionet Systems, I work on LLM-powered and agentic AI systems for enterprise workflows, including RAG chat, context capture, intelligent routing, backend integrations, and automation that has served 1000+ users.',
+    'My sweet spot is the bridge between product and plumbing: model behavior, retrieval quality, API design, Salesforce workflows, logs, latency, and the unglamorous details that make software feel reliable.',
   ],
   highlightPoints: [
     'RAG pipelines and hybrid retrieval',
@@ -98,7 +135,7 @@ export const PERSONAL = {
     'Docker, AWS, CI/CD observability',
   ],
   location: 'Bengaluru, Karnataka, India',
-  email: 'ADD_YOUR_EMAIL_HERE@gmail.com',
+  email: 'gouthamgovardhan@hotmail.com',
   github: 'https://github.com/gouthamgovardhan',
   linkedin: 'https://linkedin.com/in/goutham-govardhan',
   resumeUrl: '/portfolio/assets/resume.pdf',
@@ -113,7 +150,19 @@ export const PERSONAL = {
   copyrightYear: '2025',
 } as const
 
-export const HERO_TECH = ['React', 'TypeScript', 'Python', 'FastAPI', 'Docker', 'Git', 'Tailwind', 'LangChain', 'RAG']
+export const HERO_TECH = [
+  'RAG',
+  'Agents',
+  'FastAPI',
+  'Salesforce',
+  'Apex',
+  'LWC',
+  'Python',
+  'TypeScript',
+  'Docker',
+  'LangChain',
+  'Eval Loops',
+]
 
 export const HERO_TERMINAL: TerminalLine[] = [
   { label: 'prompt', value: 'make enterprise AI less sleepy' },
@@ -124,6 +173,8 @@ export const HERO_TERMINAL: TerminalLine[] = [
 
 export const NAV_LINKS: NavLinkItem[] = [
   { label: 'About', href: '#about', id: 'about' },
+  { label: 'Capabilities', href: '#capabilities', id: 'capabilities' },
+  { label: 'Why Me', href: '#product', id: 'product' },
   { label: 'Skills', href: '#skills', id: 'skills' },
   { label: 'Experience', href: '#experience', id: 'experience' },
   { label: 'Projects', href: '#projects', id: 'projects' },
@@ -141,6 +192,18 @@ export const SECTION_TEXT = {
     label: 'Origin Story',
     title: 'Not a wizard. Just very curious.',
   },
+  capabilities: {
+    label: 'What I Build',
+    title: 'Three lanes, one builder brain',
+    subtitle:
+      'I sit in the useful overlap: AI workflows, Salesforce automation, and backend systems that make the whole thing run.',
+  },
+  builderOS: {
+    label: 'Builder OS',
+    title: 'More signal, less resume fog',
+    subtitle:
+      'A quick map of how I think when a problem moves from vague idea to running system.',
+  },
   skills: {
     label: 'Loadout',
     title: 'Tools I keep reaching for',
@@ -151,7 +214,15 @@ export const SECTION_TEXT = {
   },
   projects: {
     label: 'Featured Work',
-    title: 'Stuff I am proud to show',
+    title: 'Proof, not decoration',
+    subtitle:
+      'Projects pulled from real work and resume-backed builds: AI chat, service recommendation, and NLP classification.',
+  },
+  product: {
+    label: 'Why Hire Me',
+    title: 'Think of me as a production upgrade',
+    subtitle:
+      'I am not selling a generic developer profile. I am selling a builder who can take AI ideas, connect them to enterprise systems, and make them usable.',
   },
   certifications: {
     label: 'Receipts',
@@ -172,7 +243,88 @@ export const ACTION_LABELS = {
   menu: 'Toggle navigation',
   githubProject: 'Open GitHub repository',
   liveProject: 'Open live project',
+  caseStudy: 'case study',
+  productFit: 'product fit',
 } as const
+
+export const PRODUCT_PILLARS: ProductPillar[] = [
+  {
+    label: 'Outcome',
+    title: 'Automation that gives time back',
+    description:
+      'I look for workflows where AI, APIs, or Salesforce automation can reduce repetitive work and decision friction.',
+    metric: '70% manual effort reduction',
+    tone: 'accent',
+  },
+  {
+    label: 'Reliability',
+    title: 'AI that is checked, traced, and improved',
+    description:
+      'I package AI features with retrieval, evaluation, logging, and fallback thinking so teams can trust the system after launch.',
+    metric: 'Multi-model evaluation mindset',
+    tone: 'violet',
+  },
+  {
+    label: 'Integration',
+    title: 'Backend glue for messy enterprise reality',
+    description:
+      'I connect LLM workflows to REST APIs, databases, Salesforce flows, and internal tools where the real business process lives.',
+    metric: '1000+ production users served',
+    tone: 'emerald',
+  },
+  {
+    label: 'Momentum',
+    title: 'Builder energy without losing discipline',
+    description:
+      'I enjoy turning vague requirements into buildable slices, shipping fast, debugging patiently, and documenting the path.',
+    metric: 'Mentored 4 developers',
+    tone: 'amber',
+  },
+]
+
+export const ROLE_FITS: RoleFit[] = [
+  {
+    role: 'AI Engineer',
+    pitch:
+      'Best fit when you need RAG, agents, prompt systems, LLM APIs, eval loops, or AI workflows connected to real product behavior.',
+    strengths: ['RAG pipelines', 'LLM orchestration', 'Context capture', 'Multi-model evaluation'],
+  },
+  {
+    role: 'Salesforce Developer',
+    pitch:
+      'Best fit when Salesforce needs custom logic, LWC UI, Apex, Flow, Agentforce ideas, or external backend integrations.',
+    strengths: ['Apex', 'LWC', 'Flow Builder', 'SOQL', 'Agentforce'],
+  },
+  {
+    role: 'Backend Engineer',
+    pitch:
+      'Best fit when the product needs APIs, database-backed services, async workflows, reliable integrations, or automation logic.',
+    strengths: ['FastAPI', 'REST APIs', 'MongoDB', 'MySQL', 'Python'],
+  },
+]
+
+export const PROOF_POINTS: ProofPoint[] = [
+  {
+    label: 'Production reach',
+    value: '1000+',
+    detail: 'enterprise users served by AI and automation workflows',
+  },
+  {
+    label: 'Automation impact',
+    value: '70%',
+    detail: 'manual effort reduction through intelligent workflow automation',
+  },
+  {
+    label: 'Team lift',
+    value: '4',
+    detail: 'developers mentored while contributing to architecture and issue resolution',
+  },
+  {
+    label: 'NLP dataset',
+    value: '6000+',
+    detail: 'samples used in fake-news classification pipeline',
+  },
+]
 
 export const PERSONA_TRAITS: PersonaTrait[] = [
   {
@@ -199,6 +351,81 @@ export const WORKFLOW_STEPS: WorkflowStep[] = [
   { label: 'Ship' },
 ]
 
+export const CAPABILITIES: CapabilityItem[] = [
+  {
+    label: '01 / AI Systems',
+    title: 'RAG, agents, and evaluation loops',
+    description:
+      'I build AI workflows that retrieve context, reason through tasks, call tools, and get measured instead of blindly trusted.',
+    proof: 'Production LLM workflows for 1000+ enterprise users',
+    tags: ['RAG', 'LangChain', 'OpenAI', 'RAGAS', 'LangSmith'],
+    accent: 'cyan',
+  },
+  {
+    label: '02 / Salesforce',
+    title: 'Enterprise automation without the sleepy UI',
+    description:
+      'I work across Apex, LWC, Agentforce, Flow, and integrations to turn business workflows into clean internal tools.',
+    proof: 'Salesforce certified and hands-on with enterprise delivery',
+    tags: ['Apex', 'LWC', 'Agentforce', 'Flow', 'SOQL'],
+    accent: 'accent',
+  },
+  {
+    label: '03 / Backend',
+    title: 'APIs, async services, and reliable glue',
+    description:
+      'I like the backend layer where product ideas become durable APIs, queues, data models, auth, logs, and deployable services.',
+    proof: 'FastAPI, REST, PostgreSQL, Redis, Docker, AWS',
+    tags: ['FastAPI', 'REST', 'PostgreSQL', 'Redis', 'Docker'],
+    accent: 'emerald',
+  },
+]
+
+export const BUILD_MODES: BuildMode[] = [
+  {
+    label: 'AI Productization',
+    title: 'From prompt demo to usable workflow',
+    description: 'I care about retrieval quality, memory, tool use, routing, latency, and evaluation before calling an AI feature done.',
+    items: ['RAG design', 'Agent flows', 'Eval loops', 'Fallback paths'],
+    tone: 'violet',
+  },
+  {
+    label: 'Salesforce Automation',
+    title: 'Enterprise workflows with less clicking',
+    description: 'I can build around Salesforce objects, flows, Apex logic, LWC interfaces, Agentforce ideas, and external API integrations.',
+    items: ['Apex', 'LWC', 'Flow', 'SOQL'],
+    tone: 'accent',
+  },
+  {
+    label: 'Backend Systems',
+    title: 'The API layer that keeps promises',
+    description: 'I like clean service boundaries, async endpoints, auth, data models, queues, and boring reliability work.',
+    items: ['FastAPI', 'REST', 'PostgreSQL', 'Redis'],
+    tone: 'emerald',
+  },
+  {
+    label: 'Evaluation Mindset',
+    title: 'Measure the model, do not worship it',
+    description: 'For LLM systems, I think in traces, tests, feedback loops, and practical quality checks.',
+    items: ['RAGAS', 'LangSmith', 'Logs', 'Metrics'],
+    tone: 'amber',
+  },
+  {
+    label: 'Delivery Habits',
+    title: 'Ship small, observe, then sharpen',
+    description: 'Docker, CI/CD, deployment checks, readable docs, and enough observability to debug without guessing.',
+    items: ['Docker', 'AWS', 'CI/CD', 'Linux'],
+    tone: 'cyan',
+  },
+  {
+    label: 'Team Energy',
+    title: 'Useful in the messy middle',
+    description: 'I enjoy debugging, mentoring, writing clearer handoffs, and turning scattered requirements into buildable slices.',
+    items: ['Mentoring', 'Docs', 'Debugging', 'Ownership'],
+    tone: 'rose',
+  },
+]
+
 export const STATS: StatItem[] = [
   { value: '2', suffix: '+', label: 'Years of Experience' },
   { value: '1000', suffix: '+', label: 'Users Served in Production' },
@@ -213,8 +440,8 @@ export const SKILLS: SkillGroup[] = [
       'LangChain',
       'OpenAI API',
       'RAG',
+      'LLaMA / Ollama',
       'ChromaDB',
-      'Pinecone',
       'LangSmith',
       'RAGAS',
       'HuggingFace',
@@ -223,6 +450,8 @@ export const SKILLS: SkillGroup[] = [
       'LLM Evaluation',
       'Embeddings',
       'Vector Search',
+      'NLP',
+      'LSTM',
     ],
   },
   {
@@ -230,11 +459,13 @@ export const SKILLS: SkillGroup[] = [
     skills: [
       'Python',
       'FastAPI',
+      'Flask',
       'Node.js',
       'REST APIs',
       'PostgreSQL',
       'Redis',
       'MongoDB',
+      'MySQL',
       'SQLAlchemy',
       'Alembic',
       'Async Patterns',
@@ -306,11 +537,27 @@ export const PROJECTS: ProjectItem[] = [
   {
     title: 'AI Therapy Chatbot',
     description:
-      'Full-stack AI chatbot with RAG-based persistent memory, stage-based emotional conversation flow, and real-time chat interface. Delivers context-aware responses across multi-turn conversations.',
+      'Conversational AI system using LLaMA through Ollama, RAG retrieval, document chunking, and MongoDB-backed persistent memory for context-aware multi-turn conversations.',
     icon: 'AI',
-    tags: ['FastAPI', 'RAG', 'React', 'Node.js', 'ChromaDB'],
+    tags: ['LLaMA', 'Ollama', 'RAG', 'MongoDB', 'Retrieval'],
     githubUrl: 'https://github.com/gouthamgovardhan/ai-therapy-chatbot',
     featured: true,
+  },
+  {
+    title: 'AI Service Recommendation System',
+    description:
+      'AI recommendation workflow using OpenAI APIs to understand user queries, recommend relevant services, and reduce manual lookup effort in decision-heavy workflows.',
+    icon: 'SR',
+    tags: ['OpenAI API', 'Decision Automation', 'REST APIs', 'Python', 'Workflow Logic'],
+    featured: true,
+  },
+  {
+    title: 'Fake News Detection System',
+    description:
+      'NLP classification project using an LSTM model on 6000+ samples with preprocessing, feature engineering, and an end-to-end machine learning pipeline.',
+    icon: 'NL',
+    tags: ['NLP', 'LSTM', 'Python', 'Feature Engineering', 'Classification'],
+    featured: false,
   },
 ]
 
