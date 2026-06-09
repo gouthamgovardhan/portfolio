@@ -1,5 +1,6 @@
 import { FaLocationDot } from 'react-icons/fa6'
 import { ACTION_LABELS, HERO_TECH, HERO_TERMINAL, SOCIAL_LINKS, TECH_EXPLANATIONS, type PERSONAL } from '../data/portfolio'
+import { getTechIcon } from '../lib/techIcons'
 
 interface HeroProps {
   personal: typeof PERSONAL
@@ -13,15 +14,20 @@ export default function Hero({ personal }: HeroProps) {
       <div className="orb-2 pointer-events-none absolute -bottom-[10%] -left-[10%] h-[min(50vw,500px)] w-[min(50vw,500px)] rounded-full" />
       <div className="pointer-events-none absolute left-0 right-0 top-20 overflow-hidden border-y border-border-dim/70 bg-bg/35 py-3 backdrop-blur">
         <div className="tech-marquee flex w-max gap-3">
-          {[...HERO_TECH, ...HERO_TECH].map((tech, index) => (
-            <span
-              key={`${tech}-${index}`}
-              title={TECH_EXPLANATIONS[tech] ?? tech}
-              className="rounded-full border border-border-dim bg-card/70 px-4 py-1 font-mono text-xs uppercase tracking-[0.18em] text-muted"
-            >
-              {tech}
-            </span>
-          ))}
+          {[...HERO_TECH, ...HERO_TECH].map((tech, index) => {
+            const Icon = getTechIcon(tech)
+
+            return (
+              <span
+                key={`${tech}-${index}`}
+                title={TECH_EXPLANATIONS[tech] ?? tech}
+                className="inline-flex items-center gap-2 rounded-full border border-border-dim bg-card/70 px-4 py-1 font-mono text-xs uppercase tracking-[0.14em] text-muted"
+              >
+                <Icon className="h-3.5 w-3.5 shrink-0 text-amber" aria-hidden="true" />
+                {tech}
+              </span>
+            )
+          })}
         </div>
       </div>
 
