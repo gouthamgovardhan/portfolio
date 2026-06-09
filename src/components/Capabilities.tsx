@@ -22,13 +22,11 @@ export default function Capabilities() {
           subtitle={SECTION_TEXT.capabilities.subtitle}
         />
 
-        <div className="grid gap-5 lg:grid-cols-3">
-          {CAPABILITIES.map((item, index) => (
+        <div className="grid auto-rows-fr gap-5 lg:grid-cols-3">
+          {CAPABILITIES.map((item) => (
             <article
               key={item.title}
-              className={`group relative overflow-hidden rounded-[1.7rem] border bg-card/85 p-6 shadow-2xl backdrop-blur transition-all duration-500 hover:-translate-y-2 ${accentClasses[item.accent]} ${
-                index === 0 ? 'lg:row-span-2 lg:min-h-[430px]' : ''
-              }`}
+              className={`group relative min-h-[390px] overflow-hidden rounded-[1.7rem] border bg-card/85 p-6 shadow-2xl backdrop-blur transition-all duration-500 hover:-translate-y-2 ${accentClasses[item.accent]}`}
             >
               <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-current opacity-10 blur-2xl transition-transform duration-500 group-hover:scale-125" />
               <div className="relative z-10 flex h-full flex-col">
@@ -41,7 +39,7 @@ export default function Capabilities() {
                 </div>
                 <div className="mt-auto flex flex-wrap gap-2">
                   {item.tags.map((tag) => (
-                    <Tag key={tag} label={tag} />
+                    <Tag key={tag} label={tag} compact />
                   ))}
                 </div>
               </div>

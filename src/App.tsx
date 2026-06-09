@@ -1,39 +1,39 @@
 import About from './components/About'
-import BuilderOS from './components/BuilderOS'
-import Capabilities from './components/Capabilities'
-import Certifications from './components/Certifications'
+import AmbientBackground from './components/AmbientBackground'
 import Contact from './components/Contact'
+import Education from './components/Education'
 import Experience from './components/Experience'
 import Footer from './components/Footer'
 import Hero from './components/Hero'
 import Navbar from './components/Navbar'
-import ProductPositioning from './components/ProductPositioning'
 import Projects from './components/Projects'
+import Publications from './components/Publications'
+import RolePathways from './components/RolePathways'
+import SalesforceProof from './components/SalesforceProof'
 import Skills from './components/Skills'
 import Stats from './components/Stats'
-import { CERTIFICATIONS, EXPERIENCE, PERSONAL, PROJECTS, SKILLS, STATS } from './data/portfolio'
+import { EXPERIENCE, PERSONAL, PROJECTS, SKILLS, STATS } from './data/portfolio'
 import { useScrollReveal } from './hooks/useScrollReveal'
-import { useTypewriter } from './hooks/useTypewriter'
 
 export default function App() {
-  const roleText = useTypewriter(PERSONAL.roles)
   useScrollReveal()
 
   return (
     <>
+      <AmbientBackground />
       <div className="scroll-progress" aria-hidden="true" />
       <Navbar />
-      <main>
-        <Hero personal={PERSONAL} roleText={roleText} />
+      <main className="relative z-[1]">
+        <Hero personal={PERSONAL} />
         <Stats stats={STATS} />
-        <About personal={PERSONAL} />
-        <Capabilities />
-        <BuilderOS />
-        <ProductPositioning />
-        <Skills skills={SKILLS} />
-        <Experience experience={EXPERIENCE} />
+        <RolePathways />
         <Projects projects={PROJECTS} />
-        <Certifications certs={CERTIFICATIONS} />
+        <SalesforceProof />
+        <Experience experience={EXPERIENCE} />
+        <Skills skills={SKILLS} />
+        <About personal={PERSONAL} />
+        <Publications />
+        <Education />
         <Contact personal={PERSONAL} />
       </main>
       <Footer personal={PERSONAL} />

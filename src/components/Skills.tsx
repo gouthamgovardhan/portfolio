@@ -8,9 +8,13 @@ interface SkillsProps {
 
 export default function Skills({ skills }: SkillsProps) {
   return (
-    <section id="skills" className="bg-surface px-6 py-24">
+    <section id="skills" className="section-shell px-6 py-24">
       <div className="mx-auto max-w-6xl">
-        <SectionHeader label={SECTION_TEXT.skills.label} title={SECTION_TEXT.skills.title} />
+        <SectionHeader
+          label={SECTION_TEXT.skills.label}
+          title={SECTION_TEXT.skills.title}
+          subtitle={SECTION_TEXT.skills.subtitle}
+        />
         <div className="space-y-9">
           {skills.map((group) => (
             <div key={group.category}>

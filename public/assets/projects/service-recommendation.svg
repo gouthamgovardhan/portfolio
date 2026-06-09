@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-label="Service recommendation workflow diagram">
+  <rect width="800" height="420" fill="#100d12" rx="24"/>
+  <text x="40" y="48" fill="#38e8ff" font-family="monospace" font-size="14" letter-spacing="2">SERVICE RECOMMENDATION WORKFLOW</text>
+  <rect x="40" y="90" width="170" height="80" rx="14" fill="#1a1620" stroke="#38e8ff" stroke-width="2"/>
+  <text x="125" y="125" fill="#fff7ed" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700">Query intake</text>
+  <text x="125" y="148" fill="#b8a9b5" text-anchor="middle" font-family="sans-serif" font-size="12">natural language</text>
+  <rect x="250" y="90" width="170" height="80" rx="14" fill="#1a1620" stroke="#a78bfa" stroke-width="2"/>
+  <text x="335" y="125" fill="#fff7ed" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700">Intent parsing</text>
+  <text x="335" y="148" fill="#b8a9b5" text-anchor="middle" font-family="sans-serif" font-size="12">OpenAI API</text>
+  <rect x="460" y="90" width="170" height="80" rx="14" fill="#1a1620" stroke="#4ade80" stroke-width="2"/>
+  <text x="545" y="125" fill="#fff7ed" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700">Recommendation</text>
+  <text x="545" y="148" fill="#b8a9b5" text-anchor="middle" font-family="sans-serif" font-size="12">decision logic</text>
+  <rect x="670" y="90" width="90" height="80" rx="14" fill="#1a1620" stroke="#fbbf24" stroke-width="2"/>
+  <text x="715" y="132" fill="#fff7ed" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700">API</text>
+  <path d="M210 130 H250 M420 130 H460 M630 130 H670" stroke="#443142" stroke-width="3"/>
+  <rect x="120" y="230" width="560" height="110" rx="16" fill="#12283a" stroke="#ff6b6b" stroke-width="2"/>
+  <text x="400" y="270" fill="#fff7ed" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700">Outcome: less manual lookup in decision-heavy workflows</text>
+  <text x="400" y="300" fill="#b8a9b5" text-anchor="middle" font-family="sans-serif" font-size="13">Python backend + REST orchestration + workflow automation</text>
+  <text x="400" y="330" fill="#fbbf24" text-anchor="middle" font-family="monospace" font-size="12">private enterprise build  architecture notes on resume</text>
+</svg>

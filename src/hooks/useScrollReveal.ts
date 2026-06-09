@@ -7,7 +7,13 @@ export function useScrollReveal() {
     )
     const sectionTargets = Array.from(document.querySelectorAll<HTMLElement>('main section[id]'))
 
-    revealTargets.forEach((target) => target.classList.add('scroll-reveal'))
+    revealTargets.forEach((target, index) => {
+      target.classList.add('scroll-reveal')
+      if (target.tagName === 'ARTICLE') {
+        const staggerIndex = index % 4
+        target.style.setProperty('--reveal-delay', `${staggerIndex * 45}ms`)
+      }
+    })
 
     const revealObserver = new IntersectionObserver(
       (entries) => {
@@ -18,11 +24,9 @@ export function useScrollReveal() {
           if (entry.isIntersecting) {
             target.classList.add('is-visible')
           }
-
-          target.classList.toggle('is-active', entry.isIntersecting && entry.intersectionRatio > 0.45)
         })
       },
-      { rootMargin: '0px 0px -12% 0px', threshold: [0.16, 0.45, 0.7] },
+      { rootMargin: '0px 0px -12% 0px', threshold: 0.08 },
     )
 
     const sectionObserver = new IntersectionObserver(
