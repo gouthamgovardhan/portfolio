@@ -1,0 +1,26 @@
+import { useEffect, useRef } from 'react'
+
+export function useFadeIn<TElement extends HTMLElement>() {
+  const ref = useRef<TElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('opacity-100', 'translate-y-0')
+          observer.unobserve(el)
+        }
+      },
+      { threshold: 0.1 },
+    )
+
+    observer.observe(el)
+
+    return () => observer.disconnect()
+  }, [])
+
+  return ref
+}
