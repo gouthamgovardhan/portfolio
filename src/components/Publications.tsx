@@ -15,7 +15,7 @@ export default function Publications() {
 
         <div className="grid gap-5">
           {PUBLICATIONS.map((paper) => (
-            <article key={paper.doi} className="glass-card rounded-[1.7rem] border border-amber/35 p-6 shadow-2xl shadow-amber/5">
+            <article key={paper.doi} className="lift-card glass-card rounded-[1.7rem] border border-amber/35 p-6 shadow-2xl shadow-amber/5">
               <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                 <div className="min-w-0 flex-1">
                   <p className="font-mono text-xs uppercase tracking-[0.18em] text-amber">{paper.published}</p>
@@ -26,7 +26,7 @@ export default function Publications() {
                   href={paper.doiUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-amber/40 px-5 py-3 text-sm font-bold text-amber transition-all hover:-translate-y-0.5 hover:bg-amber/10"
+                  className="lift-card-subtle inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-amber/40 px-5 py-3 text-sm font-bold text-amber hover:bg-amber/10"
                 >
                   DOI <FaArrowUpRightFromSquare aria-hidden="true" />
                 </a>

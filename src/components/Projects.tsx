@@ -54,9 +54,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
   const style = accentStyles[project.accent]
 
   return (
-    <article
-      className={`group/card glass-card relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border/80 shadow-xl transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl ${style.ring}`}
-    >
+    <article className="lift-card group/card glass-card relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border/80 shadow-xl">
       <div className={`h-1.5 w-full bg-gradient-to-r ${style.bar}`} />
       <div className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full blur-3xl ${style.glow} opacity-0 transition-opacity duration-500 group-hover/card:opacity-100`} />
 
@@ -158,7 +156,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
           {project.proofUrl ? (
             <a
               href={project.proofUrl}
-              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-semibold text-violet transition-all hover:-translate-y-0.5 hover:border-violet hover:bg-violet/10"
+              className="lift-card-subtle inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-semibold text-violet hover:bg-violet/10"
               target={project.proofUrl.startsWith('http') ? '_blank' : undefined}
               rel={project.proofUrl.startsWith('http') ? 'noreferrer' : undefined}
             >

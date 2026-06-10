@@ -21,7 +21,7 @@ export default function Contact({ personal }: ContactProps) {
         </div>
       </div>
       <div className="relative mx-auto flex max-w-6xl justify-center pt-14">
-        <div className="glass-card w-full max-w-2xl rounded-[2rem] border border-border/80 p-8 text-center shadow-2xl shadow-accent/10 sm:p-12">
+        <div className="lift-card glass-card w-full max-w-2xl rounded-[2rem] border border-border/80 p-8 text-center shadow-2xl shadow-accent/10 sm:p-12">
           <SectionHeader
             label={SECTION_TEXT.contact.label}
             title={SECTION_TEXT.contact.title}
@@ -36,7 +36,7 @@ export default function Contact({ personal }: ContactProps) {
                 <a
                   key={`${personal.name}-${link.label}`}
                   href={link.href}
-                  className="inline-flex min-h-[4.5rem] items-center justify-start gap-3 rounded-xl border border-border px-5 py-3 text-left text-sm font-medium text-text transition-all hover:-translate-y-0.5 hover:border-rose hover:text-rose"
+                  className="lift-card-subtle inline-flex min-h-[4.5rem] items-center justify-start gap-3 rounded-xl border border-border px-5 py-3 text-left text-sm font-medium text-text hover:text-rose"
                   target={link.href.startsWith('http') ? '_blank' : undefined}
                   rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
                 >

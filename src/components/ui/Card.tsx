@@ -7,10 +7,10 @@ interface CardProps {
 }
 
 export function Card({ children, className = '', hover = true }: CardProps) {
-  const hoverClass = hover ? 'hover:-translate-y-0.5 hover:border-accent' : ''
+  const hoverClass = hover ? 'lift-card' : ''
 
   return (
-    <div className={`rounded-xl border border-border bg-card p-7 transition-all ${hoverClass} ${className}`}>
+    <div className={`rounded-xl border border-border bg-card p-7 ${hoverClass} ${className}`}>
       {children}
     </div>
   )

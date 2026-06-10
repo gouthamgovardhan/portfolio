@@ -352,6 +352,41 @@
     backdrop-filter: blur(12px);
   }
 
+  .lift-card {
+    transform: translate3d(0, 0, 0);
+    transition:
+      transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 260ms ease,
+      background 260ms ease,
+      box-shadow 300ms ease;
+    will-change: transform;
+  }
+
+  .lift-card:hover,
+  .lift-card:focus-within {
+    transform: translate3d(0, -0.45rem, 0);
+    border-color: color-mix(in srgb, var(--color-accent) 42%, var(--color-border));
+    box-shadow:
+      0 22px 48px color-mix(in srgb, var(--color-accent) 12%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--color-text) 7%, transparent);
+  }
+
+  .lift-card-subtle {
+    transform: translate3d(0, 0, 0);
+    transition:
+      transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 220ms ease,
+      background 220ms ease,
+      box-shadow 240ms ease;
+  }
+
+  .lift-card-subtle:hover,
+  .lift-card-subtle:focus-within {
+    transform: translate3d(0, -0.25rem, 0);
+    border-color: color-mix(in srgb, var(--color-accent) 35%, var(--color-border));
+    box-shadow: 0 14px 30px color-mix(in srgb, var(--color-accent) 9%, transparent);
+  }
+
   .scroll-progress {
     position: fixed;
     top: 0;
@@ -550,11 +585,17 @@
   .kinetic-text {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.03em;
+    column-gap: 0.34em;
+    row-gap: 0.08em;
     color: var(--color-muted);
   }
 
-  .kinetic-text span {
+  .kinetic-text .kinetic-word {
+    display: inline-flex;
+    white-space: nowrap;
+  }
+
+  .kinetic-word span {
     display: inline-block;
     color: transparent;
     background: linear-gradient(90deg, var(--color-accent), var(--color-amber), var(--color-cyan), var(--color-violet));
@@ -568,7 +609,7 @@
     transition-delay: calc(var(--kinetic-index) * 12ms);
   }
 
-  .kinetic-text:hover span {
+  .kinetic-text:hover .kinetic-word span {
     color: var(--color-text);
     font-weight: 800;
     transform: translateY(-0.06em);
@@ -738,7 +779,7 @@
   .terminal-row:hover {
     border-color: rgba(251, 191, 36, 0.45);
     background: var(--terminal-row-hover-bg);
-    transform: translateX(4px);
+    transform: translate3d(0, -0.25rem, 0);
   }
 
   .rainbow-button {
@@ -1095,6 +1136,8 @@
     .orb-2,
     .education-id-card,
     .rainbow-button::before,
+    .lift-card,
+    .lift-card-subtle,
     .magic-globe-sphere,
     .city-visual::after,
     main section.section-in-view > div {
@@ -1109,7 +1152,11 @@
 
     .education-id-card,
     .education-id-card:hover,
-    .education-id-card.is-flipped {
+    .education-id-card.is-flipped,
+    .lift-card:hover,
+    .lift-card:focus-within,
+    .lift-card-subtle:hover,
+    .lift-card-subtle:focus-within {
       transform: none;
     }
   }

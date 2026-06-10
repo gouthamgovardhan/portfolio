@@ -39,10 +39,21 @@ export function BlurFade({
     const element = ref.current
     if (!element) return undefined
 
+    const bounds = element.getBoundingClientRect()
+    if (bounds.top < window.innerHeight && bounds.bottom > 0) {
+      setVisible(true)
+      return undefined
+    }
+
+    const fallback = window.setTimeout(() => {
+      setVisible(true)
+    }, Math.max(450, delay * 1000 + 450))
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true)
+          window.clearTimeout(fallback)
           observer.disconnect()
         }
       },
@@ -50,8 +61,11 @@ export function BlurFade({
     )
 
     observer.observe(element)
-    return () => observer.disconnect()
-  }, [inView, inViewMargin, visible])
+    return () => {
+      window.clearTimeout(fallback)
+      observer.disconnect()
+    }
+  }, [delay, inView, inViewMargin, visible])
 
   const [x, y] = getOffset(direction, offset).split(' ')
   const blurStyle = {

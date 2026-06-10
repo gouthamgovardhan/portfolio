@@ -77,7 +77,7 @@ export default function Navbar() {
           <AnimatedThemeToggler variant="hexagon" />
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card/70 text-text transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10"
+            className="lift-card-subtle inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card/70 text-text hover:bg-accent/10"
             aria-label={ACTION_LABELS.menu}
             aria-expanded={open}
             aria-controls="mobile-navigation"
@@ -101,10 +101,10 @@ export default function Navbar() {
             <a
               key={link.id}
               href={link.href}
-              className={`rounded-xl border px-4 py-3 text-sm font-semibold transition-all ${
+              className={`lift-card-subtle rounded-xl border px-4 py-3 text-sm font-semibold ${
                 active
                   ? 'border-accent/50 bg-accent/15 text-text shadow-lg shadow-accent/10'
-                  : 'border-border bg-card text-text hover:border-accent/40 hover:bg-surface'
+                  : 'border-border bg-card text-text hover:bg-surface'
               }`}
               onClick={() => setOpen(false)}
             >

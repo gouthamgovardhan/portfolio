@@ -29,7 +29,7 @@ export default function Experience({ experience }: ExperienceProps) {
             return (
               <article
                 key={`${item.company}-${item.period}`}
-                className="magic-card role-card group relative overflow-hidden rounded-[1.35rem] border border-border/80 bg-card/60 p-5 shadow-xl shadow-bg/40 transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 sm:p-6"
+                className="magic-card lift-card role-card group relative overflow-hidden rounded-[1.35rem] border border-border/80 bg-card/60 p-5 shadow-xl shadow-bg/40 sm:p-6"
               >
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber/80 to-transparent opacity-70" />
                 <div className="grid gap-5 lg:grid-cols-[10rem_1fr]">

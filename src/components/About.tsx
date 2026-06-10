@@ -11,7 +11,7 @@ export default function About({ personal }: AboutProps) {
     <section id="about" className="section-shell px-6 py-24">
       <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14">
         <div className="group relative mx-auto w-full max-w-md pb-6 lg:mx-0 lg:max-w-none">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-border bg-card transition-all duration-500 group-hover:-translate-y-1 group-hover:border-amber">
+          <div className="lift-card relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-border bg-card">
             <img
               src={personal.profileImageUrl}
               alt={`${personal.name} professional photo`}
@@ -47,13 +47,13 @@ export default function About({ personal }: AboutProps) {
                 <a
                   key={fact.label}
                   href={fact.href}
-                  className="rounded-2xl border border-border-dim bg-surface/70 p-4 transition-colors hover:border-amber/40 hover:bg-surface"
+                  className="lift-card-subtle rounded-2xl border border-border-dim bg-surface/70 p-4"
                 >
                   <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-amber">{fact.label}</p>
                   <p className="mt-2 text-sm leading-6 text-text">{fact.value}</p>
                 </a>
               ) : (
-                <div key={fact.label} className="rounded-2xl border border-border-dim bg-surface/70 p-4">
+                <div key={fact.label} className="lift-card-subtle rounded-2xl border border-border-dim bg-surface/70 p-4">
                   <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-amber">{fact.label}</p>
                   <p className="mt-2 text-sm leading-6 text-text">{fact.value}</p>
                 </div>
@@ -79,7 +79,7 @@ export default function About({ personal }: AboutProps) {
           <p className="mt-8 border-l border-rose pl-5 text-lg font-medium text-text">{personal.aboutQuote}</p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {PERSONA_TRAITS.map((trait) => (
-              <article key={trait.label} className="rounded-2xl border border-border-dim bg-surface/70 p-5">
+              <article key={trait.label} className="lift-card-subtle rounded-2xl border border-border-dim bg-surface/70 p-5">
                 <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-violet">{trait.label}</h3>
                 <p className="mt-3 text-sm leading-6 text-muted">{trait.description}</p>
               </article>

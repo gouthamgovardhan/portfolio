@@ -38,45 +38,45 @@ export default function Hero({ personal }: HeroProps) {
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-14 pt-8 sm:pt-10 lg:pt-12">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
           <div className="min-w-0">
-            <BlurFade inView delay={0.08}>
+            <BlurFade delay={0.08}>
               <p className="mb-5 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.22em] text-amber before:h-px before:w-7 before:bg-amber">
                 {personal.eyebrow}
               </p>
             </BlurFade>
-            <BlurFade inView delay={0.16}>
+            <BlurFade delay={0.16}>
               <h1 className="mb-4 text-5xl font-black uppercase leading-[0.9] tracking-tight text-text sm:text-7xl lg:text-8xl">
                 {personal.firstName}
                 <br />
                 {personal.lastName} <span className="text-rose">{personal.suffixName}</span>
               </h1>
             </BlurFade>
-            <BlurFade inView delay={0.24}>
+            <BlurFade delay={0.24}>
               <KineticText
                 text="AI · BACKEND · SALESFORCE"
                 as="div"
                 className="mb-5 font-mono text-3xl font-bold leading-none text-muted sm:text-5xl lg:text-6xl"
               />
             </BlurFade>
-            <BlurFade inView delay={0.32}>
+            <BlurFade delay={0.32}>
               <p className="mb-3 max-w-2xl text-lg font-medium leading-8 text-text sm:text-xl">{personal.heroHeadline}</p>
             </BlurFade>
-            <BlurFade inView delay={0.4}>
+            <BlurFade delay={0.4}>
               <p className="mb-9 max-w-xl text-base leading-7 text-muted">{personal.heroDescription}</p>
             </BlurFade>
 
-            <BlurFade inView delay={0.48} className="mb-10 flex flex-wrap gap-3">
+            <BlurFade delay={0.48} className="mb-10 flex flex-wrap gap-3">
               <RainbowButton href="#projects">
                 {ACTION_LABELS.viewProjects}
               </RainbowButton>
               <a
                 href="#roles"
-                className="inline-flex items-center rounded-full border border-border px-6 py-3 text-sm font-medium text-text transition-all hover:-translate-y-0.5 hover:border-violet hover:text-violet"
+                className="lift-card-subtle inline-flex items-center rounded-full border border-border px-6 py-3 text-sm font-medium text-text hover:text-violet"
               >
                 View Role Fit
               </a>
               <a
                 href={personal.resumeUrl}
-                className="inline-flex items-center rounded-full border border-border px-6 py-3 text-sm font-medium text-text transition-all hover:-translate-y-0.5 hover:border-violet hover:text-violet"
+                className="lift-card-subtle inline-flex items-center rounded-full border border-border px-6 py-3 text-sm font-medium text-text hover:text-violet"
               >
                 {ACTION_LABELS.downloadResume}
               </a>
@@ -108,13 +108,13 @@ export default function Hero({ personal }: HeroProps) {
           </div>
 
           <div className="grid w-full gap-4 sm:gap-5">
-            <div className="rounded-[1.6rem] border border-border bg-card/85 p-5 shadow-xl shadow-accent/10 backdrop-blur transition-transform duration-500 hover:-translate-y-1">
+            <div className="lift-card rounded-[1.6rem] border border-border bg-card/85 p-5 shadow-xl shadow-accent/10 backdrop-blur">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-amber">Current focus</p>
               <p className="mt-3 text-2xl font-black leading-tight text-text sm:text-3xl">AI + Salesforce systems</p>
               <p className="mt-2 text-sm leading-6 text-muted">{personal.currentRole}</p>
             </div>
 
-            <div className="overflow-hidden rounded-[1.6rem] border border-border-dim bg-surface/80 p-5 shadow-lg shadow-violet/5 backdrop-blur transition-transform duration-500 hover:-translate-y-1">
+            <div className="lift-card overflow-hidden rounded-[1.6rem] border border-border-dim bg-surface/80 p-5 shadow-lg shadow-violet/5 backdrop-blur">
               <div className="mb-4 grid gap-4 sm:grid-cols-[1fr_12rem]">
                 <BlurFade inView delay={0.2} className="overflow-hidden rounded-[1.2rem] border border-border-dim bg-bg/40">
                   <img
@@ -133,7 +133,7 @@ export default function Hero({ personal }: HeroProps) {
               <p className="mt-1 text-xl font-bold text-text sm:text-2xl">{personal.location}</p>
             </div>
 
-            <div className="rounded-[1.6rem] border border-rose/30 bg-bg/80 p-5 font-mono text-xs text-muted shadow-lg shadow-rose/10 backdrop-blur transition-transform duration-500 hover:-translate-y-1">
+            <div className="lift-card rounded-[1.6rem] border border-rose/30 bg-bg/80 p-5 font-mono text-xs text-muted shadow-lg shadow-rose/10 backdrop-blur">
               <p className="text-rose">$ run goutham --production</p>
               <div className="mt-3 space-y-1">
                 {HERO_TERMINAL.map((line) => (

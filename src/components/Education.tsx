@@ -143,7 +143,7 @@ export default function Education() {
 
           <div className="grid h-full gap-4 sm:grid-cols-2 lg:grid-cols-1">
             {SIGNALS.map((signal) => (
-              <article key={signal.title} className="glass-card flex flex-col rounded-[1.5rem] border border-border/80 p-5">
+              <article key={signal.title} className="lift-card glass-card flex flex-col rounded-[1.5rem] border border-border/80 p-5">
                 <p
                   className={`inline-flex w-fit rounded-full border px-3 py-1 font-mono text-xs uppercase tracking-[0.16em] ${
                     toneClasses[signal.tone]
