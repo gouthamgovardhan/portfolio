@@ -12,7 +12,7 @@ interface HeroProps {
 
 export default function Hero({ personal }: HeroProps) {
   return (
-    <section id="hero" className="relative flex min-h-screen items-center overflow-hidden pt-16">
+    <section id="hero" className="relative flex min-h-screen items-center overflow-hidden pt-28 sm:pt-32 lg:pt-36">
       <div className="hero-dot-grid pointer-events-none absolute inset-0 opacity-45" />
       <div className="orb-1 pointer-events-none absolute -right-[15%] -top-[15%] h-[min(70vw,700px)] w-[min(70vw,700px)] rounded-full" />
       <div className="orb-2 pointer-events-none absolute -bottom-[10%] -left-[10%] h-[min(50vw,500px)] w-[min(50vw,500px)] rounded-full" />
@@ -35,7 +35,7 @@ export default function Hero({ personal }: HeroProps) {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 py-10">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-14 pt-8 sm:pt-10 lg:pt-12">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
           <div className="min-w-0">
             <BlurFade inView delay={0.08}>

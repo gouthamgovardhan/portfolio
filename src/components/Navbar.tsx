@@ -90,7 +90,7 @@ export default function Navbar() {
 
       <div
         id="mobile-navigation"
-        className={`max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-border bg-bg/95 px-6 py-4 shadow-2xl shadow-bg/40 backdrop-blur-xl lg:hidden ${
+        className={`max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-border bg-bg px-6 py-4 shadow-2xl shadow-bg/60 lg:hidden ${
           open ? 'grid gap-2' : 'hidden'
         }`}
       >
@@ -103,8 +103,8 @@ export default function Navbar() {
               href={link.href}
               className={`rounded-xl border px-4 py-3 text-sm font-semibold transition-all ${
                 active
-                  ? 'border-accent/40 bg-accent/10 text-text'
-                  : 'border-border-dim bg-card/45 text-muted hover:border-accent/35 hover:text-text'
+                  ? 'border-accent/50 bg-accent/15 text-text shadow-lg shadow-accent/10'
+                  : 'border-border bg-card text-text hover:border-accent/40 hover:bg-surface'
               }`}
               onClick={() => setOpen(false)}
             >
