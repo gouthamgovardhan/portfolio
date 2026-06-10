@@ -103,6 +103,7 @@ export interface EducationItem {
   degree: string
   period: string
   location: string
+  imageUrl: string
   coursework: string[]
   activities: string[]
 }
@@ -260,15 +261,15 @@ export const SECTION_TEXT = {
       'Use this section to see how the same work maps to AI, Salesforce, backend, and software engineering roles.',
   },
   skills: {
-    label: 'Skills',
-    title: 'Grouped by confidence and proof',
+    label: 'Skills - 02',
+    title: 'Production stack, loaded from skills.txt',
     subtitle:
-      'Core skills are backed by projects, resume, or Trailhead proof. Working and familiar tools are included honestly.',
+      'Core skills are backed by projects, resume, Trailhead proof, and hands-on delivery.',
   },
   experience: {
-    label: 'Field Notes',
-    title: 'Where the code met reality',
-    subtitle: 'Visionet Systems full-time and internship work, plus earlier Python internship experience.',
+    label: 'Experience - 03',
+    title: "Where I've shipped.",
+    subtitle: 'Three roles. Each one represents a stack, a team, and work that moved past the demo stage.',
   },
   projects: {
     label: 'Shipped Builds',
@@ -289,10 +290,10 @@ export const SECTION_TEXT = {
       'Public Trailblazer profile with 102 badges, 4 superbadges, Agentforce work, Prompt Builder practice, and service workflow learning.',
   },
   education: {
-    label: 'Foundation',
-    title: 'Where the builder mode started',
+    label: 'Education - 04',
+    title: 'Class of 2024',
     subtitle:
-      'Computer Science, data systems, ML coursework, and a surprising amount of stage-management energy from leading people.',
+      'A student-ID style archive for the data-systems, ML, and leadership years at Presidency University.',
   },
   contact: {
     label: 'Contact',
@@ -554,6 +555,7 @@ export const EDUCATION: EducationItem[] = [
     degree: 'Bachelor of Technology in Computer Science and Engineering (Data Science)',
     period: '2020 - 2024',
     location: 'India',
+    imageUrl: assetUrl('assets/graduation-2024.jpeg'),
     coursework: ['Data Structures', 'Algorithms', 'Databases', 'Machine Learning'],
     activities: ['Theatre Club Coordinator', 'Led 30+ members', 'Organized multiple events'],
   },
@@ -655,24 +657,32 @@ export const STATS: StatItem[] = [
 
 export const SKILLS: SkillGroup[] = [
   {
-    category: 'Core — AI & ML',
-    skills: ['RAG', 'LangChain', 'OpenAI API', 'Prompt Engineering', 'LLM Evaluation', 'LangSmith', 'RAGAS', 'NLP'],
+    category: 'AI / ML',
+    skills: ['rag', 'langchain', 'openai-api', 'prompt-engineering', 'llm-evaluation', 'langsmith', 'ragas', 'nlp'],
   },
   {
-    category: 'Core — Backend',
-    skills: ['Python', 'FastAPI', 'REST APIs', 'MongoDB', 'MySQL', 'Async Patterns', 'JWT / OAuth2'],
+    category: 'Languages',
+    skills: ['python', 'typescript', 'javascript', 'apex', 'sql'],
   },
   {
-    category: 'Core — Salesforce',
-    skills: ['Apex', 'LWC', 'Flow Builder', 'Agentforce', 'Prompt Builder', 'Service Cloud', 'SOQL / SOSL'],
+    category: 'Salesforce',
+    skills: ['agentforce', 'apex', 'lwc', 'flow-builder', 'prompt-builder', 'service-cloud', 'soql-sosl'],
   },
   {
-    category: 'Working — Frontend & Delivery',
-    skills: ['React', 'TypeScript', 'Tailwind CSS', 'Docker', 'AWS', 'Linux'],
+    category: 'Backend',
+    skills: ['fastapi', 'rest-apis', 'mongodb', 'mysql', 'async-patterns', 'jwt-oauth2'],
   },
   {
-    category: 'Familiar',
-    skills: ['LLaMA / Ollama', 'ChromaDB', 'Flask', 'Node.js', 'PostgreSQL', 'Redis', 'GitHub Actions'],
+    category: 'Frontend',
+    skills: ['react', 'typescript', 'tailwind-css', 'lwc'],
+  },
+  {
+    category: 'Cloud / Delivery',
+    skills: ['docker', 'aws', 'linux', 'github-actions'],
+  },
+  {
+    category: 'Other',
+    skills: ['llama-ollama', 'chromadb', 'flask', 'node.js', 'postgresql', 'redis'],
   },
 ]
 

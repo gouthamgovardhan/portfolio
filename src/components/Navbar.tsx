@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { FaBars, FaXmark } from 'react-icons/fa6'
 import { ACTION_LABELS, NAV_LINKS, PERSONAL } from '../data/portfolio'
 import { useScrollSpy } from '../hooks/useScrollSpy'
+import { AnimatedThemeToggler } from './ui/AnimatedThemeToggler'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -16,6 +17,25 @@ export default function Navbar() {
 
     return () => window.removeEventListener('scroll', handler)
   }, [])
+
+  useEffect(() => {
+    if (!open) return undefined
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) setOpen(false)
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [open])
 
   return (
     <nav
@@ -50,34 +70,48 @@ export default function Navbar() {
               </a>
             )
           })}
+          <AnimatedThemeToggler variant="hexagon" />
         </div>
 
-        <button
-          type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border text-text lg:hidden"
-          aria-label={ACTION_LABELS.menu}
-          aria-expanded={open}
-          onClick={() => setOpen((value) => !value)}
-        >
-          {open ? <FaXmark aria-hidden="true" /> : <FaBars aria-hidden="true" />}
-        </button>
+        <div className="flex items-center gap-3 lg:hidden">
+          <AnimatedThemeToggler variant="hexagon" />
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card/70 text-text transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10"
+            aria-label={ACTION_LABELS.menu}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? <FaXmark aria-hidden="true" /> : <FaBars aria-hidden="true" />}
+          </button>
+        </div>
       </div>
 
       <div
-        className={`border-b border-border bg-bg/95 px-6 py-4 backdrop-blur-lg lg:hidden ${
-          open ? 'flex flex-col gap-3' : 'hidden'
+        id="mobile-navigation"
+        className={`max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-border bg-bg/95 px-6 py-4 shadow-2xl shadow-bg/40 backdrop-blur-xl lg:hidden ${
+          open ? 'grid gap-2' : 'hidden'
         }`}
       >
-        {NAV_LINKS.map((link) => (
-          <a
-            key={link.id}
-            href={link.href}
-            className="border-b border-border-dim py-2 text-sm font-medium text-muted last:border-b-0"
-            onClick={() => setOpen(false)}
-          >
-            {link.label}
-          </a>
-        ))}
+        {NAV_LINKS.map((link) => {
+          const active = activeId === link.id
+
+          return (
+            <a
+              key={link.id}
+              href={link.href}
+              className={`rounded-xl border px-4 py-3 text-sm font-semibold transition-all ${
+                active
+                  ? 'border-accent/40 bg-accent/10 text-text'
+                  : 'border-border-dim bg-card/45 text-muted hover:border-accent/35 hover:text-text'
+              }`}
+              onClick={() => setOpen(false)}
+            >
+              {link.label}
+            </a>
+          )
+        })}
       </div>
     </nav>
   )

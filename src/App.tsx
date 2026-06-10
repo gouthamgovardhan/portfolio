@@ -5,6 +5,7 @@ import Education from './components/Education'
 import Experience from './components/Experience'
 import Footer from './components/Footer'
 import Hero from './components/Hero'
+import MagicDock from './components/MagicDock'
 import Navbar from './components/Navbar'
 import Projects from './components/Projects'
 import Publications from './components/Publications'
@@ -36,6 +37,7 @@ export default function App() {
         <Education />
         <Contact personal={PERSONAL} />
       </main>
+      <MagicDock />
       <Footer personal={PERSONAL} />
     </>
   )

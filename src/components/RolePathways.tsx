@@ -28,7 +28,7 @@ export default function RolePathways() {
             <article
               id={path.id}
               key={path.id}
-              className={`group glass-card relative flex min-h-[380px] flex-col overflow-hidden rounded-[1.6rem] border p-5 shadow-2xl transition-all duration-500 hover:-translate-y-2 sm:min-h-[400px] ${toneClasses[path.tone]} ${roleColSpan[index] ?? 'lg:col-span-2'}`}
+              className={`magic-card group glass-card relative flex min-h-[380px] flex-col overflow-hidden rounded-[1.6rem] border p-5 shadow-2xl transition-all duration-500 hover:-translate-y-2 sm:min-h-[400px] ${toneClasses[path.tone]} ${roleColSpan[index] ?? 'lg:col-span-2'}`}
             >
               <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-current opacity-10 blur-2xl transition-transform duration-500 group-hover:scale-125" />
               <p className="relative font-mono text-xs uppercase tracking-[0.2em] opacity-80">{path.role}</p>

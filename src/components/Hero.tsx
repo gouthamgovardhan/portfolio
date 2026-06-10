@@ -1,6 +1,10 @@
 import { FaLocationDot } from 'react-icons/fa6'
 import { ACTION_LABELS, HERO_TECH, HERO_TERMINAL, SOCIAL_LINKS, TECH_EXPLANATIONS, type PERSONAL } from '../data/portfolio'
 import { getTechIcon } from '../lib/techIcons'
+import { BlurFade } from './ui/BlurFade'
+import { KineticText } from './ui/KineticText'
+import { MagicGlobe } from './ui/MagicGlobe'
+import { RainbowButton } from './ui/RainbowButton'
 
 interface HeroProps {
   personal: typeof PERSONAL
@@ -34,27 +38,36 @@ export default function Hero({ personal }: HeroProps) {
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 py-10">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
           <div className="min-w-0">
-            <p className="mb-5 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.22em] text-amber before:h-px before:w-7 before:bg-amber">
-              {personal.eyebrow}
-            </p>
-            <h1 className="mb-4 text-5xl font-black uppercase leading-[0.9] tracking-tight text-text sm:text-7xl lg:text-8xl">
-              {personal.firstName}
-              <br />
-              {personal.lastName} <span className="text-rose">{personal.suffixName}</span>
-            </h1>
-            <div className="mb-5 font-mono text-3xl font-bold leading-none text-transparent opacity-20 [-webkit-text-stroke:1px_#E8EEF8] sm:text-5xl lg:text-6xl">
-              AI · BACKEND · SALESFORCE
-            </div>
-            <p className="mb-3 max-w-2xl text-lg font-medium leading-8 text-text sm:text-xl">{personal.heroHeadline}</p>
-            <p className="mb-9 max-w-xl text-base leading-7 text-muted">{personal.heroDescription}</p>
+            <BlurFade inView delay={0.08}>
+              <p className="mb-5 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.22em] text-amber before:h-px before:w-7 before:bg-amber">
+                {personal.eyebrow}
+              </p>
+            </BlurFade>
+            <BlurFade inView delay={0.16}>
+              <h1 className="mb-4 text-5xl font-black uppercase leading-[0.9] tracking-tight text-text sm:text-7xl lg:text-8xl">
+                {personal.firstName}
+                <br />
+                {personal.lastName} <span className="text-rose">{personal.suffixName}</span>
+              </h1>
+            </BlurFade>
+            <BlurFade inView delay={0.24}>
+              <KineticText
+                text="AI · BACKEND · SALESFORCE"
+                as="div"
+                className="mb-5 font-mono text-3xl font-bold leading-none text-muted sm:text-5xl lg:text-6xl"
+              />
+            </BlurFade>
+            <BlurFade inView delay={0.32}>
+              <p className="mb-3 max-w-2xl text-lg font-medium leading-8 text-text sm:text-xl">{personal.heroHeadline}</p>
+            </BlurFade>
+            <BlurFade inView delay={0.4}>
+              <p className="mb-9 max-w-xl text-base leading-7 text-muted">{personal.heroDescription}</p>
+            </BlurFade>
 
-            <div className="mb-10 flex flex-wrap gap-3">
-              <a
-                href="#projects"
-                className="inline-flex items-center rounded-full bg-accent px-6 py-3 text-sm font-bold text-bg transition-all hover:-translate-y-0.5 hover:bg-amber"
-              >
+            <BlurFade inView delay={0.48} className="mb-10 flex flex-wrap gap-3">
+              <RainbowButton href="#projects">
                 {ACTION_LABELS.viewProjects}
-              </a>
+              </RainbowButton>
               <a
                 href="#roles"
                 className="inline-flex items-center rounded-full border border-border px-6 py-3 text-sm font-medium text-text transition-all hover:-translate-y-0.5 hover:border-violet hover:text-violet"
@@ -67,7 +80,7 @@ export default function Hero({ personal }: HeroProps) {
               >
                 {ACTION_LABELS.downloadResume}
               </a>
-            </div>
+            </BlurFade>
 
             <div className="flex items-center gap-4">
               {SOCIAL_LINKS.map((link) => {
@@ -102,14 +115,21 @@ export default function Hero({ personal }: HeroProps) {
             </div>
 
             <div className="overflow-hidden rounded-[1.6rem] border border-border-dim bg-surface/80 p-5 shadow-lg shadow-violet/5 backdrop-blur transition-transform duration-500 hover:-translate-y-1">
-              <img
-                src={personal.formalImageUrl}
-                alt={`${personal.name} professional headshot`}
-                className="mb-4 aspect-[4/3] w-full rounded-[1.2rem] border border-border-dim bg-bg/40 object-cover object-[50%_20%]"
-                width={640}
-                height={480}
-              />
-              <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted">{personal.country}</p>
+              <div className="mb-4 grid gap-4 sm:grid-cols-[1fr_12rem]">
+                <BlurFade inView delay={0.2} className="overflow-hidden rounded-[1.2rem] border border-border-dim bg-bg/40">
+                  <img
+                    src={personal.formalImageUrl}
+                    alt={`${personal.name} professional headshot`}
+                    className="aspect-[4/3] w-full object-cover object-[50%_20%]"
+                    width={640}
+                    height={480}
+                  />
+                </BlurFade>
+                <div className="min-h-44 overflow-hidden rounded-[1.2rem] border border-border-dim bg-bg/50 p-3">
+                  <MagicGlobe className="h-full min-h-40" />
+                </div>
+              </div>
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted">{personal.country} · {personal.coordinates}</p>
               <p className="mt-1 text-xl font-bold text-text sm:text-2xl">{personal.location}</p>
             </div>
 

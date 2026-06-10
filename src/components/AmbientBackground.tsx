@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import { Meteors } from './ui/Meteors'
 
 export default function AmbientBackground() {
   return (
@@ -9,17 +9,7 @@ export default function AmbientBackground() {
         <span />
         <span />
       </div>
-      <div className="ambient-particles">
-        {Array.from({ length: 18 }, (_, index) => {
-          const style = {
-            '--particle-index': index,
-            '--particle-top': `${(index * 13) % 100}%`,
-            '--particle-left': `${(index * 19) % 100}%`,
-          } as CSSProperties
-
-          return <i key={index} style={style} />
-        })}
-      </div>
+      <Meteors number={18} />
       <div className="ambient-orb ambient-orb-a" />
       <div className="ambient-orb ambient-orb-b" />
       <div className="ambient-orb ambient-orb-c" />

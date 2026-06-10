@@ -1,7 +1,6 @@
 import { FaLocationDot } from 'react-icons/fa6'
 import { SECTION_TEXT, type ExperienceItem } from '../data/portfolio'
 import { SectionHeader } from './ui/SectionHeader'
-import { Tag } from './ui/Tag'
 
 interface ExperienceProps {
   experience: ExperienceItem[]
@@ -22,46 +21,69 @@ export default function Experience({ experience }: ExperienceProps) {
           title={SECTION_TEXT.experience.title}
           subtitle={SECTION_TEXT.experience.subtitle}
         />
-        <div className="relative pl-8 sm:pl-10">
-          <div className="absolute bottom-0 left-3 top-3 w-0.5 bg-gradient-to-b from-accent to-transparent sm:left-3.5" />
-          <div className="space-y-11">
-            {experience.map((item) => (
-              <article key={`${item.company}-${item.period}`} className="relative rounded-2xl border border-transparent p-1 transition-colors hover:border-border-dim/60">
-                <span
-                  className={`absolute -left-[1.65rem] top-3 h-3.5 w-3.5 rounded-full border-[3px] border-bg sm:-left-[2.1rem] ${
-                    item.current ? 'bg-accent' : 'bg-border'
-                  }`}
-                />
-                <div className="mb-2 flex flex-wrap items-center gap-3">
-                  <p className="font-semibold text-text">{item.company}</p>
-                  <span className={`rounded-full border px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] ${typeTone[item.type]}`}>
-                    {item.type}
-                  </span>
-                  <span className="rounded border border-border-dim bg-surface px-2.5 py-1 font-mono text-xs text-muted">
-                    {item.period}
-                  </span>
-                </div>
-                <h3 className="mb-2 text-lg font-bold text-text">{item.role}</h3>
-                <p className="mb-4 flex items-center gap-2 text-sm text-dim">
-                  <FaLocationDot aria-hidden="true" />
-                  {item.location}
-                </p>
-                <ul className="mb-4 space-y-2.5">
-                  {item.bullets.map((bullet) => (
-                    <li key={bullet} className="flex gap-3 text-sm leading-6 text-muted">
-                      <span className="shrink-0 font-mono text-accent">{'>'}</span>
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex flex-wrap gap-2">
-                  {item.tags.map((tag) => (
-                    <Tag key={tag} label={tag} />
-                  ))}
+        <div className="grid gap-5">
+          {experience.map((item, index) => {
+            const periodParts = item.period.split(' - ')
+            const closedLabel = periodParts[periodParts.length - 1]
+
+            return (
+              <article
+                key={`${item.company}-${item.period}`}
+                className="magic-card role-card group relative overflow-hidden rounded-[1.35rem] border border-border/80 bg-card/60 p-5 shadow-xl shadow-bg/40 transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 sm:p-6"
+              >
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber/80 to-transparent opacity-70" />
+                <div className="grid gap-5 lg:grid-cols-[10rem_1fr]">
+                  <aside className="flex flex-row items-start justify-between gap-4 border-b border-border-dim pb-4 lg:flex-col lg:border-b-0 lg:border-r lg:pb-0 lg:pr-5">
+                    <div>
+                      <p className="font-mono text-xs uppercase tracking-[0.2em] text-dim">N° G-{String(index + 1).padStart(3, '0')}</p>
+                      <span className={`mt-3 inline-flex rounded-full border px-3 py-1 font-mono text-[0.65rem] uppercase tracking-[0.14em] ${typeTone[item.type]}`}>
+                        {item.type}
+                      </span>
+                    </div>
+                    <div className="text-right lg:text-left">
+                      <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-emerald">
+                        {item.current ? 'Authenticated current' : 'Authenticated closed'}
+                      </p>
+                      <p className="mt-2 font-mono text-xs text-dim">{item.current ? '2026' : closedLabel}</p>
+                    </div>
+                  </aside>
+
+                  <div>
+                    <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <h3 className="text-2xl font-black leading-tight text-text">{item.company}</h3>
+                        <p className="mt-1 text-base font-semibold text-amber">{item.role}</p>
+                      </div>
+                      <span className="rounded border border-border-dim bg-bg/70 px-3 py-1.5 font-mono text-xs text-muted">
+                        {item.period}
+                      </span>
+                    </div>
+
+                    <p className="mb-5 flex items-center gap-2 text-sm text-dim">
+                      <FaLocationDot aria-hidden="true" />
+                      {item.location}
+                    </p>
+
+                    <ul className="mb-5 grid gap-2.5">
+                      {item.bullets.map((bullet) => (
+                        <li key={bullet} className="flex gap-3 text-sm leading-6 text-muted">
+                          <span className="shrink-0 font-mono text-accent">▸</span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="border-t border-border-dim pt-4">
+                      <p className="mb-3 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-dim">Stack</p>
+                      <p className="font-mono text-xs leading-6 text-muted">
+                        ▸ {item.tags.map((tag) => tag.toLowerCase()).join(' · ')}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </article>
-            ))}
-          </div>
+            )
+          })}
         </div>
       </div>
     </section>
