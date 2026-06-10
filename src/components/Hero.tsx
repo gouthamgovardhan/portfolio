@@ -129,7 +129,7 @@ export default function Hero({ personal }: HeroProps) {
                   <MagicGlobe className="h-full min-h-40" />
                 </div>
               </div>
-              <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted">{personal.country} · {personal.coordinates}</p>
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted">{personal.country} · {personal.timezone}</p>
               <p className="mt-1 text-xl font-bold text-text sm:text-2xl">{personal.location}</p>
             </div>
 

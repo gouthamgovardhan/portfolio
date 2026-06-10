@@ -7,13 +7,10 @@ export function MagicGlobe({ className = '', label = 'Bengaluru signal map' }: M
   return (
     <div className={`magic-globe ${className}`} role="img" aria-label={label}>
       <div className="magic-globe-sphere">
-        <span className="magic-globe-ring magic-globe-ring-a" />
-        <span className="magic-globe-ring magic-globe-ring-b" />
-        <span className="magic-globe-ring magic-globe-ring-c" />
-        <span className="magic-globe-meridian magic-globe-meridian-a" />
-        <span className="magic-globe-meridian magic-globe-meridian-b" />
-        <span className="magic-globe-pin magic-globe-pin-a" />
-        <span className="magic-globe-pin magic-globe-pin-b" />
+        <span className="magic-globe-orbit magic-globe-equator" />
+        <span className="magic-globe-orbit magic-globe-meridian" />
+        <span className="magic-globe-route" />
+        <span className="magic-globe-pin" />
       </div>
     </div>
   )

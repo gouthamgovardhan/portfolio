@@ -791,25 +791,26 @@
 
   .magic-globe::before {
     position: absolute;
-    inset: 14%;
+    inset: 10%;
     content: '';
     border-radius: 999px;
     background:
-      radial-gradient(circle at 38% 32%, var(--globe-highlight), transparent 12%),
-      radial-gradient(circle at 62% 62%, rgba(74, 222, 128, 0.12), transparent 18%),
-      radial-gradient(circle, rgba(56, 232, 255, 0.16), transparent 62%);
-    filter: blur(8px);
+      radial-gradient(circle at 50% 48%, rgba(56, 232, 255, 0.2), transparent 44%),
+      radial-gradient(circle, rgba(167, 139, 250, 0.12), transparent 66%);
+    filter: blur(10px);
   }
 
   .magic-globe-sphere {
     position: relative;
-    width: min(100%, 10.5rem);
+    width: min(100%, 9.6rem);
     aspect-ratio: 1;
     border-radius: 999px;
-    border: 1px solid rgba(56, 232, 255, 0.32);
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--color-cyan) 34%, transparent);
     background:
-      radial-gradient(circle at 35% 30%, var(--globe-highlight), transparent 13%),
-      radial-gradient(circle at 50% 50%, rgba(56, 232, 255, 0.12), var(--globe-core) 67%);
+      radial-gradient(circle at 34% 28%, var(--globe-highlight), transparent 12%),
+      radial-gradient(circle at 52% 52%, rgba(56, 232, 255, 0.16), transparent 38%),
+      radial-gradient(circle at 50% 50%, var(--globe-core) 64%, transparent 68%);
     box-shadow:
       inset -20px -20px 48px rgba(0, 0, 0, 0.36),
       0 0 42px rgba(56, 232, 255, 0.18);
@@ -817,58 +818,52 @@
     animation: globeFloat 7s ease-in-out infinite;
   }
 
-  .magic-globe-ring,
-  .magic-globe-meridian {
+  .magic-globe-sphere::after {
     position: absolute;
-    inset: 12%;
+    inset: 0;
+    content: '';
+    background:
+      linear-gradient(90deg, transparent 0 48%, color-mix(in srgb, var(--globe-line) 52%, transparent) 49% 51%, transparent 52%),
+      linear-gradient(0deg, transparent 0 48%, color-mix(in srgb, var(--globe-line) 48%, transparent) 49% 51%, transparent 52%);
+    opacity: 0.32;
+    mask-image: radial-gradient(circle, black 0 68%, transparent 69%);
+  }
+
+  .magic-globe-orbit {
+    position: absolute;
+    inset: 16%;
     border-radius: 999px;
     border: 1px solid var(--globe-line);
   }
 
-  .magic-globe-ring-a {
-    transform: rotateX(62deg);
+  .magic-globe-equator {
+    transform: rotateX(68deg);
+    opacity: 0.72;
   }
 
-  .magic-globe-ring-b {
-    transform: rotateX(28deg);
+  .magic-globe-meridian {
+    transform: rotateY(62deg) rotateZ(-10deg);
+    opacity: 0.52;
   }
 
-  .magic-globe-ring-c {
-    transform: rotateX(78deg) scale(0.72);
-    border-color: rgba(251, 191, 36, 0.22);
-  }
-
-  .magic-globe-meridian-a {
-    transform: rotateY(62deg);
-    border-color: rgba(56, 232, 255, 0.22);
-  }
-
-  .magic-globe-meridian-b {
-    transform: rotateY(28deg) rotateZ(18deg);
-    border-color: rgba(244, 114, 182, 0.22);
+  .magic-globe-route {
+    position: absolute;
+    inset: 24% 18% 34% 24%;
+    border-top: 1px solid color-mix(in srgb, var(--color-amber) 54%, transparent);
+    border-radius: 999px 999px 0 0;
+    transform: rotate(-18deg);
+    opacity: 0.76;
   }
 
   .magic-globe-pin {
     position: absolute;
-    width: 0.55rem;
-    height: 0.55rem;
-    border-radius: 999px;
-    background: #fbbf24;
-    box-shadow: 0 0 0 5px rgba(251, 191, 36, 0.1), 0 0 22px rgba(251, 191, 36, 0.72);
-  }
-
-  .magic-globe-pin-a {
-    top: 43%;
+    top: 44%;
     left: 58%;
-  }
-
-  .magic-globe-pin-b {
-    top: 30%;
-    left: 38%;
-    width: 0.42rem;
-    height: 0.42rem;
-    background: #38e8ff;
-    box-shadow: 0 0 0 4px rgba(56, 232, 255, 0.1), 0 0 18px rgba(56, 232, 255, 0.68);
+    width: 0.52rem;
+    height: 0.52rem;
+    border-radius: 999px;
+    background: var(--color-amber);
+    box-shadow: 0 0 0 5px rgba(251, 191, 36, 0.1), 0 0 22px rgba(251, 191, 36, 0.72);
   }
 
   .role-card {

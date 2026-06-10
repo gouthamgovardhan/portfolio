@@ -187,7 +187,6 @@ export const PERSONAL = {
   openToHire: 'Open to Roles',
   locationEyebrow: 'Location - Hover to Explore',
   country: 'India',
-  coordinates: '12°58\'51.3"N 77°32\'28.6"E',
   timezone: 'GMT+5:30',
   aboutQuote: '"I like AI that ships with logs, fallbacks, ownership, and a clear reason to exist."',
   footerLine: 'Build the demo. Ship the system.',
