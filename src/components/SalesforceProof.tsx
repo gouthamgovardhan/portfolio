@@ -38,7 +38,7 @@ export default function SalesforceProof() {
           </aside>
 
           <div className="grid gap-4">
-            <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {TRAILHEAD_METRICS.map((metric) => (
                 <article key={metric.label} className="lift-card-subtle flex h-full flex-col rounded-2xl border border-border bg-card/80 p-4">
                   <p className="text-3xl font-black text-text">{metric.value}</p>

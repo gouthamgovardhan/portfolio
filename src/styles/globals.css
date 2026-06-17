@@ -209,6 +209,160 @@
     opacity: 0.62;
   }
 
+  .marquee {
+    --duration: 32s;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    gap: 0.75rem;
+    mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  }
+
+  .marquee-track {
+    display: flex;
+    min-width: max-content;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-around;
+    gap: 0.75rem;
+    animation: marqueeScroll var(--duration) linear infinite;
+  }
+
+  .marquee[data-reverse='true'] .marquee-track {
+    animation-direction: reverse;
+  }
+
+  .marquee-pause:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .marquee-vertical {
+    height: 100%;
+    flex-direction: column;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
+  }
+
+  .marquee-vertical .marquee-track {
+    min-width: 0;
+    min-height: max-content;
+    flex-direction: column;
+    animation-name: marqueeScrollY;
+  }
+
+  .animated-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .animated-list-item {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    animation: animatedListIn 520ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: var(--animated-list-delay);
+  }
+
+  .depth-card-enter {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: depthCardIn 340ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: var(--depth-card-delay);
+  }
+
+  .depth-card {
+    isolation: isolate;
+    transform: translate3d(0, 0, 0) scale(1);
+    transition:
+      opacity 220ms ease,
+      filter 220ms ease,
+      transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 220ms ease,
+      box-shadow 260ms ease;
+  }
+
+  .depth-card:hover,
+  .depth-card:focus-visible {
+    z-index: 35;
+    border-color: color-mix(in srgb, var(--color-accent) 70%, var(--color-border));
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--color-accent) 22%, transparent),
+      0 28px 80px rgba(0, 0, 0, 0.42),
+      0 0 34px color-mix(in srgb, var(--color-accent) 16%, transparent);
+    transform: translate3d(0, -0.45rem, 0) scale(1.045);
+  }
+
+  .depth-bento-grid:has(.depth-card:hover) .depth-card:not(:hover) {
+    opacity: 0.28;
+    filter: blur(3px) saturate(0.72);
+    transform: scale(0.985);
+  }
+
+  .depth-card-summary {
+    transition:
+      opacity 180ms ease,
+      filter 180ms ease,
+      transform 220ms ease;
+  }
+
+  .depth-card:hover .depth-card-summary,
+  .depth-card:focus-visible .depth-card-summary {
+    transform: translateY(-0.18rem);
+  }
+
+  .skill-depth-backdrop {
+    background:
+      radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 28%),
+      rgba(4, 3, 6, 0.88);
+    backdrop-filter: blur(18px) brightness(0.46) saturate(0.72);
+  }
+
+  .skill-depth-panel {
+    color: var(--color-text);
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--color-bg) 97%, #000), color-mix(in srgb, var(--color-card) 88%, #000)),
+      var(--color-bg);
+    box-shadow:
+      0 36px 110px rgba(0, 0, 0, 0.72),
+      0 0 0 1px color-mix(in srgb, var(--color-text) 8%, transparent),
+      inset 0 1px 0 color-mix(in srgb, var(--color-text) 10%, transparent);
+  }
+
+  .project-bento-card {
+    transform: translate3d(0, 0, 0) scale(1);
+    transition:
+      transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 220ms ease,
+      box-shadow 260ms ease,
+      background 220ms ease;
+  }
+
+  .project-bento-card:hover,
+  .project-bento-card:focus-visible {
+    border-color: color-mix(in srgb, var(--color-accent) 62%, var(--color-border));
+    background: color-mix(in srgb, var(--color-card) 78%, var(--color-bg));
+    box-shadow:
+      0 22px 60px rgba(0, 0, 0, 0.34),
+      0 0 0 1px color-mix(in srgb, var(--color-text) 8%, transparent);
+    transform: translate3d(0, -0.42rem, 0) scale(1.018);
+  }
+
+  .project-dialog-backdrop {
+    background:
+      radial-gradient(circle at 46% 34%, color-mix(in srgb, var(--color-cyan) 10%, transparent), transparent 30%),
+      rgba(4, 3, 6, 0.88);
+    backdrop-filter: blur(18px) brightness(0.48) saturate(0.72);
+  }
+
+  .project-dialog-panel {
+    color: var(--color-text);
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--color-bg) 97%, #000), color-mix(in srgb, var(--color-card) 88%, #000)),
+      var(--color-bg);
+    box-shadow:
+      0 36px 110px rgba(0, 0, 0, 0.72),
+      0 0 0 1px color-mix(in srgb, var(--color-text) 8%, transparent),
+      inset 0 1px 0 color-mix(in srgb, var(--color-text) 10%, transparent);
+  }
+
   .meteors {
     position: absolute;
     inset: 0;
@@ -221,8 +375,8 @@
     position: absolute;
     top: var(--meteor-top);
     left: var(--meteor-left);
-    width: 2px;
-    height: 2px;
+    width: 3px;
+    height: 3px;
     border-radius: 999px;
     background: var(--color-text);
     box-shadow:
@@ -235,11 +389,11 @@
   .meteors span::before {
     position: absolute;
     top: 50%;
-    right: 0;
-    width: 6rem;
+    left: 50%;
+    width: 7rem;
     height: 1px;
     content: '';
-    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-text) 42%, transparent));
+    background: linear-gradient(90deg, color-mix(in srgb, var(--color-text) 58%, transparent), transparent);
     transform: translateY(-50%);
   }
 
@@ -347,9 +501,52 @@
     background: transparent;
   }
 
+  .section-shell::before,
+  .section-shell::after {
+    position: absolute;
+    pointer-events: none;
+    content: '';
+    opacity: 0.5;
+  }
+
+  .section-shell::before {
+    top: 1.5rem;
+    right: max(1.25rem, calc((100vw - 72rem) / 2));
+    width: 4.5rem;
+    height: 4.5rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-accent) 42%, transparent);
+    border-right: 1px solid color-mix(in srgb, var(--color-cyan) 34%, transparent);
+    border-radius: 0 1rem 0 0;
+  }
+
+  .section-shell::after {
+    bottom: 1.5rem;
+    left: max(1.25rem, calc((100vw - 72rem) / 2));
+    width: 6rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-amber) 48%, transparent), transparent);
+  }
+
+  .section-shell > .relative,
+  .section-shell > .mx-auto,
+  .section-shell > div:not(.pointer-events-none) {
+    position: relative;
+    z-index: 1;
+  }
+
   .glass-card {
+    position: relative;
     background: var(--glass-card-bg);
     backdrop-filter: blur(12px);
+    overflow-wrap: anywhere;
+  }
+
+  .glass-card :is(h2, h3, h4) {
+    text-wrap: balance;
+  }
+
+  .glass-card :is(p, li) {
+    max-width: 72ch;
   }
 
   .lift-card {
@@ -458,69 +655,87 @@
 
   .magic-dock {
     position: fixed;
-    left: 50%;
-    bottom: 1.25rem;
+    top: 50%;
+    right: clamp(1rem, 2.2vw, 2rem);
     z-index: 45;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.48rem;
-    border: 1px solid color-mix(in srgb, var(--color-border) 82%, transparent);
+    gap: 0.45rem;
+    padding: 0.42rem;
+    border: 1px solid color-mix(in srgb, var(--color-border) 72%, transparent);
     border-radius: 999px;
-    background: color-mix(in srgb, var(--color-card) 72%, transparent);
+    background: color-mix(in srgb, var(--color-card) 62%, transparent);
     box-shadow:
-      0 18px 60px rgba(0, 0, 0, 0.22),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      0 18px 48px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 color-mix(in srgb, var(--color-text) 10%, transparent);
     backdrop-filter: blur(18px);
-    transform: translateX(-50%);
+    transform: translateY(-50%);
+  }
+
+  .magic-dock::before,
+  .magic-dock::after {
+    display: none;
   }
 
   .magic-dock-item {
     position: relative;
     display: inline-flex;
-    width: 3rem;
-    height: 3rem;
+    width: 2.55rem;
+    height: 2.55rem;
     align-items: center;
     justify-content: center;
+    border: 1px solid color-mix(in srgb, var(--color-border) 86%, transparent);
     border-radius: 999px;
     color: var(--color-muted);
+    background: color-mix(in srgb, var(--color-bg) 54%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-text) 8%, transparent);
     outline: none;
     transition:
       transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
       color 220ms ease,
       background 220ms ease,
+      border-color 220ms ease,
       box-shadow 220ms ease;
   }
 
   .magic-dock-item svg {
-    width: 1.1rem;
-    height: 1.1rem;
-    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+    width: 1rem;
+    height: 1rem;
+    filter: drop-shadow(0 0 0 transparent);
+    transition:
+      transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+      filter 240ms ease;
   }
 
   .magic-dock-item:hover,
   .magic-dock-item:focus-visible {
     color: var(--color-text);
-    background: color-mix(in srgb, var(--color-accent) 14%, transparent);
-    transform: translateY(-0.45rem) scale(1.08);
+    border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+    background: color-mix(in srgb, var(--color-accent) 18%, var(--color-bg));
+    transform: translateX(-0.24rem) scale(1.06);
     box-shadow: 0 12px 28px color-mix(in srgb, var(--color-accent) 18%, transparent);
   }
 
   .magic-dock-item:hover svg,
   .magic-dock-item:focus-visible svg {
-    transform: scale(1.08);
+    filter: drop-shadow(0 0 10px color-mix(in srgb, var(--color-accent) 42%, transparent));
+    transform: scale(1.1);
   }
 
   .magic-dock-item.is-active {
     color: var(--color-text);
-    background: color-mix(in srgb, var(--color-accent) 20%, transparent);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-accent) 24%, transparent);
+    border-color: color-mix(in srgb, var(--color-accent) 68%, var(--color-border));
+    background: color-mix(in srgb, var(--color-accent) 24%, var(--color-bg));
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, var(--color-accent) 10%, transparent),
+      0 12px 28px color-mix(in srgb, var(--color-accent) 16%, transparent);
   }
 
   .magic-dock-item span {
     position: absolute;
-    bottom: calc(100% + 0.75rem);
-    left: 50%;
+    top: 50%;
+    right: calc(100% + 0.75rem);
     width: max-content;
     max-width: 8rem;
     padding: 0.3rem 0.55rem;
@@ -532,7 +747,7 @@
     font-family: 'JetBrains Mono', monospace;
     opacity: 0;
     pointer-events: none;
-    transform: translateX(-50%) translateY(0.35rem);
+    transform: translate(0.4rem, -50%);
     transition:
       opacity 180ms ease,
       transform 180ms ease;
@@ -541,7 +756,7 @@
   .magic-dock-item:hover span,
   .magic-dock-item:focus-visible span {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translate(0, -50%);
   }
 
   .magic-card::after {
@@ -623,12 +838,12 @@
 
   .scroll-reveal {
     opacity: 0;
-    filter: blur(10px);
-    transform: translate3d(0, 28px, 0) scale(0.985);
+    filter: blur(4px);
+    transform: translate3d(0, 16px, 0) scale(0.992);
     transition:
-      opacity 760ms ease,
-      filter 760ms ease,
-      transform 840ms cubic-bezier(0.16, 1, 0.3, 1);
+      opacity 520ms ease,
+      filter 520ms ease,
+      transform 560ms cubic-bezier(0.16, 1, 0.3, 1);
     will-change: opacity, filter, transform;
   }
 
@@ -1044,6 +1259,40 @@
     }
   }
 
+  @keyframes marqueeScroll {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(calc(-100% - 0.75rem));
+    }
+  }
+
+  @keyframes marqueeScrollY {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(calc(-100% - 0.75rem));
+    }
+  }
+
+  @keyframes animatedListIn {
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes depthCardIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   @keyframes floatCard {
     0%,
     100% {
@@ -1064,7 +1313,7 @@
   @keyframes meteorFall {
     from {
       opacity: 0;
-      transform: translate3d(0, 0, 0) rotate(-22deg);
+      transform: translate3d(0, 0, 0) rotate(-36deg);
     }
 
     10% {
@@ -1077,7 +1326,7 @@
 
     to {
       opacity: 0;
-      transform: translate3d(-32vw, 44vh, 0) rotate(-22deg);
+      transform: translate3d(-32vw, 44vh, 0) rotate(-36deg);
     }
   }
 

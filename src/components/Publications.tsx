@@ -41,7 +41,7 @@ export default function Publications() {
                   {paper.authorListingNote ? (
                     <p className="mt-2 text-xs leading-5 text-muted">{paper.authorListingNote}</p>
                   ) : null}
-                  <p className="mt-4 break-all font-mono text-xs text-amber">DOI: {paper.doi}</p>
+                  <p className="mt-4 font-mono text-xs leading-5 text-amber [overflow-wrap:anywhere]">DOI: {paper.doi}</p>
                 </div>
                 <div className="rounded-2xl border border-border-dim bg-bg/40 p-4">
                   <p className="mb-3 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-dim">Topics</p>

@@ -12,6 +12,7 @@ import Publications from './components/Publications'
 import RolePathways from './components/RolePathways'
 import SalesforceProof from './components/SalesforceProof'
 import Skills from './components/Skills'
+import SkillsDepth from './components/SkillsDepth'
 import Stats from './components/Stats'
 import { EXPERIENCE, PERSONAL, PROJECTS, SKILLS, STATS } from './data/portfolio'
 import { useScrollReveal } from './hooks/useScrollReveal'
@@ -32,6 +33,7 @@ export default function App() {
         <SalesforceProof />
         <Experience experience={EXPERIENCE} />
         <Skills skills={SKILLS} />
+        <SkillsDepth />
         <About personal={PERSONAL} />
         <Publications />
         <Education />

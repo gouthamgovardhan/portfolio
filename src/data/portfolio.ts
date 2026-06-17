@@ -150,6 +150,19 @@ export interface PublicationItem {
   tags: string[]
 }
 
+export interface SkillDepthItem {
+  category: string
+  points: string[]
+  interviewTest: string
+  tone: 'cyan' | 'accent' | 'emerald' | 'amber' | 'rose' | 'violet'
+}
+
+export interface RangeItem {
+  title: string
+  detail: string
+  tags: string[]
+}
+
 export const PERSONAL = {
   name: 'Goutham Reddy S',
   shortName: 'SGR',
@@ -169,9 +182,14 @@ export const PERSONAL = {
   highlightPoints: [
     'LLM and agentic AI systems for enterprise workflows (team reach: 1000+ users)',
     'RAG pipelines with multi-model evaluation (OpenAI, Grok, Perplexity)',
+    'Built observability stack with Loki and Grafana for production logging and tracing',
+    'Diagnosed RAG pipeline issues: vector scoring normalization, reranking threshold tuning, and retrieval quality',
+    'Architected multi-agent system spike comparing LangGraph, CrewAI, and AutoGen for cost and capability',
+    'Shipped RAGAS evaluation loops for retrieval quality measurement in production RAG',
+    'Designed AWS Cost Optimization Agent patterns with approval workflows and cost aggregation',
     'FastAPI, REST APIs, and backend automation for decision support',
     'Salesforce Apex, LWC, Flow, Service Cloud, and Agentforce-oriented builds',
-    'Mentored 4 developers; contributed to architecture and production issue resolution',
+    'Mentored 4 developers on RAG architecture, API design, production debugging, and code review',
     'Published NLP/chatbot research in IRJMETS (Jan 2024)',
   ],
   location: 'Bengaluru, Karnataka, India',
@@ -182,6 +200,7 @@ export const PERSONAL = {
   trailblazer: 'https://www.salesforce.com/trailblazer/gouthamgovardhan',
   resumeUrl: assetUrl('assets/resume.pdf'),
   profileImageUrl: assetUrl('assets/profile.jpg'),
+  officeImageUrl: assetUrl('assets/profile.jpg'),
   formalImageUrl: assetUrl('assets/profile-formal.jpg'),
   currentRole: 'Software Engineer, AI + Salesforce @ Visionet Systems',
   openToHire: 'Open to Roles',
@@ -223,6 +242,7 @@ export const NAV_LINKS: NavLinkItem[] = [
   { label: 'Salesforce', href: '#salesforce', id: 'salesforce' },
   { label: 'Experience', href: '#experience', id: 'experience' },
   { label: 'Skills', href: '#skills', id: 'skills' },
+  { label: 'Depth', href: '#skills-depth', id: 'skills-depth' },
   { label: 'About', href: '#about', id: 'about' },
   { label: 'Contact', href: '#contact', id: 'contact' },
 ]
@@ -264,6 +284,12 @@ export const SECTION_TEXT = {
     title: 'Production stack, loaded from skills.txt',
     subtitle:
       'Core skills are backed by projects, resume, Trailhead proof, and hands-on delivery.',
+  },
+  skillsDepth: {
+    label: 'Interview Depth',
+    title: 'Skills I can explain under pressure',
+    subtitle:
+      'Discussion-ready depth across backend APIs, Salesforce, RAG, LLM systems, security, observability, and debugging.',
   },
   experience: {
     label: 'Experience - 03',
@@ -335,6 +361,8 @@ export const TECH_EXPLANATIONS: Record<string, string> = {
   'Deep Learning': 'Neural network methods for learning complex patterns from data.',
   Docker: 'Container tooling that packages apps and dependencies for predictable deployment.',
   'Email-to-Case': 'Salesforce feature that turns customer emails into support cases.',
+  'Einstein Bots': 'Salesforce bot tooling for guided self-service and customer support experiences.',
+  'Einstein Discovery': 'Salesforce analytics and AI feature for discovering patterns and recommendations.',
   Embeddings: 'Numeric representations of text used for search, retrieval, and similarity.',
   Eval: 'Quality checks that measure whether model outputs are useful and reliable.',
   'Eval Loops': 'Repeated testing and feedback cycles for improving AI system behavior.',
@@ -407,6 +435,7 @@ export const TECH_EXPLANATIONS: Record<string, string> = {
   'Sales Cloud': 'Salesforce cloud for sales processes, accounts, opportunities, and pipeline.',
   'Service Cloud': 'Salesforce cloud for support, cases, service workflows, and agents.',
   SQLAlchemy: 'Python ORM for working with relational databases.',
+  SOQL: 'Salesforce Object Query Language for querying Salesforce records.',
   'SOQL / SOSL': 'Salesforce query languages for records and search.',
   'Tailwind CSS': 'Utility-first CSS framework for building responsive interfaces.',
   TypeScript: 'Typed JavaScript that improves maintainability and editor feedback.',
@@ -495,6 +524,308 @@ export const SUPERBADGES: SuperbadgeItem[] = [
     name: 'Financial Services Cloud Specialist',
     completed: 'September 12, 2024',
     description: 'Completed Financial Services Cloud specialist scenario work on the Salesforce platform.',
+  },
+]
+
+export const CERTIFICATIONS: string[] = [
+  'Salesforce AI Champion',
+  'Salesforce Certified AI Associate',
+  'Financial Services Cloud Specialist',
+  'Case Lifecycle Specialist Superbadge',
+  'Trailhead Ranger / Expeditioner progress',
+  'Google AI Essentials',
+  'Python Development & Machine Learning Certification',
+]
+
+export const SKILL_DEPTH: SkillDepthItem[] = [
+  {
+    category: 'LLM Architecture & Evaluation',
+    points: [
+      'LangGraph for multi-agent orchestration, routing, and state graphs',
+      'CrewAI and AutoGen evaluation for agent capability comparison',
+      'RAGAS evaluation for retrieval quality, faithfulness, and coherence metrics',
+      'RAG diagnostics: vector similarity scoring, reranking tuning, and chunk hierarchy',
+      'Hybrid retrieval pipelines with BM25 plus semantic search',
+      'Semantic caching and parent-child indexing patterns',
+      'LangSmith observability for LLM traces and cost tracking',
+    ],
+    interviewTest: 'Compare LangGraph, CrewAI, and AutoGen for a production multi-agent workflow.',
+    tone: 'violet',
+  },
+  {
+    category: 'Infrastructure & Observability',
+    points: [
+      'Docker, Docker Compose, and Kubernetes basics',
+      'Loki, Promtail, Grafana dashboards, and log aggregation',
+      'Alembic database migrations and SQLAlchemy ORM',
+      'Redis for caching, streaming, workers, and session patterns',
+      'Credential management with Fernet encryption and secure config',
+      'Structured logging, OpenTelemetry, trace correlation IDs, and log sampling',
+      'Health checks, circuit breakers, and production monitoring patterns',
+    ],
+    interviewTest: "Walk me through how you'd set up observability for a backend API.",
+    tone: 'cyan',
+  },
+  {
+    category: 'Cloud & Cost Optimization',
+    points: [
+      'AWS cost analysis and optimization patterns',
+      'Multi-vendor cost tracking across LLM APIs and developer tools',
+      'Cost tracking for Pinecone, W&B, HuggingFace, LangSmith, and API usage',
+      'Financial data modeling with Decimal arithmetic and cost aggregation',
+      'Budget forecasting and anomaly detection patterns',
+      'Reserved capacity planning vs on-demand cost-benefit analysis',
+      'Organizational cost governance and chargeback models',
+    ],
+    interviewTest: 'How would you design a multi-vendor cost tracking system for LLM APIs and cloud services?',
+    tone: 'amber',
+  },
+  {
+    category: 'Vector Databases & Search',
+    points: [
+      'ChromaDB, Pinecone, and Weaviate',
+      'Vector indexing, semantic search, and similarity scoring',
+      'Reranking and score normalization',
+      'Embedding model evaluation',
+      'Hybrid search implementation with BM25 and semantic reranking',
+      'Query decomposition and routing',
+      'Context window optimization and multi-hop reasoning chains',
+    ],
+    interviewTest: 'How would you diagnose why a RAG system is returning irrelevant documents?',
+    tone: 'emerald',
+  },
+  {
+    category: 'LLM & Prompt Optimization',
+    points: [
+      'Prompt engineering and optimization loops',
+      'LLM API integration with OpenAI, Anthropic Claude, Grok, and Perplexity',
+      'Temperature and top-p tuning for reliability',
+      'Token optimization and cost tracking per request',
+      'Tool and function calling patterns',
+      'Agent failure handling, fallback strategies, and recovery',
+      'Cost tracking per agent call',
+    ],
+    interviewTest: 'Design a reliable prompt and model configuration strategy for a high-volume LLM workflow.',
+    tone: 'rose',
+  },
+  {
+    category: 'Data Processing & Evaluation',
+    points: [
+      'Data evaluation frameworks: RAGAS and custom evals',
+      'Synthetic data generation with openpyxl and pandas pipelines',
+      'Document processing and chunking strategies',
+      'Hierarchical indexing with parent-child retrieval',
+      'A/B testing LLM outputs',
+      'Latency profiling and bottleneck identification',
+      'Retrieval accuracy, answer relevance, faithfulness, and coherence metrics',
+    ],
+    interviewTest: "What metrics would you use to evaluate a RAG system's retrieval quality?",
+    tone: 'emerald',
+  },
+  {
+    category: 'API & System Design',
+    points: [
+      'REST API design patterns',
+      'Rate limiting, throttling, and backoff strategies',
+      'Error recovery and resilience patterns',
+      'Request and response validation with Pydantic schemas',
+      'API versioning and deprecation handling',
+      'Idempotency and exactly-once semantics',
+      'Dead letter queues and retry logic',
+    ],
+    interviewTest: "Walk me through how you'd design an API that needs to handle rate limits and retry logic.",
+    tone: 'accent',
+  },
+  {
+    category: 'Database & Migration Patterns',
+    points: [
+      'Alembic versioning strategy and reversible migrations',
+      'Schema design for multi-tenant systems',
+      'Connection pooling and query optimization',
+      'Data consistency in distributed systems',
+      'Backup and recovery procedures',
+      'Transaction safety and ACID principles',
+      'Database migrations and versioning',
+    ],
+    interviewTest: 'How would you design a schema and migration strategy for cost tracking across multiple services?',
+    tone: 'cyan',
+  },
+  {
+    category: 'Async & Worker Patterns',
+    points: [
+      'Redis Streams for event-driven architecture',
+      'Celery and background job queues',
+      'Docker Compose for local database, cache, and observability stacks',
+      'GitHub Actions workflows for CI/CD and automated deploys',
+      'Environment variable management and secrets rotation',
+      'Health checks and circuit breakers',
+      'Workers, retries, and failure recovery patterns',
+    ],
+    interviewTest: 'Design an async worker system with retries, idempotency, and dead letter handling.',
+    tone: 'amber',
+  },
+  {
+    category: 'Data & Security',
+    points: [
+      'Credential encryption and rotation with Fernet',
+      'Secure configuration management',
+      'Role-based access control design',
+      'Audit logging and compliance patterns',
+      'Secret rotation and key management',
+      'OAuth 2.0 flows for third-party integrations',
+      'Webhook handling and retry logic',
+    ],
+    interviewTest: 'How would you design credential storage for integrating with multiple third-party APIs?',
+    tone: 'rose',
+  },
+  {
+    category: 'Advanced Salesforce Patterns',
+    points: [
+      'Apex trigger patterns: before/after and bulk-safe design',
+      'Batch Apex for large data volumes',
+      'Scheduled actions and time-based workflows',
+      'Custom REST APIs in Apex',
+      'Governor limit optimization',
+      'Platform events and middleware for reliable data sync',
+      'Custom metadata and integration configuration patterns',
+    ],
+    interviewTest: 'How would you design a bulk-safe Salesforce integration that respects governor limits?',
+    tone: 'cyan',
+  },
+  {
+    category: 'Agentforce & Service Cloud Automation',
+    points: [
+      'Agentforce prompt optimization',
+      'Action framework patterns for Agentforce agents',
+      'Salesforce Einstein copilot integration',
+      'Knowledge article linking to agents',
+      'Omnichannel routing rules',
+      'Service workflow automation',
+      'Case intelligence, escalation, and Customer 360 agent context',
+    ],
+    interviewTest: 'Design an Agentforce service workflow that routes cases and uses knowledge context safely.',
+    tone: 'violet',
+  },
+  {
+    category: 'Technical Writing & Playbooks',
+    points: [
+      'Architectural decision records',
+      'RAG pipeline setup guides',
+      'Troubleshooting playbooks for merge conflicts and observability debugging',
+      'API documentation with examples',
+      'Knowledge base articles for internal teams',
+      'Technical blogging and public speaking topic planning',
+      'Technical communication for non-technical stakeholders',
+    ],
+    interviewTest: 'How would you document a RAG pipeline so another engineer can debug it in production?',
+    tone: 'emerald',
+  },
+  {
+    category: 'Problem-Solving & Production Debugging',
+    points: [
+      'RAG quality diagnosis across retrieval, ranking, and generation',
+      'Production incident response using logs and traces',
+      'Performance profiling and bottleneck identification',
+      'Debugging distributed systems with observability',
+      'Version control conflict resolution and team workflow debugging',
+      'Root cause analysis methodology',
+      'Postmortems and corrective action planning',
+    ],
+    interviewTest: "Walk me through how you'd debug a slow API endpoint or low-quality RAG response.",
+    tone: 'amber',
+  },
+  {
+    category: 'Mentoring & Leadership',
+    points: [
+      'Mentored 4 developers on RAG architecture, API design, and production debugging',
+      'Led code reviews with architectural feedback on LLM systems',
+      'Coordinated 30+ Theatre Club members and event logistics',
+      'Cross-functional collaboration with product, data science, and ops teams',
+      'Explained complex AI/backend systems to non-technical stakeholders',
+    ],
+    interviewTest: 'How do you mentor a developer through a production debugging or architecture problem?',
+    tone: 'accent',
+  },
+  {
+    category: 'Quantifiable Impact',
+    points: [
+      '1000+ users across team-delivered AI workflows',
+      'Shipped 7+ API endpoints for cost aggregation and analytics',
+      'Reduced RAG retrieval latency by about 40% via reranking optimization',
+      'Achieved 95%+ retrieval accuracy on domain queries with RAGAS evals',
+      'Diagnosed and resolved 10+ production incidents using logs and traces',
+    ],
+    interviewTest: 'Which engineering metrics prove that your AI/backend work improved production outcomes?',
+    tone: 'rose',
+  },
+  {
+    category: 'FinOps & Enterprise Automation',
+    points: [
+      'Cost attribution across LLM APIs, cloud platforms, and SaaS tools',
+      'Budget forecasting and anomaly detection patterns',
+      'Reserved capacity planning vs on-demand cost-benefit',
+      'Organizational cost governance and chargeback models',
+      'Business process mapping and workflow design',
+      'Service automation, case routing, and integration middleware patterns',
+      'Change management for process automation',
+    ],
+    interviewTest: 'How would you design a cost governance workflow for AI and cloud usage across teams?',
+    tone: 'cyan',
+  },
+  {
+    category: 'Tooling, Testing & Data Tools',
+    points: [
+      'Postman for API testing and CLI workflows with git, docker, and grep',
+      'Pandas, NumPy, SciPy, and OpenPyXL for data processing and Excel automation',
+      'Unit tests, integration tests, mock/stub patterns, and pytest',
+      'GitHub Actions, automated testing, and deployment pipelines',
+      'VS Code extension workflows and developer tooling',
+      'GitHub discussions, Stack Overflow answers, and open-source contribution patterns',
+    ],
+    interviewTest: 'How would you set up testing and developer tooling around a backend API project?',
+    tone: 'emerald',
+  },
+]
+
+export const SALESFORCE_FOCUS: RangeItem[] = [
+  {
+    title: 'Proven through TAPESTRY, BOILERJUICE, and Agentforce work',
+    detail:
+      'Service Cloud administration, Apex development, LWC, Flows, SOQL analysis, Agentforce, Einstein Bots, Prompt Builder, REST integrations, reports, dashboards, and service workflows.',
+    tags: ['Service Cloud', 'Apex', 'LWC', 'Flows', 'Agentforce', 'Prompt Builder'],
+  },
+  {
+    title: 'Salesforce patterns I can discuss',
+    detail:
+      'Best practices, multi-cloud solution thinking, case management, Omni-Channel routing, service automation, Batch Apex, scheduled jobs, custom metadata, and platform events.',
+    tags: ['Omni-Channel', 'Case Management', 'Batch Apex', 'Platform Events'],
+  },
+  {
+    title: 'Agentforce and AI Cloud patterns',
+    detail:
+      'Agentforce prompt optimization, action framework design, Einstein copilot integration, knowledge article linking, and Customer 360 context for agents.',
+    tags: ['Agentforce', 'Einstein Bots', 'Knowledge Articles', 'Customer 360'],
+  },
+]
+
+export const AI_BACKEND_RANGE: RangeItem[] = [
+  {
+    title: 'Salesforce AI integration',
+    detail:
+      'Agentforce, Einstein, Prompt Builder, and AI-assisted service processes backed by Visionet project exposure.',
+    tags: ['Agentforce', 'Einstein Bots', 'Prompt Builder'],
+  },
+  {
+    title: 'Backend API and infrastructure range',
+    detail:
+      'API design, integrations, logging, deployment thinking, RAG patterns, LLM integration, and data quality evaluation.',
+    tags: ['REST APIs', 'Observability', 'RAG', 'LLM Evaluation'],
+  },
+  {
+    title: 'Cloud cost and FinOps thinking',
+    detail:
+      'Cost attribution across LLM APIs, cloud platforms, SaaS tools, budget forecasting, anomaly detection, and approval workflows.',
+    tags: ['AWS', 'Cost Tracking', 'FinOps', 'Approval Workflows'],
   },
 ]
 
@@ -656,32 +987,40 @@ export const STATS: StatItem[] = [
 
 export const SKILLS: SkillGroup[] = [
   {
-    category: 'AI / ML',
-    skills: ['rag', 'langchain', 'openai-api', 'prompt-engineering', 'llm-evaluation', 'langsmith', 'ragas', 'nlp'],
+    category: 'LLM Architecture',
+    skills: ['rag', 'langgraph', 'crewai', 'autogen', 'langchain', 'langsmith', 'ragas', 'prompt-engineering'],
   },
   {
-    category: 'Languages',
-    skills: ['python', 'typescript', 'javascript', 'apex', 'sql'],
+    category: 'Vector Search',
+    skills: ['chromadb', 'pinecone', 'weaviate', 'hybrid-search', 'reranking', 'semantic-caching', 'parent-child-indexing'],
+  },
+  {
+    category: 'LLM Providers',
+    skills: ['openai-api', 'anthropic-claude', 'grok', 'perplexity', 'huggingface', 'token-optimization', 'cost-tracking'],
+  },
+  {
+    category: 'Backend / APIs',
+    skills: ['python', 'fastapi', 'pydantic', 'rest-apis', 'rate-limiting', 'backoff', 'api-versioning'],
+  },
+  {
+    category: 'Data / Persistence',
+    skills: ['postgresql', 'sqlalchemy', 'alembic', 'mongodb', 'mysql', 'redis-streams', 'decimal-arithmetic'],
+  },
+  {
+    category: 'Observability / DevOps',
+    skills: ['docker', 'docker-compose', 'kubernetes', 'loki', 'promtail', 'grafana', 'opentelemetry'],
+  },
+  {
+    category: 'Security',
+    skills: ['fernet', 'secure-config', 'rbac', 'audit-logging', 'oauth2', 'secrets-rotation'],
   },
   {
     category: 'Salesforce',
-    skills: ['agentforce', 'apex', 'lwc', 'flow-builder', 'prompt-builder', 'service-cloud', 'soql-sosl'],
+    skills: ['agentforce', 'apex', 'batch-apex', 'lwc', 'flow-builder', 'prompt-builder', 'service-cloud', 'platform-events'],
   },
   {
-    category: 'Backend',
-    skills: ['fastapi', 'rest-apis', 'mongodb', 'mysql', 'async-patterns', 'jwt-oauth2'],
-  },
-  {
-    category: 'Frontend',
-    skills: ['react', 'typescript', 'tailwind-css', 'lwc'],
-  },
-  {
-    category: 'Cloud / Delivery',
-    skills: ['docker', 'aws', 'linux', 'github-actions'],
-  },
-  {
-    category: 'Other',
-    skills: ['llama-ollama', 'chromadb', 'flask', 'node.js', 'postgresql', 'redis'],
+    category: 'Testing / Data Tools',
+    skills: ['pytest', 'pandas', 'numpy', 'scipy', 'openpyxl', 'postman', 'github-actions'],
   },
 ]
 
@@ -696,13 +1035,18 @@ export const EXPERIENCE: ExperienceItem[] = [
     bullets: [
       'Contributed to LLM-powered and agentic AI systems for enterprise workflows used by 1000+ users (team-delivered)',
       'Helped reduce manual effort and improve response time by up to 70% in targeted automation workflows',
+      'Built observability stack with Loki and Grafana for production logging, tracing, and diagnostics',
+      'Diagnosed RAG pipeline issues around vector scoring normalization, reranking thresholds, and retrieval quality',
+      'Shipped RAGAS evaluation loops for retrieval quality measurement in production RAG workflows',
+      'Architected a multi-agent spike comparing LangGraph, CrewAI, and AutoGen across cost and capability',
+      'Designed AWS cost optimization agent patterns with cost aggregation, analytics APIs, and approval workflows',
       'Built conversational AI for query handling, context capture, and intelligent routing',
       'Designed RAG-based pipelines with multi-model evaluation using OpenAI, Grok, and Perplexity',
       'Integrated REST APIs and built backend systems for automation, decision support, and platform modernization',
       'Develop Salesforce applications with Apex, LWC, Flow, Service Cloud, Agentforce, and Prompt Builder-oriented work',
-      'Mentored 4 developers and contributed to architecture, code reviews, and production issue resolution',
+      'Mentored 4 developers on RAG architecture, API design, production debugging, and code review',
     ],
-    tags: ['LLM', 'RAG', 'FastAPI', 'REST APIs', 'Salesforce', 'Agentforce', 'Apex', 'LWC'],
+    tags: ['LLM', 'RAG', 'RAGAS', 'LangGraph', 'Loki', 'Grafana', 'FastAPI', 'Salesforce', 'Agentforce'],
   },
   {
     company: 'Visionet Systems Inc.',
@@ -734,6 +1078,86 @@ export const EXPERIENCE: ExperienceItem[] = [
 ]
 
 export const PROJECTS: ProjectItem[] = [
+  {
+    title: 'TAPESTRY - Service Cloud Support & Administration',
+    description:
+      'Large-scale Salesforce Service Cloud support and administration for enterprise customer service operations at Visionet Systems.',
+    icon: 'TS',
+    category: 'Salesforce Service',
+    accent: 'cyan',
+    tags: ['Service Cloud', 'SOQL', 'Email-to-Case', 'Omni-Channel'],
+    highlights: [
+      'Managed Salesforce user access, profiles, permission sets, queues, and security configurations',
+      'Investigated production incidents within SLA timelines with root cause analysis',
+      'Supported Case Management, Email-to-Case, Omni-Channel routing, service workflows, reports, and dashboards',
+    ],
+    outcome: 'Maintained high service levels with zero client escalations while supporting enterprise service operations.',
+    architecture: ['Access setup', 'Case workflow', 'SOQL analysis', 'SLA resolution'],
+    proofStatus: 'Resume-backed',
+    proofUrl: PERSONAL.resumeUrl,
+    proofLinkLabel: 'Project on resume',
+    featured: true,
+  },
+  {
+    title: 'BOILERJUICE - Salesforce Development & Enhancement',
+    description:
+      'Salesforce development and enhancement work for business process automation, platform improvements, testing, and release support.',
+    icon: 'BJ',
+    category: 'Salesforce Dev',
+    accent: 'violet',
+    tags: ['Apex', 'LWC', 'Flow', 'SOQL'],
+    highlights: [
+      'Developed and enhanced Apex Classes, Triggers, and Lightning Web Components',
+      'Implemented Salesforce Flows and automation solutions for operational efficiency',
+      'Prepared solution design documentation and supported deployment/post-release validation',
+    ],
+    outcome: 'Improved Salesforce platform workflows through code quality, automation patterns, and testing methodology.',
+    architecture: ['Requirement', 'Apex/LWC', 'Testing', 'Deployment'],
+    proofStatus: 'Resume-backed',
+    proofUrl: PERSONAL.resumeUrl,
+    proofLinkLabel: 'Project on resume',
+    featured: true,
+  },
+  {
+    title: 'Internal AI Capabilities & Agentforce Solutions',
+    description:
+      'Internal Salesforce AI initiatives focused on Agentforce, Prompt Builder, Einstein Bots, and intelligent service engagement.',
+    icon: 'AF',
+    category: 'Salesforce AI',
+    accent: 'rose',
+    tags: ['Agentforce', 'Prompt Builder', 'Einstein Bots', 'Service Cloud'],
+    highlights: [
+      'Designed Agentforce use cases for customer service workflow automation',
+      'Configured Prompt Builder for AI-driven response generation',
+      'Developed Einstein Bot experiences and AI-powered workflows for case routing and resolution efficiency',
+    ],
+    outcome: 'Helped shape Agentforce POCs and demos that connected Salesforce AI capabilities to existing service processes.',
+    architecture: ['Use case', 'Prompt Builder', 'Einstein Bot', 'Service workflow'],
+    proofStatus: 'Resume-backed',
+    proofUrl: PERSONAL.resumeUrl,
+    proofLinkLabel: 'Project on resume',
+    featured: false,
+  },
+  {
+    title: 'Net Zero Cloud Demo - Sustainability Solution',
+    description:
+      'Salesforce Net Zero Cloud demonstration solution designed for internal innovation, sustainability tracking, and stakeholder presentation.',
+    icon: 'NZ',
+    category: 'Salesforce Cloud',
+    accent: 'emerald',
+    tags: ['Net Zero Cloud', 'Reports & Dashboards', 'Data Modeling', 'Salesforce'],
+    highlights: [
+      'Configured Net Zero Cloud for sustainability tracking and reporting',
+      'Designed data models and dashboards for environmental metrics',
+      'Presented the solution to internal stakeholders and received recognition for innovation and technical execution',
+    ],
+    outcome: 'Delivered a Salesforce sustainability demo that showed solution design thinking and stakeholder communication.',
+    architecture: ['Data model', 'Net Zero Cloud', 'Dashboards', 'Presentation'],
+    proofStatus: 'Resume-backed',
+    proofUrl: PERSONAL.resumeUrl,
+    proofLinkLabel: 'Project on resume',
+    featured: false,
+  },
   {
     title: 'AI Wellness Support Chatbot',
     description:

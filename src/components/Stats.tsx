@@ -11,9 +11,11 @@ export default function Stats({ stats }: StatsProps) {
         {stats.map((stat, index) => (
           <div
             key={stat.label}
-            className={`flex flex-col items-center justify-start px-4 py-3 ${
+            className={`flex min-h-32 flex-col items-center justify-start px-4 py-3 ${
               index % 2 === 0 ? 'border-r border-border-dim' : ''
-            } ${index < stats.length - 1 ? 'md:border-r md:border-border-dim' : ''}`}
+            } ${index < stats.length - 2 ? 'border-b border-border-dim md:border-b-0' : ''} ${
+              index < stats.length - 1 ? 'md:border-r md:border-border-dim' : ''
+            }`}
           >
             <p className="text-3xl font-bold tracking-tight text-text">
               {stat.value}

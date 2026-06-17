@@ -35,9 +35,9 @@ export default function Education() {
         />
 
         <div className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch">
-          <div className="education-id-scene">
+          <div className="education-id-scene h-full">
             <article
-              className={`education-id-card group relative min-h-[700px] cursor-pointer rounded-[1.65rem] border border-border/90 bg-card/80 p-5 shadow-2xl shadow-violet/10 sm:min-h-[580px] lg:min-h-[540px] ${
+              className={`education-id-card group relative min-h-[760px] cursor-pointer rounded-[1.65rem] border border-border/90 bg-card/80 p-5 shadow-2xl shadow-violet/10 sm:min-h-[680px] lg:h-full lg:min-h-[660px] ${
                 isCardFlipped ? 'is-flipped' : ''
               }`}
               role="button"
@@ -48,7 +48,7 @@ export default function Education() {
               onKeyDown={handleCardKeyDown}
             >
               <div className="education-id-face education-id-front">
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <p className="font-mono text-xs uppercase tracking-[0.22em] text-amber">Class of</p>
                     <h3 className="mt-2 flex gap-2 text-6xl font-black leading-none text-text sm:text-7xl">
@@ -57,13 +57,13 @@ export default function Education() {
                       ))}
                     </h3>
                   </div>
-                  <div className="rounded-full border border-emerald/35 bg-emerald/10 px-3 py-1 font-mono text-[0.65rem] uppercase tracking-[0.16em] text-emerald">
+                  <div className="w-fit rounded-full border border-emerald/35 bg-emerald/10 px-3 py-1 font-mono text-[0.65rem] uppercase tracking-[0.16em] text-emerald">
                     Graduated
                   </div>
                 </div>
 
                 <div className="mt-8 grid gap-5 sm:grid-cols-[10rem_1fr]">
-                  <div className="w-36 overflow-hidden rounded-[1.2rem] border border-border-dim bg-bg/50 sm:w-auto">
+                  <div className="w-full max-w-40 overflow-hidden rounded-[1.2rem] border border-border-dim bg-bg/50 sm:w-auto sm:max-w-none">
                     <img
                       src={education.imageUrl}
                       alt={`${PERSONAL.name} at graduation`}
@@ -77,7 +77,7 @@ export default function Education() {
                       <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-dim">Student ID</p>
                       <h4 className="mt-1 text-2xl font-black text-text">{PERSONAL.name}</h4>
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid gap-3 sm:grid-cols-2">
                       <div className="rounded-xl border border-border-dim bg-bg/45 p-3">
                         <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-dim">Programme</p>
                         <p className="mt-1 text-sm font-semibold leading-5 text-text">B.Tech · CSE Data Science</p>
@@ -104,6 +104,25 @@ export default function Education() {
                     {education.coursework.map((course) => (
                       <Tag key={course} label={course} />
                     ))}
+                  </div>
+                </div>
+
+                <div className="mt-6 grid gap-3 border-t border-border-dim pt-5 sm:grid-cols-2">
+                  <div className="rounded-xl border border-border-dim bg-bg/45 p-3">
+                    <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-dim">Degree Focus</p>
+                    <p className="mt-1 text-sm font-semibold leading-5 text-text">Data systems, ML, backend fundamentals</p>
+                  </div>
+                  <div className="rounded-xl border border-border-dim bg-bg/45 p-3">
+                    <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-dim">Campus Work</p>
+                    <p className="mt-1 text-sm font-semibold leading-5 text-text">{education.activities[0]}</p>
+                  </div>
+                  <div className="rounded-xl border border-border-dim bg-bg/45 p-3">
+                    <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-dim">Leadership</p>
+                    <p className="mt-1 text-sm font-semibold leading-5 text-text">{education.activities[1]}</p>
+                  </div>
+                  <div className="rounded-xl border border-border-dim bg-bg/45 p-3">
+                    <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-dim">Events</p>
+                    <p className="mt-1 text-sm font-semibold leading-5 text-text">{education.activities[2]}</p>
                   </div>
                 </div>
 
@@ -141,26 +160,34 @@ export default function Education() {
             </article>
           </div>
 
-          <div className="grid h-full gap-4 sm:grid-cols-2 lg:grid-cols-1">
+          <aside className="glass-card flex h-full min-h-[660px] flex-col rounded-[1.65rem] border border-border/90 bg-card/70 p-5 shadow-2xl shadow-violet/10">
+            <div className="mb-4 border-b border-border-dim pb-3">
+              <p className="font-mono text-xs uppercase tracking-[0.22em] text-amber">Builder signals</p>
+              <h3 className="mt-2 text-xl font-black leading-tight text-text sm:text-2xl">What the degree trained into.</h3>
+            </div>
+            <div className="grid flex-1 gap-4">
             {SIGNALS.map((signal) => (
-              <article key={signal.title} className="lift-card glass-card flex flex-col rounded-[1.5rem] border border-border/80 p-5">
+              <div key={signal.title} className="flex min-h-0 flex-col rounded-[1.15rem] border border-border-dim bg-bg/35 p-4">
                 <p
-                  className={`inline-flex w-fit rounded-full border px-3 py-1 font-mono text-xs uppercase tracking-[0.16em] ${
+                  className={`inline-flex w-fit rounded-full border px-3 py-1 font-mono text-[0.65rem] uppercase tracking-[0.16em] ${
                     toneClasses[signal.tone]
                   }`}
                 >
                   {signal.label}
                 </p>
-                <h3 className="mt-4 text-lg font-black leading-snug text-text sm:text-xl">{signal.title}</h3>
-                <p className="mt-3 flex-1 text-sm leading-7 text-muted">{signal.detail}</p>
-                <div className="mt-4 flex flex-wrap gap-2 border-t border-border-dim/70 pt-4">
+                <h3 className="mt-3 text-lg font-black leading-snug text-text">{signal.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted">{signal.detail}</p>
+                <div className="mt-auto flex flex-wrap gap-2 border-t border-border-dim/70 pt-4">
                   {signal.tags.map((tag) => (
-                    <Tag key={tag} label={tag} />
+                    <span key={tag} className="rounded-full border border-border-dim bg-card/50 px-3 py-1.5 font-mono text-xs font-semibold text-muted">
+                      {tag}
+                    </span>
                   ))}
                 </div>
-              </article>
+              </div>
             ))}
-          </div>
+            </div>
+          </aside>
         </div>
       </div>
     </section>

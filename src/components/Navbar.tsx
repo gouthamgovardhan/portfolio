@@ -60,7 +60,11 @@ export default function Navbar() {
                 href={link.href}
                 className={
                   isContact
-                    ? 'rounded-md bg-accent px-4 py-2 text-sm font-medium text-bg transition-colors hover:bg-accent-h'
+                    ? `rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+                        active
+                          ? 'bg-text text-bg shadow-lg shadow-accent/20'
+                          : 'bg-accent text-bg hover:bg-accent-h'
+                      }`
                     : `text-sm font-medium transition-colors hover:text-text ${
                         active ? 'text-accent-h' : 'text-muted'
                       }`

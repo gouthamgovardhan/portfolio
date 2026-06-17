@@ -64,19 +64,19 @@ export default function Hero({ personal }: HeroProps) {
               <p className="mb-9 max-w-xl text-base leading-7 text-muted">{personal.heroDescription}</p>
             </BlurFade>
 
-            <BlurFade delay={0.48} className="mb-10 flex flex-wrap gap-3">
+            <BlurFade delay={0.48} className="mb-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <RainbowButton href="#projects">
                 {ACTION_LABELS.viewProjects}
               </RainbowButton>
               <a
                 href="#roles"
-                className="lift-card-subtle inline-flex items-center rounded-full border border-border px-6 py-3 text-sm font-medium text-text hover:text-violet"
+                className="lift-card-subtle inline-flex items-center justify-center rounded-full border border-border px-6 py-3 text-sm font-medium text-text hover:text-violet"
               >
                 View Role Fit
               </a>
               <a
                 href={personal.resumeUrl}
-                className="lift-card-subtle inline-flex items-center rounded-full border border-border px-6 py-3 text-sm font-medium text-text hover:text-violet"
+                className="lift-card-subtle inline-flex items-center justify-center rounded-full border border-border px-6 py-3 text-sm font-medium text-text hover:text-violet"
               >
                 {ACTION_LABELS.downloadResume}
               </a>
@@ -116,15 +116,17 @@ export default function Hero({ personal }: HeroProps) {
 
             <div className="lift-card overflow-hidden rounded-[1.6rem] border border-border-dim bg-surface/80 p-5 shadow-lg shadow-violet/5 backdrop-blur">
               <div className="mb-4 grid gap-4 sm:grid-cols-[1fr_12rem]">
-                <BlurFade inView delay={0.2} className="overflow-hidden rounded-[1.2rem] border border-border-dim bg-bg/40">
-                  <img
-                    src={personal.formalImageUrl}
-                    alt={`${personal.name} professional headshot`}
-                    className="aspect-[4/3] w-full object-cover object-[50%_20%]"
-                    width={640}
-                    height={480}
-                  />
-                </BlurFade>
+                <div className="relative rounded-[1.2rem] border border-border-dim bg-bg/40">
+                  <div className="overflow-hidden rounded-[1.2rem]">
+                    <img
+                      src={personal.formalImageUrl}
+                      alt={`${personal.name} professional headshot`}
+                      className="aspect-[16/10] w-full object-cover object-[50%_20%] sm:aspect-[4/3]"
+                      width={640}
+                      height={480}
+                    />
+                  </div>
+                </div>
                 <div className="min-h-44 overflow-hidden rounded-[1.2rem] border border-border-dim bg-bg/50 p-3">
                   <MagicGlobe className="h-full min-h-40" />
                 </div>

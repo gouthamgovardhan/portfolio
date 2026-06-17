@@ -15,6 +15,10 @@ export function useScrollReveal() {
 
     revealTargets.forEach((target, index) => {
       target.classList.add('scroll-reveal')
+      const bounds = target.getBoundingClientRect()
+      if (bounds.top < window.innerHeight && bounds.bottom > 0) {
+        target.classList.add('is-visible')
+      }
       if (target.tagName === 'ARTICLE') {
         const staggerIndex = index % 4
         target.style.setProperty('--reveal-delay', `${staggerIndex * 60}ms`)
@@ -55,20 +59,32 @@ export function useScrollReveal() {
       document.documentElement.style.setProperty('--scroll-progress', progress.toFixed(4))
     }
 
+    let scrollAnimationFrame = 0
     const easeOutCubic = (value: number) => 1 - Math.pow(1 - value, 3)
-    const smoothScrollTo = (targetY: number, duration = 760) => {
+    const smoothScrollTo = (targetY: number, duration = 320) => {
+      if (scrollAnimationFrame) cancelAnimationFrame(scrollAnimationFrame)
+
       const startY = window.scrollY
       const distance = targetY - startY
+      if (Math.abs(distance) < 12) {
+        window.scrollTo(0, targetY)
+        return
+      }
+
       const startTime = performance.now()
 
       const tick = (time: number) => {
         const elapsed = time - startTime
         const progress = Math.min(elapsed / duration, 1)
         window.scrollTo(0, startY + distance * easeOutCubic(progress))
-        if (progress < 1) requestAnimationFrame(tick)
+        if (progress < 1) {
+          scrollAnimationFrame = requestAnimationFrame(tick)
+        } else {
+          scrollAnimationFrame = 0
+        }
       }
 
-      requestAnimationFrame(tick)
+      scrollAnimationFrame = requestAnimationFrame(tick)
     }
 
     const handleAnchorClick = (event: MouseEvent) => {
@@ -89,7 +105,7 @@ export function useScrollReveal() {
       const scrollMargin = Number.parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0
       const targetY = target.getBoundingClientRect().top + window.scrollY - scrollMargin
       window.history.pushState(null, '', hash)
-      smoothScrollTo(Math.max(0, targetY), 760)
+      smoothScrollTo(Math.max(0, targetY), 320)
     }
 
     window.addEventListener('scroll', updateProgress, { passive: true })
@@ -100,6 +116,7 @@ export function useScrollReveal() {
     return () => {
       revealObserver.disconnect()
       sectionObserver.disconnect()
+      if (scrollAnimationFrame) cancelAnimationFrame(scrollAnimationFrame)
       window.removeEventListener('scroll', updateProgress)
       window.removeEventListener('resize', updateProgress)
       document.removeEventListener('click', handleAnchorClick)
