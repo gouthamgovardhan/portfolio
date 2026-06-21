@@ -53,7 +53,7 @@ export default function Education() {
         <div className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch">
           <div className="education-id-scene h-full">
             <article
-              className={`education-id-card group relative min-h-[760px] cursor-pointer rounded-[1.65rem] border border-border/90 bg-card/80 p-5 shadow-2xl shadow-violet/10 sm:min-h-[680px] lg:h-full lg:min-h-[660px] ${
+              className={`education-id-card group relative min-h-[760px] cursor-pointer rounded-[1.65rem] border border-border/90 bg-card/80 p-4 shadow-2xl shadow-violet/10 sm:min-h-[680px] sm:p-5 lg:h-full lg:min-h-[660px] ${
                 isCardFlipped ? 'is-flipped' : ''
               }`}
               role="button"
@@ -79,7 +79,7 @@ export default function Education() {
                 </div>
 
                 <div className="mt-8 grid gap-5 sm:grid-cols-[10rem_1fr]">
-                  <div className="w-full max-w-40 overflow-hidden rounded-[1.2rem] border border-border-dim bg-bg/50 sm:w-auto sm:max-w-none">
+                  <div className="w-full max-w-[13rem] overflow-hidden rounded-[1.2rem] border border-border-dim bg-bg/50 sm:w-auto sm:max-w-none">
                     <img
                       src={education.imageUrl}
                       alt={`${PERSONAL.name} at graduation`}
@@ -91,7 +91,7 @@ export default function Education() {
                   <div className="space-y-4">
                     <div>
                       <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-dim">Student ID</p>
-                      <h4 className="mt-1 text-2xl font-black text-text">{PERSONAL.name}</h4>
+                      <h4 className="mt-1 break-words text-2xl font-black leading-tight text-text">{PERSONAL.name}</h4>
                     </div>
                     <div className="grid gap-3 sm:grid-cols-2">
                       <div className="rounded-xl border border-border-dim bg-bg/45 p-3">
@@ -145,7 +145,7 @@ export default function Education() {
                 <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border-dim pt-5">
                   <div>
                     <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-dim">Property of</p>
-                    <p className="text-sm font-semibold text-text">{education.school}</p>
+                    <p className="text-sm font-semibold leading-5 text-text">{education.school}</p>
                   </div>
                   <p className="font-mono text-xs text-dim">Valid through {passoutYear}</p>
                 </div>

@@ -17,6 +17,7 @@ const STAGE_TITLES: Record<string, string> = {
 export function useScrollReveal() {
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const prefersTouchScroll = window.matchMedia('(pointer: coarse)').matches
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual'
     }
@@ -135,7 +136,7 @@ export function useScrollReveal() {
       const scrollMargin = Number.parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0
       const targetY = target.getBoundingClientRect().top + window.scrollY - scrollMargin
       window.history.pushState(null, '', hash)
-      smoothScrollTo(Math.max(0, targetY), 680)
+      smoothScrollTo(Math.max(0, targetY), prefersTouchScroll ? 360 : 680)
     }
 
     window.addEventListener('scroll', updateProgress, { passive: true })

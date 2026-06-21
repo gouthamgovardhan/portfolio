@@ -107,10 +107,13 @@
   html {
     overflow-x: clip;
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
   }
 
   body {
     overflow-x: hidden;
+    touch-action: pan-y;
+    overscroll-behavior-y: auto;
     background: var(--body-bg);
     color: var(--color-text);
     font-family: 'Space Grotesk', sans-serif;
@@ -3817,6 +3820,38 @@
   }
 
   @media (max-width: 767px) {
+    html,
+    body {
+      min-height: 100%;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+
+    .stage-section > .relative,
+    .stage-section > .mx-auto,
+    .stage-section > div:not(.pointer-events-none),
+    .stage-section:not(.section-in-view) > .relative,
+    .stage-section:not(.section-in-view) > .mx-auto,
+    .stage-section:not(.section-in-view) > div:not(.pointer-events-none) {
+      opacity: 1;
+      filter: none;
+      transform: none;
+      transition: none;
+    }
+
+    .stage-section > .relative::before,
+    .stage-section > .mx-auto::before,
+    .stage-section > div:not(.pointer-events-none)::before {
+      content: none;
+    }
+
+    .section-shell {
+      overflow-x: clip;
+    }
+
     .detail-dialog-backdrop {
       align-items: start;
       padding-top: 1rem;
@@ -3840,6 +3875,42 @@
 
     .detail-dialog-media-summary {
       padding: 1.25rem;
+    }
+
+    .education-id-scene {
+      perspective: none;
+    }
+
+    .education-id-card,
+    .education-id-card:hover,
+    .education-id-card.is-flipped {
+      min-height: 0 !important;
+      height: auto !important;
+      cursor: default;
+      transform: none;
+      animation: none;
+    }
+
+    .education-id-face {
+      position: relative;
+      inset: auto;
+      min-height: 0;
+      overflow: visible;
+      padding: 1rem;
+      backface-visibility: visible;
+    }
+
+    .education-id-back {
+      display: none;
+    }
+
+    .education-id-front::before,
+    .education-id-back::before {
+      border-radius: inherit;
+    }
+
+    .education-id-front img {
+      max-height: 18rem;
     }
 
     .project-showcase {
