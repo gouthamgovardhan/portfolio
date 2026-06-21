@@ -3848,6 +3848,20 @@
       content: none;
     }
 
+    .scroll-reveal,
+    .scroll-reveal.is-visible,
+    .blur-fade,
+    .blur-fade.is-visible,
+    .magic-terminal-line,
+    .magic-terminal-line.is-visible {
+      opacity: 1;
+      filter: none;
+      transform: none;
+      transition: none;
+      transition-delay: 0ms;
+      will-change: auto;
+    }
+
     .section-shell {
       overflow-x: clip;
     }

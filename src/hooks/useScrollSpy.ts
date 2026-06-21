@@ -8,6 +8,7 @@ export function useScrollSpy(sectionIds: readonly string[], offset = 80) {
     const ids = sectionKey.split('|').filter(Boolean)
 
     const handler = () => {
+      const isPhoneViewport = window.matchMedia('(max-width: 767px)').matches
       const scrollBottom = window.scrollY + window.innerHeight
       const documentHeight = document.documentElement.scrollHeight
 
@@ -16,7 +17,7 @@ export function useScrollSpy(sectionIds: readonly string[], offset = 80) {
         return
       }
 
-      const pivot = window.scrollY + window.innerHeight * 0.42 + offset
+      const pivot = window.scrollY + window.innerHeight * (isPhoneViewport ? 0.62 : 0.42) + (isPhoneViewport ? 24 : offset)
       let current = ids[0] ?? ''
 
       for (const id of ids) {
