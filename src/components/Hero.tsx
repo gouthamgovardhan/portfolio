@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { FaLocationDot } from 'react-icons/fa6'
 import { ACTION_LABELS, HERO_TECH, HERO_TERMINAL, SOCIAL_LINKS, TECH_EXPLANATIONS, type PERSONAL } from '../data/portfolio'
 import { getTechIcon } from '../lib/techIcons'
 import { BlurFade } from './ui/BlurFade'
+import { DetailDialog, type DetailDialogContent } from './ui/DetailDialog'
 import { KineticText } from './ui/KineticText'
 import { MagicGlobe } from './ui/MagicGlobe'
 import { RainbowButton } from './ui/RainbowButton'
@@ -11,11 +13,12 @@ interface HeroProps {
 }
 
 export default function Hero({ personal }: HeroProps) {
+  const [detail, setDetail] = useState<DetailDialogContent | null>(null)
+
   return (
-    <section id="hero" className="relative flex min-h-screen items-center overflow-hidden pt-28 sm:pt-32 lg:pt-36">
-      <div className="hero-dot-grid pointer-events-none absolute inset-0 opacity-45" />
-      <div className="orb-1 pointer-events-none absolute -right-[15%] -top-[15%] h-[min(70vw,700px)] w-[min(70vw,700px)] rounded-full" />
-      <div className="orb-2 pointer-events-none absolute -bottom-[10%] -left-[10%] h-[min(50vw,500px)] w-[min(50vw,500px)] rounded-full" />
+    <section id="hero" className="hero-stage relative flex min-h-screen items-center overflow-hidden pt-28 sm:pt-32 lg:pt-36">
+      <div className="hero-stage-grid pointer-events-none absolute inset-0" />
+      <div className="hero-stage-signal pointer-events-none absolute inset-0" />
       <div className="pointer-events-none absolute left-0 right-0 top-20 overflow-hidden border-y border-border-dim/70 bg-bg/35 py-3 backdrop-blur">
         <div className="tech-marquee flex w-max gap-3">
           {[...HERO_TECH, ...HERO_TECH].map((tech, index) => {
@@ -107,17 +110,50 @@ export default function Hero({ personal }: HeroProps) {
             </p>
           </div>
 
-          <div className="grid w-full gap-4 sm:gap-5">
-            <div className="lift-card rounded-[1.6rem] border border-border bg-card/85 p-5 shadow-xl shadow-accent/10 backdrop-blur">
+          <div className="hero-visual-stage grid w-full gap-4 sm:gap-5">
+            <button
+              type="button"
+              onClick={() =>
+                setDetail({
+                  eyebrow: 'Current focus',
+                  title: 'AI + Salesforce systems',
+                  description: personal.currentRole,
+                  tone: 'cyan',
+                  sections: [
+                    { title: 'Builder headline', body: personal.heroHeadline },
+                    { title: 'Current lane', body: personal.currentRole },
+                  ],
+                  tags: ['AI', 'Salesforce', 'Backend', 'Automation'],
+                })
+              }
+              className="lift-card hero-focus-panel rounded-[1.1rem] border border-border bg-card/85 p-5 text-left shadow-xl shadow-accent/10 outline-none backdrop-blur"
+            >
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-amber">Current focus</p>
               <p className="mt-3 text-2xl font-black leading-tight text-text sm:text-3xl">AI + Salesforce systems</p>
               <p className="mt-2 text-sm leading-6 text-muted">{personal.currentRole}</p>
-            </div>
+            </button>
 
-            <div className="lift-card overflow-hidden rounded-[1.6rem] border border-border-dim bg-surface/80 p-5 shadow-lg shadow-violet/5 backdrop-blur">
-              <div className="mb-4 grid gap-4 sm:grid-cols-[1fr_12rem]">
-                <div className="relative rounded-[1.2rem] border border-border-dim bg-bg/40">
-                  <div className="overflow-hidden rounded-[1.2rem]">
+            <button
+              type="button"
+              onClick={() =>
+                setDetail({
+                  eyebrow: 'Location signal',
+                  title: personal.location,
+                  description: `${personal.country} · ${personal.timezone}`,
+                  tone: 'accent',
+                  sections: [
+                    { title: 'Operating base', body: `${personal.location}, working in ${personal.timezone}.` },
+                    { title: 'Profile context', body: 'The visual identity anchors the portfolio in a real person, not only a tool list.' },
+                  ],
+                  tags: [personal.country, personal.timezone, personal.openToHire],
+                })
+              }
+              className="lift-card hero-identity-stage overflow-hidden rounded-[1.1rem] border border-border-dim bg-surface/80 p-5 text-left shadow-lg shadow-violet/5 outline-none backdrop-blur"
+            >
+              <div className="hero-orbit-shell mb-4 grid gap-4 sm:grid-cols-[1fr_12rem]">
+                <div className="hero-portrait-orbit relative rounded-[1rem] border border-border-dim bg-bg/40">
+                  <div className="hero-orbit-text" aria-hidden="true">AI · BACKEND · SALESFORCE · SHIP ·</div>
+                  <div className="overflow-hidden rounded-[1rem]">
                     <img
                       src={personal.formalImageUrl}
                       alt={`${personal.name} professional headshot`}
@@ -127,15 +163,28 @@ export default function Hero({ personal }: HeroProps) {
                     />
                   </div>
                 </div>
-                <div className="min-h-44 overflow-hidden rounded-[1.2rem] border border-border-dim bg-bg/50 p-3">
+                <div className="min-h-44 overflow-hidden rounded-[1rem] border border-border-dim bg-bg/50 p-3">
                   <MagicGlobe className="h-full min-h-40" />
                 </div>
               </div>
               <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted">{personal.country} · {personal.timezone}</p>
               <p className="mt-1 text-xl font-bold text-text sm:text-2xl">{personal.location}</p>
-            </div>
+            </button>
 
-            <div className="lift-card rounded-[1.6rem] border border-rose/30 bg-bg/80 p-5 font-mono text-xs text-muted shadow-lg shadow-rose/10 backdrop-blur">
+            <button
+              type="button"
+              onClick={() =>
+                setDetail({
+                  eyebrow: 'Run command',
+                  title: 'goutham --production',
+                  description: 'A compact terminal-style summary of the portfolio positioning.',
+                  tone: 'emerald',
+                  sections: [{ title: 'Signals', items: HERO_TERMINAL.map((line) => `${line.label}: ${line.value}`) }],
+                  tags: HERO_TERMINAL.map((line) => line.label),
+                })
+              }
+              className="lift-card rounded-[1.1rem] border border-rose/30 bg-bg/80 p-5 text-left font-mono text-xs text-muted shadow-lg shadow-rose/10 outline-none backdrop-blur"
+            >
               <p className="text-rose">$ run goutham --production</p>
               <div className="mt-3 space-y-1">
                 {HERO_TERMINAL.map((line) => (
@@ -144,10 +193,11 @@ export default function Hero({ personal }: HeroProps) {
                   </p>
                 ))}
               </div>
-            </div>
+            </button>
           </div>
         </div>
       </div>
+      {detail ? <DetailDialog content={detail} onClose={() => setDetail(null)} /> : null}
     </section>
   )
 }

@@ -44,7 +44,7 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-6">
-        <a href="#hero" className="text-lg font-bold tracking-tight" onClick={() => setOpen(false)}>
+        <a href="#hero" className="nav-brand text-lg font-bold tracking-tight" onClick={() => setOpen(false)}>
           {PERSONAL.shortName}
           <span className="text-accent">.</span>
         </a>

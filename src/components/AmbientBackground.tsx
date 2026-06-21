@@ -10,10 +10,6 @@ export default function AmbientBackground() {
         <span />
       </div>
       <Meteors number={18} />
-      <div className="ambient-orb ambient-orb-a" />
-      <div className="ambient-orb ambient-orb-b" />
-      <div className="ambient-orb ambient-orb-c" />
-      <div className="ambient-orb ambient-orb-d" />
     </div>
   )
 }

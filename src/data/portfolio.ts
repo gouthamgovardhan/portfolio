@@ -1,6 +1,7 @@
-import { FaEnvelope, FaGithub, FaLinkedin, FaSalesforce } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaSalesforce } from 'react-icons/fa'
 import type { IconType } from 'react-icons'
 import { assetUrl } from '../lib/assetUrl'
+import type { LiveConsoleConfig, ShowcaseVariant } from '../types/LiveConsole'
 
 export interface SkillGroup {
   category: string
@@ -30,6 +31,8 @@ export interface ProjectItem {
   architecture: string[]
   proofStatus: string
   disclaimer?: string
+  showcase?: ShowcaseVariant
+  liveConsoleConfig?: LiveConsoleConfig
   githubUrl?: string
   liveUrl?: string
   proofUrl?: string
@@ -194,7 +197,6 @@ export const PERSONAL = {
   ],
   location: 'Bengaluru, Karnataka, India',
   phone: '+91 9741341708',
-  email: 'gouthamgovardhan@hotmail.com',
   github: 'https://github.com/gouthamgovardhan',
   linkedin: 'https://linkedin.com/in/goutham-govardhan',
   trailblazer: 'https://www.salesforce.com/trailblazer/gouthamgovardhan',
@@ -242,7 +244,6 @@ export const NAV_LINKS: NavLinkItem[] = [
   { label: 'Salesforce', href: '#salesforce', id: 'salesforce' },
   { label: 'Experience', href: '#experience', id: 'experience' },
   { label: 'Skills', href: '#skills', id: 'skills' },
-  { label: 'Depth', href: '#skills-depth', id: 'skills-depth' },
   { label: 'About', href: '#about', id: 'about' },
   { label: 'Contact', href: '#contact', id: 'contact' },
 ]
@@ -251,11 +252,9 @@ export const SOCIAL_LINKS: SocialLinkItem[] = [
   { label: 'GitHub', href: PERSONAL.github, icon: FaGithub },
   { label: 'LinkedIn', href: PERSONAL.linkedin, icon: FaLinkedin },
   { label: 'Trailblazer', href: PERSONAL.trailblazer, icon: FaSalesforce },
-  { label: 'Email', href: `mailto:${PERSONAL.email}`, icon: FaEnvelope },
 ]
 
 export const CONTACT_LINKS: ContactLinkItem[] = [
-  { label: 'Email', value: PERSONAL.email, href: `mailto:${PERSONAL.email}`, icon: FaEnvelope },
   { label: 'LinkedIn', value: 'goutham-govardhan', href: PERSONAL.linkedin, icon: FaLinkedin },
   { label: 'GitHub', value: 'gouthamgovardhan', href: PERSONAL.github, icon: FaGithub },
   { label: 'Trailblazer', value: 'gouthamgovardhan', href: PERSONAL.trailblazer, icon: FaSalesforce },
@@ -324,7 +323,7 @@ export const SECTION_TEXT = {
     label: 'Contact',
     title: 'Got a workflow, platform, or product problem?',
     subtitle:
-      'Email and LinkedIn are the fastest paths. Phone number is available on the downloadable resume.',
+      'Send a focused note through the form, or use the public profiles for more context.',
   },
 } as const
 
@@ -1174,6 +1173,149 @@ export const PROJECTS: ProjectItem[] = [
     architecture: ['User prompt', 'Retriever', 'LLaMA/Ollama', 'MongoDB memory'],
     proofStatus: 'Open source',
     disclaimer: 'Support-style demo only. Not medical or mental-health advice.',
+    showcase: 'wellness',
+    liveConsoleConfig: {
+      variant: 'wellness',
+      title: 'Wellness Support RAG Console',
+      status: 'processing',
+      timeline: 'local model + memory',
+      hotspots: [
+        {
+          id: 'wellness-user-prompt',
+          label: 'User Prompt',
+          position: { x: 8, y: 22 },
+          targetPanel: 'prompt',
+          inspectorContent: {
+            title: 'Support Prompt Intake',
+            explanation:
+              'The user question is accepted as a support request, not a diagnosis. The system keeps the wording simple, tracks risk level, and prepares the message for grounded retrieval.',
+            signal: 'risk: low, mode: support',
+            stackTags: ['React', 'Prompt Design', 'Guardrails'],
+          },
+        },
+        {
+          id: 'wellness-rag-retrieval',
+          label: 'RAG Retrieval',
+          position: { x: 25, y: 22 },
+          targetPanel: 'retrieval',
+          inspectorContent: {
+            title: 'Grounded Context Retrieval',
+            explanation:
+              'Relevant support resources are retrieved before generation so the assistant answers from known material instead of guessing from the model alone.',
+            signal: 'chunks: 3, best match: 0.91',
+            stackTags: ['RAG', 'Embeddings', 'Document Chunking'],
+          },
+        },
+        {
+          id: 'wellness-ollama-generation',
+          label: 'Ollama Generation',
+          position: { x: 42, y: 22 },
+          targetPanel: 'generation',
+          inspectorContent: {
+            title: 'Local Model Generation',
+            explanation:
+              'Ollama serves a local LLaMA model that generates the response using the retrieved context, latest user message, and support-safe instructions.',
+            signal: 'tokens: 148, model: local',
+            stackTags: ['LLaMA', 'Ollama', 'Streaming Output'],
+          },
+        },
+        {
+          id: 'wellness-memory',
+          label: 'MongoDB Memory',
+          position: { x: 59, y: 22 },
+          targetPanel: 'memory',
+          inspectorContent: {
+            title: 'Conversation Memory',
+            explanation:
+              'MongoDB stores lightweight conversation context so follow-up turns can stay coherent without asking the user to repeat everything.',
+            signal: 'memory entries: 34',
+            stackTags: ['MongoDB', 'Persistence', 'Conversation State'],
+          },
+        },
+        {
+          id: 'wellness-guardrails',
+          label: 'Safety Guardrails',
+          position: { x: 76, y: 22 },
+          targetPanel: 'guardrails',
+          inspectorContent: {
+            title: 'Safety and Scope Checks',
+            explanation:
+              'The workflow checks that the answer stays support-oriented, avoids medical claims, and keeps the user pointed toward appropriate help when needed.',
+            signal: 'checks passed: 3/3',
+            stackTags: ['Safety Checks', 'Prompt Policy', 'Validation'],
+          },
+        },
+        {
+          id: 'wellness-response',
+          label: 'Response Preview',
+          position: { x: 91, y: 22 },
+          targetPanel: 'response',
+          inspectorContent: {
+            title: 'Calm Response Output',
+            explanation:
+              'The final answer is concise, grounded, and careful about scope. It gives practical support language without presenting itself as medical advice.',
+            signal: 'tone: calm, scope: support only',
+            stackTags: ['Response Design', 'RAG', 'UX Writing'],
+          },
+        },
+      ],
+      panels: [
+        {
+          id: 'prompt',
+          name: 'User Prompt',
+          animationType: 'typing',
+          content: 'User: "I have been feeling anxious at work lately."',
+        },
+        {
+          id: 'retrieval',
+          name: 'RAG Retrieval',
+          animationType: 'flow',
+          content: [
+            { label: 'Resource 1', value: 'grounding.md' },
+            { label: 'Resource 2', value: 'breathing.txt' },
+            { label: 'Resource 3', value: 'boundaries.md' },
+          ],
+        },
+        {
+          id: 'generation',
+          name: 'Ollama',
+          animationType: 'typing',
+          content: 'Generating calm response with local model context.',
+        },
+        {
+          id: 'memory',
+          name: 'MongoDB Memory',
+          animationType: 'counter',
+          content: [
+            { label: 'Entries', value: 34 },
+            { label: 'Tone', value: 'calm' },
+            { label: 'Context', value: 'latest turn' },
+          ],
+        },
+        {
+          id: 'guardrails',
+          name: 'Safety Checks',
+          animationType: 'pulse',
+          content: [
+            { label: 'No diagnosis', value: 'pass' },
+            { label: 'Grounded', value: 'pass' },
+            { label: 'Safe tone', value: 'pass' },
+          ],
+        },
+        {
+          id: 'response',
+          name: 'Response',
+          animationType: 'typing',
+          content: 'That sounds difficult. Try one small reset before the next task.',
+        },
+      ],
+      metrics: [
+        { label: 'Tokens Streamed', value: '148' },
+        { label: 'Memory Entries', value: '34' },
+        { label: 'Safety Checks', value: '3/3' },
+        { label: 'Grounded Answer', value: 'yes' },
+      ],
+    },
     githubUrl: 'https://github.com/gouthamgovardhan/ai-wellness-support-chatbot',
     featured: true,
   },
@@ -1192,6 +1334,121 @@ export const PROJECTS: ProjectItem[] = [
     outcome: 'Mapped vague user intent to service suggestions with backend decision logic and API orchestration.',
     architecture: ['Query intake', 'Intent parsing', 'Recommendation logic', 'API response'],
     proofStatus: 'Resume-backed',
+    showcase: 'service',
+    liveConsoleConfig: {
+      variant: 'service',
+      title: 'Service Recommendation Pipeline',
+      status: 'active',
+      timeline: '3 months',
+      hotspots: [
+        {
+          id: 'customer-query',
+          label: 'Customer Query',
+          position: { x: 5, y: 20 },
+          targetPanel: 'intake',
+          inspectorContent: {
+            title: 'Customer Query Intake',
+            explanation: 'Raw user request is captured and normalized. Includes metadata like location, service tier, and historical context.',
+            signal: 'tokens: 45',
+            stackTags: ['FastAPI', 'Pydantic', 'Redis'],
+          },
+        },
+        {
+          id: 'intent-parser',
+          label: 'Intent Parsing',
+          position: { x: 25, y: 20 },
+          targetPanel: 'intent',
+          inspectorContent: {
+            title: 'Intent & Entity Extraction',
+            explanation: 'LLM extracts user intent and named entities. Uses few-shot prompting with domain-specific examples.',
+            signal: 'intent: 0.94, entities: 3',
+            stackTags: ['LangChain', 'OpenAI API', 'PostgreSQL'],
+          },
+        },
+        {
+          id: 'recommendation-engine',
+          label: 'Recommendation Ranking',
+          position: { x: 50, y: 20 },
+          targetPanel: 'ranking',
+          inspectorContent: {
+            title: 'Service Ranking Engine',
+            explanation: 'Scores services by relevance, user history, and availability. Uses hybrid retrieval with custom scoring.',
+            signal: 'scored: 12 services, top: 3',
+            stackTags: ['Pinecone', 'FAISS', 'NumPy'],
+          },
+        },
+        {
+          id: 'api-response',
+          label: 'Backend Integration',
+          position: { x: 75, y: 20 },
+          targetPanel: 'api',
+          inspectorContent: {
+            title: 'Third-Party API Response',
+            explanation: 'Calls external service APIs and aggregates responses. Handles retries, timeouts, and partial failures gracefully.',
+            signal: 'latency: 240ms, status: 200',
+            stackTags: ['aiohttp', 'Circuit Breaker', 'Observability'],
+          },
+        },
+        {
+          id: 'agent-action',
+          label: 'Agent Action',
+          position: { x: 90, y: 20 },
+          targetPanel: 'action',
+          inspectorContent: {
+            title: 'Recommended Action',
+            explanation: 'Final agent decision on which service to present and what action to suggest. Includes confidence and reasoning.',
+            signal: 'confidence: 0.89, action: schedule_call',
+            stackTags: ['LangGraph', 'Tool Calling', 'Validation'],
+          },
+        },
+      ],
+      panels: [
+        {
+          id: 'intake',
+          name: 'Customer Intake',
+          animationType: 'typing',
+          content: 'User: "I need urgent technical support for my API integration"',
+        },
+        {
+          id: 'intent',
+          name: 'Intent Parsing',
+          animationType: 'gauge',
+          content: [
+            { label: 'Intent', value: 'technical_support' },
+            { label: 'Urgency', value: 'high' },
+            { label: 'Entities', value: 'API, integration' },
+          ],
+        },
+        {
+          id: 'ranking',
+          name: 'Service Ranking',
+          animationType: 'counter',
+          content: [
+            { label: '1. Premium Support', value: '0.94' },
+            { label: '2. API Engineering', value: '0.87' },
+            { label: '3. On-Call Dev', value: '0.76' },
+          ],
+        },
+        {
+          id: 'api',
+          name: 'Backend Response',
+          animationType: 'flow',
+          content: '{ status: "ok", data: { slots: 2, eta: 5min } }',
+        },
+        {
+          id: 'action',
+          name: 'Agent Action',
+          animationType: 'pulse',
+          content: 'Recommended: Connect to Premium Support (Est. wait: 2 min)',
+        },
+      ],
+      metrics: [
+        { label: 'Confidence', value: '89%', unit: 'match' },
+        { label: 'Latency', value: '240', unit: 'ms' },
+        { label: 'Services Ranked', value: '12' },
+        { label: 'Automation Ready', value: 'yes' },
+      ],
+    },
     proofUrl: PERSONAL.resumeUrl,
     proofLinkLabel: 'Architecture on resume',
     featured: true,
@@ -1211,6 +1468,134 @@ export const PROJECTS: ProjectItem[] = [
     outcome: 'Delivered an end-to-end text classification pipeline from preprocessing through model inference.',
     architecture: ['Dataset', 'Preprocessing', 'LSTM model', 'Classification'],
     proofStatus: 'Resume-backed',
+    showcase: 'fake-news',
+    liveConsoleConfig: {
+      variant: 'fake-news',
+      title: 'Fake News Classification Console',
+      status: 'active',
+      timeline: '6000+ samples',
+      hotspots: [
+        {
+          id: 'fake-news-article',
+          label: 'Article Input',
+          position: { x: 8, y: 22 },
+          targetPanel: 'article',
+          inspectorContent: {
+            title: 'Article Intake',
+            explanation:
+              'A headline and short article snippet enter the pipeline. The system tracks basic shape signals like length, source cues, quoted claims, and article structure.',
+            signal: 'words: 429, source cues: 4',
+            stackTags: ['NLP', 'Python', 'Pandas'],
+          },
+        },
+        {
+          id: 'fake-news-preprocess',
+          label: 'Preprocessing',
+          position: { x: 28, y: 22 },
+          targetPanel: 'preprocess',
+          inspectorContent: {
+            title: 'Preprocessing Stream',
+            explanation:
+              'Raw text is cleaned, normalized, and tokenized so the model receives consistent sequence input rather than noisy article formatting.',
+            signal: 'tokens: 612, cleaned: true',
+            stackTags: ['Tokenization', 'Text Cleaning', 'Feature Engineering'],
+          },
+        },
+        {
+          id: 'fake-news-lstm',
+          label: 'LSTM Model',
+          position: { x: 50, y: 22 },
+          targetPanel: 'lstm',
+          inspectorContent: {
+            title: 'LSTM Sequence Model',
+            explanation:
+              'The LSTM reads tokens as a sequence, allowing the classifier to learn phrasing patterns and context across the article instead of isolated keywords only.',
+            signal: 'hidden units: 128, sequence: 256',
+            stackTags: ['LSTM', 'Deep Learning', 'Keras'],
+          },
+        },
+        {
+          id: 'fake-news-classification',
+          label: 'Classification',
+          position: { x: 70, y: 22 },
+          targetPanel: 'classification',
+          inspectorContent: {
+            title: 'Classification Result',
+            explanation:
+              'The model output is converted into a readable credibility signal. The result is treated as a review aid, not an absolute truth.',
+            signal: 'label: mixed, confidence: 82%',
+            stackTags: ['Classification', 'Confidence Score', 'Review Signal'],
+          },
+        },
+        {
+          id: 'fake-news-metrics',
+          label: 'Model Metrics',
+          position: { x: 88, y: 22 },
+          targetPanel: 'metrics',
+          inspectorContent: {
+            title: 'Model Metrics',
+            explanation:
+              'Accuracy and confusion-count style metrics keep the demo grounded in model evaluation rather than only showing the final label.',
+            signal: 'accuracy: 93.6%, dataset: 6000+',
+            stackTags: ['Evaluation', 'Metrics', 'Dataset'],
+          },
+        },
+      ],
+      panels: [
+        {
+          id: 'article',
+          name: 'Article Input',
+          animationType: 'typing',
+          content: 'Breaking claim spreads across social feed.',
+        },
+        {
+          id: 'preprocess',
+          name: 'Preprocess',
+          animationType: 'flow',
+          content: [
+            { label: 'Clean', value: 'lowercase' },
+            { label: 'Tokenize', value: '612 tokens' },
+            { label: 'Sequence', value: '256 length' },
+          ],
+        },
+        {
+          id: 'lstm',
+          name: 'LSTM Model',
+          animationType: 'pulse',
+          content: [
+            { label: 'Input', value: 'tokens' },
+            { label: 'Hidden', value: 128 },
+            { label: 'Output', value: 'signal' },
+          ],
+        },
+        {
+          id: 'classification',
+          name: 'Classification',
+          animationType: 'gauge',
+          content: [
+            { label: 'Label', value: 'mixed' },
+            { label: 'Confidence', value: '82%' },
+            { label: 'Action', value: 'review' },
+          ],
+        },
+        {
+          id: 'metrics',
+          name: 'Metrics',
+          animationType: 'counter',
+          content: [
+            { label: 'Accuracy', value: '93.6%' },
+            { label: 'True Positive', value: 182 },
+            { label: 'False Positive', value: 14 },
+          ],
+        },
+      ],
+      metrics: [
+        { label: 'Accuracy', value: '93.6%' },
+        { label: 'Word Count', value: '429' },
+        { label: 'True Positive', value: 182 },
+        { label: 'False Positive', value: 14 },
+      ],
+    },
     proofUrl: PERSONAL.resumeUrl,
     proofLinkLabel: 'Architecture on resume',
     featured: false,

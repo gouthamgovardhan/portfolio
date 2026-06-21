@@ -1,9 +1,38 @@
+import { useState, type KeyboardEvent } from 'react'
 import { FaArrowUpRightFromSquare } from 'react-icons/fa6'
-import { PUBLICATIONS, SECTION_TEXT } from '../data/portfolio'
+import { PUBLICATIONS, SECTION_TEXT, type PublicationItem } from '../data/portfolio'
+import { DetailDialog, type DetailDialogContent } from './ui/DetailDialog'
 import { SectionHeader } from './ui/SectionHeader'
 import { Tag } from './ui/Tag'
 
+function handleCardKeyDown(event: KeyboardEvent<HTMLElement>, onOpen: () => void) {
+  if (event.currentTarget !== event.target) return
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault()
+    onOpen()
+  }
+}
+
+function getPublicationDetail(paper: PublicationItem): DetailDialogContent {
+  return {
+    eyebrow: paper.published,
+    title: paper.title,
+    description: paper.summary,
+    tone: 'amber',
+    sections: [
+      { title: 'Journal', body: paper.journal },
+      { title: 'Abstract-style summary', body: paper.summary },
+      { title: 'Authors', body: paper.authors.join(' · ') },
+      { title: 'DOI', body: paper.doi },
+    ],
+    tags: paper.tags,
+    actions: [{ label: 'Open DOI', href: paper.doiUrl, external: true, tone: 'amber' }],
+  }
+}
+
 export default function Publications() {
+  const [selectedPaper, setSelectedPaper] = useState<PublicationItem | null>(null)
+
   return (
     <section id="publications" className="section-shell px-6 py-24">
       <div className="relative mx-auto max-w-6xl">
@@ -15,7 +44,14 @@ export default function Publications() {
 
         <div className="grid gap-5">
           {PUBLICATIONS.map((paper) => (
-            <article key={paper.doi} className="lift-card glass-card rounded-[1.7rem] border border-amber/35 p-6 shadow-2xl shadow-amber/5">
+            <article
+              key={paper.doi}
+              className="lift-card glass-card cursor-pointer rounded-[1.7rem] border border-amber/35 p-6 shadow-2xl shadow-amber/5 outline-none"
+              role="button"
+              tabIndex={0}
+              onClick={() => setSelectedPaper(paper)}
+              onKeyDown={(event) => handleCardKeyDown(event, () => setSelectedPaper(paper))}
+            >
               <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                 <div className="min-w-0 flex-1">
                   <p className="font-mono text-xs uppercase tracking-[0.18em] text-amber">{paper.published}</p>
@@ -26,6 +62,7 @@ export default function Publications() {
                   href={paper.doiUrl}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={(event) => event.stopPropagation()}
                   className="lift-card-subtle inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-amber/40 px-5 py-3 text-sm font-bold text-amber hover:bg-amber/10"
                 >
                   DOI <FaArrowUpRightFromSquare aria-hidden="true" />
@@ -56,6 +93,7 @@ export default function Publications() {
           ))}
         </div>
       </div>
+      {selectedPaper ? <DetailDialog content={getPublicationDetail(selectedPaper)} onClose={() => setSelectedPaper(null)} /> : null}
     </section>
   )
 }

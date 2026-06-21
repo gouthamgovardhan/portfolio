@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { FaLocationDot } from 'react-icons/fa6'
 import { SECTION_TEXT, type ExperienceItem } from '../data/portfolio'
+import { DetailDialog, type DetailDialogContent, type DetailTone } from './ui/DetailDialog'
 import { SectionHeader } from './ui/SectionHeader'
 
 interface ExperienceProps {
@@ -12,7 +14,30 @@ const typeTone: Record<ExperienceItem['type'], string> = {
   Contract: 'border-amber/35 bg-amber/10 text-amber',
 }
 
+const detailTone: Record<ExperienceItem['type'], DetailTone> = {
+  'Full-time': 'emerald',
+  Internship: 'cyan',
+  Contract: 'amber',
+}
+
+function getExperienceDetail(item: ExperienceItem): DetailDialogContent {
+  return {
+    eyebrow: item.type,
+    title: `${item.role} @ ${item.company}`,
+    description: `${item.period} · ${item.location}`,
+    tone: detailTone[item.type],
+    sections: [
+      { title: item.current ? 'Current work' : 'Role summary', body: item.current ? 'Active production engineering work with enterprise AI, Salesforce, and backend workflows.' : 'Completed role with resume-backed delivery and technical ownership.' },
+      { title: 'Impact points', items: item.bullets },
+      { title: 'Stack context', body: item.tags.join(' · ') },
+    ],
+    tags: item.tags,
+  }
+}
+
 export default function Experience({ experience }: ExperienceProps) {
+  const [selectedExperience, setSelectedExperience] = useState<ExperienceItem | null>(null)
+
   return (
     <section id="experience" className="section-shell px-6 py-24">
       <div className="mx-auto max-w-6xl">
@@ -27,9 +52,11 @@ export default function Experience({ experience }: ExperienceProps) {
             const closedLabel = periodParts[periodParts.length - 1]
 
             return (
-              <article
+              <button
+                type="button"
                 key={`${item.company}-${item.period}`}
-                className="magic-card lift-card role-card group relative overflow-hidden rounded-[1.35rem] border border-border/80 bg-card/60 p-5 shadow-xl shadow-bg/40 sm:p-6"
+                onClick={() => setSelectedExperience(item)}
+                className="magic-card lift-card role-card group relative overflow-hidden rounded-[1.35rem] border border-border/80 bg-card/60 p-5 text-left shadow-xl shadow-bg/40 outline-none sm:p-6"
               >
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber/80 to-transparent opacity-70" />
                 <div className="grid gap-5 lg:grid-cols-[10rem_1fr]">
@@ -81,11 +108,12 @@ export default function Experience({ experience }: ExperienceProps) {
                     </div>
                   </div>
                 </div>
-              </article>
+              </button>
             )
           })}
         </div>
       </div>
+      {selectedExperience ? <DetailDialog content={getExperienceDetail(selectedExperience)} onClose={() => setSelectedExperience(null)} /> : null}
     </section>
   )
 }

@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { ROLE_PATHS, SECTION_TEXT } from '../data/portfolio'
+import { DetailDialog, type DetailDialogContent } from './ui/DetailDialog'
 import { SectionHeader } from './ui/SectionHeader'
 import { Tag } from './ui/Tag'
 
@@ -13,7 +15,24 @@ const toneClasses = {
 
 const roleColSpan = ['lg:col-span-2', 'lg:col-span-2', 'lg:col-span-2', 'lg:col-span-3', 'lg:col-span-3'] as const
 
+function getRoleDetail(path: (typeof ROLE_PATHS)[number]): DetailDialogContent {
+  return {
+    eyebrow: path.role,
+    title: path.headline,
+    description: path.pitch,
+    tone: path.tone,
+    sections: [
+      { title: 'Role fit', body: `Best when the team needs ${path.role.toLowerCase()} ownership with production context, clear communication, and implementation range.` },
+      { title: 'Proof', body: path.proof },
+      { title: 'Suggested conversation', body: `Ask about shipped examples, tradeoffs, and how this maps to your ${path.role.toLowerCase()} opening or project.` },
+    ],
+    tags: path.stack,
+  }
+}
+
 export default function RolePathways() {
+  const [selectedRole, setSelectedRole] = useState<(typeof ROLE_PATHS)[number] | null>(null)
+
   return (
     <section id="roles" className="section-shell px-6 py-24">
       <div className="relative mx-auto max-w-6xl">
@@ -25,10 +44,12 @@ export default function RolePathways() {
 
         <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-6">
           {ROLE_PATHS.map((path, index) => (
-            <article
+            <button
+              type="button"
               id={path.id}
               key={path.id}
-              className={`magic-card lift-card group glass-card relative flex min-h-[380px] flex-col overflow-hidden rounded-[1.6rem] border p-5 shadow-2xl sm:min-h-[400px] ${toneClasses[path.tone]} ${roleColSpan[index] ?? 'lg:col-span-2'}`}
+              onClick={() => setSelectedRole(path)}
+              className={`magic-card lift-card group glass-card relative flex min-h-[380px] flex-col overflow-hidden rounded-[1.6rem] border p-5 text-left shadow-2xl outline-none sm:min-h-[400px] ${toneClasses[path.tone]} ${roleColSpan[index] ?? 'lg:col-span-2'}`}
             >
               <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-current opacity-10 blur-2xl transition-transform duration-500 group-hover:scale-125" />
               <p className="relative font-mono text-xs uppercase tracking-[0.2em] opacity-80">{path.role}</p>
@@ -42,10 +63,11 @@ export default function RolePathways() {
                   <Tag key={item} label={item} />
                 ))}
               </div>
-            </article>
+            </button>
           ))}
         </div>
       </div>
+      {selectedRole ? <DetailDialog content={getRoleDetail(selectedRole)} onClose={() => setSelectedRole(null)} /> : null}
     </section>
   )
 }

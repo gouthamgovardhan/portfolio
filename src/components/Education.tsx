@@ -1,5 +1,6 @@
 import { useState, type KeyboardEvent } from 'react'
-import { EDUCATION, PERSONAL, SECTION_TEXT, SIGNALS } from '../data/portfolio'
+import { EDUCATION, PERSONAL, SECTION_TEXT, SIGNALS, type SignalItem } from '../data/portfolio'
+import { DetailDialog, type DetailDialogContent } from './ui/DetailDialog'
 import { SectionHeader } from './ui/SectionHeader'
 import { Tag } from './ui/Tag'
 
@@ -12,8 +13,23 @@ const toneClasses = {
   violet: 'border-violet/35 bg-violet/10 text-violet',
 } as const
 
+function getSignalDetail(signal: SignalItem): DetailDialogContent {
+  return {
+    eyebrow: signal.label,
+    title: signal.title,
+    description: signal.detail,
+    tone: signal.tone,
+    sections: [
+      { title: 'Builder signal', body: signal.detail },
+      { title: 'Interview angle', body: 'This is useful context for discussing how education translated into practical engineering habits.' },
+    ],
+    tags: signal.tags,
+  }
+}
+
 export default function Education() {
   const [isCardFlipped, setIsCardFlipped] = useState(false)
+  const [detail, setDetail] = useState<DetailDialogContent | null>(null)
   const education = EDUCATION[0]
   const batchYears = education.period.split(' - ')
   const issuedYear = batchYears[0] ?? '2020'
@@ -167,7 +183,12 @@ export default function Education() {
             </div>
             <div className="grid flex-1 gap-4">
             {SIGNALS.map((signal) => (
-              <div key={signal.title} className="flex min-h-0 flex-col rounded-[1.15rem] border border-border-dim bg-bg/35 p-4">
+              <button
+                type="button"
+                key={signal.title}
+                onClick={() => setDetail(getSignalDetail(signal))}
+                className="flex min-h-0 flex-col rounded-[1.15rem] border border-border-dim bg-bg/35 p-4 text-left outline-none transition hover:border-accent/40 hover:bg-card/55"
+              >
                 <p
                   className={`inline-flex w-fit rounded-full border px-3 py-1 font-mono text-[0.65rem] uppercase tracking-[0.16em] ${
                     toneClasses[signal.tone]
@@ -184,12 +205,13 @@ export default function Education() {
                     </span>
                   ))}
                 </div>
-              </div>
+              </button>
             ))}
             </div>
           </aside>
         </div>
       </div>
+      {detail ? <DetailDialog content={detail} onClose={() => setDetail(null)} /> : null}
     </section>
   )
 }

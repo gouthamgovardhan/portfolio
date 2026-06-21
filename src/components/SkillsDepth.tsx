@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState, type CSSProperties } from 'react'
-import { createPortal } from 'react-dom'
-import { FaBrain, FaCloud, FaDatabase, FaPlay, FaSalesforce, FaUserTie } from 'react-icons/fa6'
+import { useMemo, useState, type CSSProperties } from 'react'
+import { FaArrowLeft, FaBrain, FaCloud, FaDatabase, FaPlay, FaSalesforce, FaUserTie } from 'react-icons/fa6'
 import {
   AI_BACKEND_RANGE,
   CERTIFICATIONS,
@@ -8,13 +7,16 @@ import {
   SALESFORCE_FOCUS,
   SECTION_TEXT,
   SKILL_DEPTH,
+  type RangeItem,
   type SkillDepthItem,
 } from '../data/portfolio'
+import { DetailDialog, type DetailDialogContent } from './ui/DetailDialog'
 import { SectionHeader } from './ui/SectionHeader'
 import { Tag } from './ui/Tag'
 import { AnimatedList } from './ui/animated-list'
 import { BentoGrid } from './ui/bento-grid'
 import { BlurFade } from './ui/BlurFade'
+import { Marquee } from './ui/marquee'
 
 type DepthGroupId = 'all' | 'ai' | 'backend' | 'salesforce' | 'leadership'
 
@@ -123,6 +125,9 @@ const MARQUEE_SKILLS = [
   'FinOps',
 ]
 
+const firstSkillRow = MARQUEE_SKILLS.slice(0, Math.ceil(MARQUEE_SKILLS.length / 2))
+const secondSkillRow = MARQUEE_SKILLS.slice(Math.ceil(MARQUEE_SKILLS.length / 2))
+
 const getDepthGroup = (category: string): Exclude<DepthGroupId, 'all'> => {
   if (category.includes('Salesforce') || category.includes('Agentforce')) return 'salesforce'
   if (
@@ -148,7 +153,42 @@ const getDepthGroup = (category: string): Exclude<DepthGroupId, 'all'> => {
   return 'ai'
 }
 
-function RangeStrip({ title, items, tone }: { title: string; items: typeof SALESFORCE_FOCUS; tone: 'cyan' | 'emerald' }) {
+function getSkillDepthDetail(item: SkillDepthItem): DetailDialogContent {
+  return {
+    eyebrow: item.category,
+    title: item.interviewTest,
+    description: 'Readable depth for interview-style conversations and proof-backed technical discussion.',
+    tone: item.tone,
+    sections: [{ title: 'Readable depth', items: item.points }],
+    tags: [item.category],
+  }
+}
+
+function getRangeDetail(title: string, item: RangeItem, tone: 'cyan' | 'emerald'): DetailDialogContent {
+  return {
+    eyebrow: title,
+    title: item.title,
+    description: item.detail,
+    tone,
+    sections: [
+      { title: 'Focus area', body: item.detail },
+      { title: 'Where it appears', body: 'This connects the Skills Depth page to portfolio proof across projects, Salesforce, backend, and experience sections.' },
+    ],
+    tags: item.tags,
+  }
+}
+
+function RangeStrip({
+  title,
+  items,
+  tone,
+  onOpen,
+}: {
+  title: string
+  items: typeof SALESFORCE_FOCUS
+  tone: 'cyan' | 'emerald'
+  onOpen: (content: DetailDialogContent) => void
+}) {
   const textClass = tone === 'cyan' ? 'text-cyan' : 'text-emerald'
 
   return (
@@ -156,7 +196,7 @@ function RangeStrip({ title, items, tone }: { title: string; items: typeof SALES
       <p className={`font-mono text-[0.65rem] uppercase tracking-[0.18em] ${textClass}`}>{title}</p>
       <div className="mt-4 grid gap-3">
         {items.map((item) => (
-          <div key={item.title} className="border-l border-border pl-4">
+          <button key={item.title} type="button" onClick={() => onOpen(getRangeDetail(title, item, tone))} className="border-l border-border pl-4 text-left outline-none transition hover:border-accent">
             <h3 className="text-sm font-black leading-tight text-text">{item.title}</h3>
             <p className="mt-2 text-xs leading-5 text-muted">{item.detail}</p>
             <div className="mt-3 flex flex-wrap gap-2">
@@ -164,7 +204,7 @@ function RangeStrip({ title, items, tone }: { title: string; items: typeof SALES
                 <Tag key={tag} label={tag} />
               ))}
             </div>
-          </div>
+          </button>
         ))}
       </div>
     </div>
@@ -216,7 +256,7 @@ function DepthCard({
 
 export default function SkillsDepth() {
   const [activeGroup, setActiveGroup] = useState<DepthGroupId>('all')
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [detail, setDetail] = useState<DetailDialogContent | null>(null)
 
   const visibleSkills = useMemo(
     () => SKILL_DEPTH.filter((item) => activeGroup === 'all' || getDepthGroup(item.category) === activeGroup),
@@ -224,31 +264,18 @@ export default function SkillsDepth() {
   )
 
   const activeGroupData = DEPTH_GROUPS.find((group) => group.id === activeGroup) ?? DEPTH_GROUPS[0]
-  const selectedSkill = useMemo(
-    () => SKILL_DEPTH.find((item) => item.category === selectedCategory) ?? null,
-    [selectedCategory],
-  )
-
-  useEffect(() => {
-    if (!selectedSkill) return undefined
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setSelectedCategory(null)
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-      document.body.style.overflow = previousOverflow
-    }
-  }, [selectedSkill])
 
   return (
-    <section id="skills-depth" className="section-shell px-6 py-24">
+    <section id="skills-depth" className="section-shell px-6 py-24 pt-32">
       <div className="relative mx-auto max-w-6xl">
+        <a
+          href="#skills"
+          className="lift-card-subtle mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-card/65 px-4 py-2 text-sm font-black text-text transition hover:border-accent/45 hover:text-accent"
+        >
+          <FaArrowLeft aria-hidden="true" />
+          Back to portfolio
+        </a>
+
         <SectionHeader
           label={SECTION_TEXT.skillsDepth.label}
           title={SECTION_TEXT.skillsDepth.title}
@@ -302,9 +329,9 @@ export default function SkillsDepth() {
                 })}
               </div>
 
-              <div className="mt-5 overflow-hidden rounded-[1.15rem] border border-border-dim bg-bg/35 p-2">
-                <div className="flex flex-wrap gap-2">
-                  {MARQUEE_SKILLS.map((skill) => (
+              <div className="relative mt-5 overflow-hidden rounded-[1.15rem] border border-border-dim bg-bg/35 py-2">
+                <Marquee pauseOnHover className="[--duration:42s]" repeat={3}>
+                  {firstSkillRow.map((skill) => (
                     <span
                       key={skill}
                       className="rounded-full border border-border-dim bg-card/60 px-3 py-1.5 font-mono text-[0.68rem] font-bold uppercase tracking-[0.14em] text-muted"
@@ -312,7 +339,19 @@ export default function SkillsDepth() {
                       {skill}
                     </span>
                   ))}
-                </div>
+                </Marquee>
+                <Marquee reverse pauseOnHover className="mt-2 [--duration:46s]" repeat={3}>
+                  {secondSkillRow.map((skill) => (
+                    <span
+                      key={skill}
+                      className="rounded-full border border-border-dim bg-card/60 px-3 py-1.5 font-mono text-[0.68rem] font-bold uppercase tracking-[0.14em] text-muted"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </Marquee>
+                <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-bg to-transparent" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-bg to-transparent" />
               </div>
             </div>
 
@@ -330,19 +369,32 @@ export default function SkillsDepth() {
         <BlurFade inView duration={0.28} blur="4px" offset={6}>
           <BentoGrid className="mb-6 grid-cols-1 auto-rows-fr gap-4 md:grid-cols-2 xl:grid-cols-4">
             {PROOF_TILES.map((tile) => (
-              <article key={tile.label} className="glass-card min-h-44 rounded-[1.25rem] border border-border/80 p-5 shadow-xl shadow-bg/20">
+              <button
+                type="button"
+                key={tile.label}
+                onClick={() =>
+                  setDetail({
+                    eyebrow: tile.label,
+                    title: tile.value,
+                    description: tile.detail,
+                    tone: tile.label.includes('Cost') ? 'amber' : tile.label.includes('Agent') ? 'violet' : tile.label.includes('Evaluation') ? 'emerald' : 'cyan',
+                    sections: [{ title: 'Proof context', body: tile.detail }],
+                  })
+                }
+                className="glass-card min-h-44 rounded-[1.25rem] border border-border/80 p-5 text-left shadow-xl shadow-bg/20 outline-none"
+              >
                 <p className={`w-fit rounded-full border px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.16em] ${tile.tone}`}>{tile.label}</p>
                 <p className="mt-5 text-3xl font-black leading-none text-text">{tile.value}</p>
                 <p className="mt-3 text-sm leading-6 text-muted">{tile.detail}</p>
-              </article>
+              </button>
             ))}
           </BentoGrid>
         </BlurFade>
 
         <BlurFade inView duration={0.28} blur="4px" offset={6}>
           <div className="mb-6 grid gap-5 lg:grid-cols-2">
-            <RangeStrip title="Salesforce focus" items={SALESFORCE_FOCUS} tone="cyan" />
-            <RangeStrip title="AI + backend range" items={AI_BACKEND_RANGE} tone="emerald" />
+            <RangeStrip title="Salesforce focus" items={SALESFORCE_FOCUS} tone="cyan" onOpen={setDetail} />
+            <RangeStrip title="AI + backend range" items={AI_BACKEND_RANGE} tone="emerald" onOpen={setDetail} />
           </div>
         </BlurFade>
 
@@ -352,7 +404,7 @@ export default function SkillsDepth() {
               <div key={item.category} className="depth-card-enter h-full" style={{ '--depth-card-delay': `${Math.min(index, 5) * 32}ms` } as CSSProperties}>
                 <DepthCard
                   item={item}
-                  onOpen={() => setSelectedCategory(item.category)}
+                  onOpen={() => setDetail(getSkillDepthDetail(item))}
                 />
               </div>
             ))}
@@ -363,10 +415,23 @@ export default function SkillsDepth() {
               <p className="font-mono text-xs uppercase tracking-[0.18em] text-cyan">Live signals</p>
               <AnimatedList className="mt-4" delay={90}>
                 {LIVE_SIGNALS.map((signal) => (
-                  <div key={signal.label} className="rounded-2xl border border-border-dim bg-card/45 p-4">
+                  <button
+                    type="button"
+                    key={signal.label}
+                    onClick={() =>
+                      setDetail({
+                        eyebrow: 'Live signal',
+                        title: signal.label,
+                        description: signal.detail,
+                        tone: 'cyan',
+                        sections: [{ title: 'Operational meaning', body: signal.detail }],
+                      })
+                    }
+                    className="rounded-2xl border border-border-dim bg-card/45 p-4 text-left outline-none transition hover:border-accent/45"
+                  >
                     <p className="text-sm font-black text-text">{signal.label}</p>
                     <p className="mt-1 text-xs leading-5 text-muted">{signal.detail}</p>
-                  </div>
+                  </button>
                 ))}
               </AnimatedList>
             </div>
@@ -412,54 +477,7 @@ export default function SkillsDepth() {
           </aside>
         </BlurFade>
 
-        {selectedSkill
-          ? createPortal(
-              <div
-                className="skill-depth-backdrop fixed inset-0 z-[999] grid place-items-center px-4 py-6"
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="skill-depth-dialog-title"
-                onMouseDown={() => setSelectedCategory(null)}
-              >
-                <article
-                  className="skill-depth-panel max-h-[82vh] w-full max-w-4xl overflow-hidden rounded-[1.6rem] border border-accent/45 shadow-2xl lg:w-[50vw]"
-                  onMouseDown={(event) => event.stopPropagation()}
-                >
-                  <div className="flex items-start justify-between gap-5 border-b border-border-dim p-5 sm:p-6">
-                    <div>
-                      <p className={`w-fit rounded-full border px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.16em] ${toneClasses[selectedSkill.tone]}`}>
-                        {selectedSkill.category}
-                      </p>
-                      <h3 id="skill-depth-dialog-title" className="mt-4 text-2xl font-black leading-tight text-text">
-                        {selectedSkill.interviewTest}
-                      </h3>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedCategory(null)}
-                      className="grid size-10 shrink-0 place-items-center rounded-full border border-border-dim bg-card/70 font-mono text-sm font-black text-muted transition hover:border-accent/55 hover:text-text"
-                      aria-label="Close skill detail"
-                    >
-                      X
-                    </button>
-                  </div>
-
-                  <div className="max-h-[58vh] overflow-y-auto p-5 sm:p-6">
-                    <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-accent">Readable depth</p>
-                    <ul className="mt-4 grid gap-3">
-                      {selectedSkill.points.map((point) => (
-                        <li key={point} className="flex gap-3 rounded-2xl border border-border-dim bg-card/45 p-4 text-sm leading-6 text-muted">
-                          <span className="mt-0.5 shrink-0 font-mono text-accent">›</span>
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </article>
-              </div>,
-              document.body,
-            )
-          : null}
+        {detail ? <DetailDialog content={detail} onClose={() => setDetail(null)} /> : null}
       </div>
     </section>
   )

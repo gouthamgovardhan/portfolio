@@ -1,5 +1,19 @@
 import { useEffect } from 'react'
 
+const STAGE_TITLES: Record<string, string> = {
+  stats: 'SIGNALS',
+  roles: 'ROLE FIT',
+  projects: 'SHIPPED',
+  salesforce: 'TRAILHEAD',
+  experience: 'WORK',
+  skills: 'STACK',
+  about: 'PROFILE',
+  publications: 'RESEARCH',
+  education: 'CLASS 2024',
+  contact: 'CONNECT',
+  'skills-depth': 'DEPTH',
+}
+
 export function useScrollReveal() {
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -12,6 +26,16 @@ export function useScrollReveal() {
       document.querySelectorAll<HTMLElement>('main section, main article, main [data-reveal]'),
     )
     const sectionTargets = Array.from(document.querySelectorAll<HTMLElement>('main section[id]'))
+
+    sectionTargets.forEach((section) => {
+      if (section.id === 'hero') return
+
+      const stageTitle = STAGE_TITLES[section.id] ?? section.id.replaceAll('-', ' ').toUpperCase()
+      const stageTarget = section.querySelector<HTMLElement>(':scope > .relative, :scope > .mx-auto, :scope > div:not(.pointer-events-none)')
+      section.classList.add('stage-section')
+      section.dataset.stageTitle = stageTitle
+      stageTarget?.setAttribute('data-stage-word', stageTitle)
+    })
 
     revealTargets.forEach((target, index) => {
       target.classList.add('scroll-reveal')
@@ -57,6 +81,12 @@ export function useScrollReveal() {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight
       const progress = scrollable > 0 ? window.scrollY / scrollable : 0
       document.documentElement.style.setProperty('--scroll-progress', progress.toFixed(4))
+
+      sectionTargets.forEach((section) => {
+        const rect = section.getBoundingClientRect()
+        const sectionProgress = Math.min(1, Math.max(0, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)))
+        section.style.setProperty('--section-progress', sectionProgress.toFixed(4))
+      })
     }
 
     let scrollAnimationFrame = 0
@@ -105,7 +135,7 @@ export function useScrollReveal() {
       const scrollMargin = Number.parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0
       const targetY = target.getBoundingClientRect().top + window.scrollY - scrollMargin
       window.history.pushState(null, '', hash)
-      smoothScrollTo(Math.max(0, targetY), 320)
+      smoothScrollTo(Math.max(0, targetY), 680)
     }
 
     window.addEventListener('scroll', updateProgress, { passive: true })
