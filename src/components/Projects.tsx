@@ -69,7 +69,7 @@ function ProjectCard({ project, onOpen }: { project: ProjectItem; onOpen: () => 
     <button
       type="button"
       onClick={onOpen}
-      className="project-bento-card group/card relative flex h-[36rem] flex-col overflow-hidden rounded-[1.45rem] border border-border/80 bg-card/65 text-left shadow-xl shadow-bg/25 outline-none"
+      className="project-bento-card group/card relative flex min-h-[32rem] flex-col overflow-hidden rounded-[1.45rem] border border-border/80 bg-card/65 text-left shadow-xl shadow-bg/25 outline-none"
       style={cardStyle}
     >
       <div className={`h-1.5 w-full bg-gradient-to-r ${style.bar}`} />
@@ -83,7 +83,7 @@ function ProjectCard({ project, onOpen }: { project: ProjectItem; onOpen: () => 
           </div>
 
           <span className="rounded-full border border-border-dim bg-bg/60 px-3 py-1 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted">
-            Open case
+            View contribution
           </span>
         </div>
 
@@ -128,7 +128,7 @@ function ProjectCard({ project, onOpen }: { project: ProjectItem; onOpen: () => 
           <div className="flex items-center justify-between gap-3">
             <span className="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-dim">{project.proofStatus}</span>
             <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-xs font-bold text-violet transition group-hover/card:border-violet/40 group-hover/card:bg-violet/10">
-              Details
+              What I worked on
               <FaArrowUpRightFromSquare aria-hidden="true" />
             </span>
           </div>
@@ -166,8 +166,8 @@ function getProjectDetail(project: ProjectItem): DetailDialogContent {
     tone: project.accent,
     sections: [
       project.disclaimer ? { title: 'Private Work Note', body: project.disclaimer } : null,
-      { title: 'Outcome', body: project.outcome },
-      { title: 'Highlights', items: project.highlights },
+      { title: 'My contribution', body: project.outcome },
+      { title: 'What I worked on', items: project.highlights },
     ].filter((section): section is NonNullable<typeof section> => Boolean(section)),
     tags: project.tags,
     actions,
