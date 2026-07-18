@@ -4,7 +4,6 @@ import { ACTION_LABELS, HERO_TECH, HERO_TERMINAL, SOCIAL_LINKS, TECH_EXPLANATION
 import { getTechIcon } from '../lib/techIcons'
 import { BlurFade } from './ui/BlurFade'
 import { DetailDialog, type DetailDialogContent } from './ui/DetailDialog'
-import { KineticText } from './ui/KineticText'
 import { MagicGlobe } from './ui/MagicGlobe'
 import { RainbowButton } from './ui/RainbowButton'
 
@@ -54,11 +53,9 @@ export default function Hero({ personal }: HeroProps) {
               </h1>
             </BlurFade>
             <BlurFade delay={0.24}>
-              <KineticText
-                text="AI · BACKEND · SALESFORCE"
-                as="div"
-                className="mb-5 font-mono text-3xl font-bold leading-none text-muted sm:text-5xl lg:text-6xl"
-              />
+              <p className="mb-5 font-mono text-3xl font-bold leading-none text-muted sm:text-5xl lg:text-6xl">
+                AI · BACKEND · SALESFORCE
+              </p>
             </BlurFade>
             <BlurFade delay={0.32}>
               <p className="mb-3 max-w-2xl text-lg font-medium leading-8 text-text sm:text-xl">{personal.heroHeadline}</p>

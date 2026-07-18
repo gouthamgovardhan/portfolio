@@ -8,7 +8,6 @@ import Footer from './components/Footer'
 import Hero from './components/Hero'
 import MagicDock from './components/MagicDock'
 import Navbar from './components/Navbar'
-import OpeningCurtain from './components/OpeningCurtain'
 import Projects from './components/Projects'
 import Publications from './components/Publications'
 import RolePathways from './components/RolePathways'
@@ -82,7 +81,6 @@ export default function App() {
   return (
     <>
       <AmbientBackground />
-      <OpeningCurtain />
       <div className="scroll-progress" aria-hidden="true" />
       <Navbar />
       <main className="relative z-[1]">

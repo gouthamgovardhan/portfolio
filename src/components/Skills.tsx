@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react'
 import { FaArrowRight } from 'react-icons/fa6'
-import { PERSONAL, SECTION_TEXT, TECH_EXPLANATIONS, type SkillGroup } from '../data/portfolio'
+import { SECTION_TEXT, TECH_EXPLANATIONS, type SkillGroup } from '../data/portfolio'
 import { getTechIcon } from '../lib/techIcons'
+import { BlurFade } from './ui/BlurFade'
 import { DetailDialog, type DetailDialogContent, type DetailTone } from './ui/DetailDialog'
-import { AnimatedSpan, Terminal, TypingAnimation } from './ui/MagicTerminal'
 import { SectionHeader } from './ui/SectionHeader'
+import { Tag } from './ui/Tag'
 import { IconCloud } from './ui/icon-cloud'
 
 const iconLabels = [
@@ -87,7 +88,6 @@ function getWorkflowDetail(step: string, index: number): DetailDialogContent {
 
 export default function Skills({ skills }: SkillsProps) {
   const [detail, setDetail] = useState<DetailDialogContent | null>(null)
-  const toolCount = skills.reduce((count, group) => count + group.skills.length, 0)
   const cloudIcons = useMemo(
     () =>
       iconLabels.map((label, index) => {
@@ -107,67 +107,23 @@ export default function Skills({ skills }: SkillsProps) {
           subtitle={SECTION_TEXT.skills.subtitle}
         />
         <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(18rem,0.92fr)]">
-          <div className="terminal-window overflow-hidden rounded-[1.45rem] border border-border/90 bg-[#120f14]/90 shadow-2xl shadow-accent/10">
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-dim bg-card/70 px-4 py-3 font-mono text-xs text-muted sm:px-5">
-              <div className="flex min-w-0 items-center gap-2">
-                <span className="h-3 w-3 rounded-full bg-rose" aria-hidden="true" />
-                <span className="h-3 w-3 rounded-full bg-amber" aria-hidden="true" />
-                <span className="h-3 w-3 rounded-full bg-emerald" aria-hidden="true" />
-                <span className="ml-2 truncate text-dim">~/site - zsh - {toolCount}x{skills.length}</span>
-              </div>
-              <span className="inline-flex items-center gap-2 text-emerald">
-                <span className="h-2 w-2 rounded-full bg-emerald shadow-[0_0_14px_rgba(74,222,128,0.75)]" aria-hidden="true" />
-                live
-              </span>
-            </div>
-
-            <Terminal className="relative p-4 font-mono text-xs leading-6 text-muted sm:p-6 sm:text-sm">
-              <div className="terminal-scanline pointer-events-none absolute inset-0" aria-hidden="true" />
-              <AnimatedSpan as="p" className="text-dim">
-                last login: thu jun 11 2026 on ttys001
-              </AnimatedSpan>
-              <TypingAnimation as="p" className="text-amber">
-                goutham@portfolio:~/site (main) $ whoami
-              </TypingAnimation>
-              <AnimatedSpan as="p" className="mb-4 text-text">
-                {PERSONAL.name} - ai + salesforce engineer · bengaluru
-              </AnimatedSpan>
-
-              <TypingAnimation as="p" className="text-amber">
-                goutham@portfolio:~/site (main) $ cat skills.txt
-              </TypingAnimation>
-
-              <AnimatedSpan as="div" className="mt-3 grid gap-3">
-                {skills.map((group, index) => (
-                  <button
-                    type="button"
-                    key={group.category}
-                    onClick={() => setDetail(getSkillDetail(group, index))}
-                    className="terminal-row rounded-xl border border-border-dim/80 bg-bg/45 p-3 text-left outline-none"
-                  >
-                    <div className="mb-1 flex items-center gap-2">
-                      <span className={index < 5 ? 'text-emerald' : 'text-cyan'}>{index < 5 ? '✓' : 'i'}</span>
-                      <span className="font-semibold text-text">{group.category}</span>
-                    </div>
-                    <p className="break-words text-muted">{group.skills.join(' · ')}</p>
-                  </button>
-                ))}
-              </AnimatedSpan>
-
-              <AnimatedSpan as="div" className="mt-5 space-y-1">
-                <p>
-                  <span className="text-emerald">✓</span> Success! {skills.length} categories, {toolCount} tools loaded.
-                </p>
-                <p>
-                  <span className="text-cyan">i</span> Stack ready for production. 0 errors.
-                </p>
-                <p>
-                  <span className="text-amber">goutham@portfolio</span>
-                  <span className="text-dim">:~/site (main) $ </span>
-                  <span className="cursor-blink text-text">▮</span>
-                </p>
-              </AnimatedSpan>
-            </Terminal>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {skills.map((group, index) => (
+              <BlurFade key={group.category} delay={0.06 * index}>
+                <button
+                  type="button"
+                  onClick={() => setDetail(getSkillDetail(group, index))}
+                  className="lift-card-subtle flex h-full flex-col gap-3 rounded-xl border border-border-dim/80 bg-card/45 p-4 text-left outline-none hover:border-accent/40"
+                >
+                  <span className="font-mono text-xs uppercase tracking-[0.16em] text-accent">{group.category}</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {group.skills.map((skill) => (
+                      <Tag key={skill} label={skill} compact />
+                    ))}
+                  </div>
+                </button>
+              </BlurFade>
+            ))}
           </div>
           <div className="relative min-h-[34rem] overflow-hidden">
             <div className="pointer-events-none absolute inset-x-8 top-8 h-px bg-gradient-to-r from-transparent via-cyan/50 to-transparent" />

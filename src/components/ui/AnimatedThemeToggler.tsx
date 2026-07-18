@@ -19,7 +19,7 @@ type ViewTransitionDocument = Document & {
 
 const THEME_EVENT = 'portfolio-theme-change'
 
-function isTheme(value: string | null): value is Theme {
+function isTheme(value: string | null | undefined): value is Theme {
   return value === 'light' || value === 'dark'
 }
 

@@ -73,11 +73,6 @@ function ProjectCard({ project, onOpen }: { project: ProjectItem; onOpen: () => 
       style={cardStyle}
     >
       <div className={`h-1.5 w-full bg-gradient-to-r ${style.bar}`} />
-      <div className="project-card-circuit" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-      </div>
 
       <div className="relative flex flex-1 flex-col p-6 sm:p-7">
         <div className="mb-5 flex items-start justify-between gap-3">
@@ -145,7 +140,7 @@ function ProjectCard({ project, onOpen }: { project: ProjectItem; onOpen: () => 
 
 function getProjectDetail(project: ProjectItem): DetailDialogContent {
   const style = accentStyles[project.accent]
-  const actions: DetailDialogAction[] = [
+  const actionCandidates: (DetailDialogAction | null)[] = [
     project.githubUrl ? { label: 'GitHub', href: project.githubUrl, external: true, tone: project.accent } : null,
     project.liveUrl ? { label: 'Live', href: project.liveUrl, external: true, tone: project.accent } : null,
     project.proofUrl
@@ -156,7 +151,8 @@ function getProjectDetail(project: ProjectItem): DetailDialogContent {
           tone: 'violet',
         }
       : null,
-  ].filter((action): action is DetailDialogAction => Boolean(action))
+  ]
+  const actions = actionCandidates.filter((action): action is DetailDialogAction => action !== null)
 
   return {
     eyebrow: project.category,
@@ -203,11 +199,6 @@ export default function Projects({ projects }: ProjectsProps) {
 
   return (
     <section id="projects" className="section-shell px-6 py-24">
-      <div className="project-section-field" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-      </div>
       <div className="relative mx-auto max-w-6xl">
         <SectionHeader
           label={SECTION_TEXT.projects.label}

@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { FaBrain, FaBriefcase, FaCode, FaGraduationCap, FaLayerGroup, FaPaperPlane, FaSalesforce, FaUser } from 'react-icons/fa6'
+import { FaBookOpen, FaBrain, FaBriefcase, FaCircleUser, FaCode, FaGraduationCap, FaLayerGroup, FaPaperPlane, FaSalesforce, FaUser } from 'react-icons/fa6'
 import { NAV_LINKS } from '../data/portfolio'
 import { useScrollSpy } from '../hooks/useScrollSpy'
 
@@ -10,7 +10,9 @@ const dockIcons = {
   experience: FaBriefcase,
   skills: FaUser,
   'skills-depth': FaBrain,
-  about: FaGraduationCap,
+  about: FaCircleUser,
+  publications: FaBookOpen,
+  education: FaGraduationCap,
   contact: FaPaperPlane,
 } as const
 

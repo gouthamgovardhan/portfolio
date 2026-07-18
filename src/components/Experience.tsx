@@ -71,7 +71,7 @@ export default function Experience({ experience }: ExperienceProps) {
                       <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-emerald">
                         {item.current ? 'Authenticated current' : 'Authenticated closed'}
                       </p>
-                      <p className="mt-2 font-mono text-xs text-dim">{item.current ? '2026' : closedLabel}</p>
+                      <p className="mt-2 font-mono text-xs text-dim">{item.current ? new Date().getFullYear() : closedLabel}</p>
                     </div>
                   </aside>
 

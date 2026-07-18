@@ -86,21 +86,6 @@ export interface TerminalLine {
   value: string
 }
 
-export interface CapabilityItem {
-  label: string
-  title: string
-  description: string
-  proof: string
-  tags: string[]
-  accent: 'cyan' | 'accent' | 'emerald' | 'amber' | 'rose' | 'violet'
-}
-
-export interface ProofPoint {
-  label: string
-  value: string
-  detail: string
-}
-
 export interface EducationItem {
   school: string
   degree: string
@@ -202,7 +187,7 @@ export const PERSONAL = {
   trailblazer: 'https://www.salesforce.com/trailblazer/gouthamgovardhan',
   resumeUrl: assetUrl('assets/resume.pdf'),
   profileImageUrl: assetUrl('assets/profile.jpg'),
-  officeImageUrl: assetUrl('assets/profile.jpg'),
+  officeImageUrl: assetUrl('assets/profile-office.jpeg'),
   formalImageUrl: assetUrl('assets/profile-formal.jpg'),
   currentRole: 'Software Engineer, AI + Salesforce @ Visionet Systems',
   openToHire: 'Open to Roles',
@@ -245,6 +230,8 @@ export const NAV_LINKS: NavLinkItem[] = [
   { label: 'Experience', href: '#experience', id: 'experience' },
   { label: 'Skills', href: '#skills', id: 'skills' },
   { label: 'About', href: '#about', id: 'about' },
+  { label: 'Publications', href: '#publications', id: 'publications' },
+  { label: 'Education', href: '#education', id: 'education' },
   { label: 'Contact', href: '#contact', id: 'contact' },
 ]
 
@@ -266,12 +253,6 @@ export const SECTION_TEXT = {
     title: 'Production-minded engineer with platform range.',
     subtitle: 'Resume-backed highlights across AI systems, backend delivery, Salesforce work, and published research.',
   },
-  capabilities: {
-    label: 'What I Build',
-    title: 'Core capabilities behind the role paths',
-    subtitle:
-      'AI workflows, Salesforce automation, and backend systems that make the whole stack run in production.',
-  },
   roles: {
     label: 'Role Fit',
     title: 'One builder, multiple hiring lenses',
@@ -280,7 +261,7 @@ export const SECTION_TEXT = {
   },
   skills: {
     label: 'Skills - 02',
-    title: 'Production stack, loaded from skills.txt',
+    title: 'Production stack, by category',
     subtitle:
       'Core skills are backed by projects, resume, Trailhead proof, and hands-on delivery.',
   },
@@ -828,29 +809,6 @@ export const AI_BACKEND_RANGE: RangeItem[] = [
   },
 ]
 
-export const PROOF_POINTS: ProofPoint[] = [
-  {
-    label: 'Production reach',
-    value: '1000+',
-    detail: 'enterprise users on team-delivered AI and automation workflows I contributed to',
-  },
-  {
-    label: 'Automation impact',
-    value: 'Up to 70%',
-    detail: 'effort reduction in targeted automation workflows I helped improve',
-  },
-  {
-    label: 'Team lift',
-    value: '4',
-    detail: 'developers mentored while contributing to architecture and issue resolution',
-  },
-  {
-    label: 'NLP dataset',
-    value: '6000+',
-    detail: 'samples used in fake-news classification pipeline',
-  },
-]
-
 export const SIGNALS: SignalItem[] = [
   {
     label: 'Product Instinct',
@@ -935,36 +893,6 @@ export const WORKFLOW_STEPS: WorkflowStep[] = [
   { label: 'Break' },
   { label: 'Fix' },
   { label: 'Ship' },
-]
-
-export const CAPABILITIES: CapabilityItem[] = [
-  {
-    label: '01 / AI Systems',
-    title: 'RAG, agents, and evaluation loops',
-    description:
-      'Design retrieval pipelines, agent orchestration, prompt flows, and evaluation loops that keep model behavior observable after launch.',
-    proof: 'Hybrid retrieval, tool use, RAGAS/LangSmith evals, enterprise LLM workflow delivery',
-    tags: ['RAG', 'LangChain', 'OpenAI', 'RAGAS', 'LangSmith'],
-    accent: 'cyan',
-  },
-  {
-    label: '02 / Salesforce',
-    title: 'Agentforce, Service Cloud, Flow, LWC, and automation',
-    description:
-      'Build inside Salesforce with Apex, LWC, Flow, Service Cloud, Agentforce, Prompt Builder, Omni-Channel, and external API integrations.',
-    proof: '102 Trailhead badges, 4 superbadges, Agentforce and service workflow builds',
-    tags: ['Agentforce', 'Service Cloud', 'Apex', 'LWC', 'Flow'],
-    accent: 'accent',
-  },
-  {
-    label: '03 / Backend',
-    title: 'APIs, async services, and reliable glue',
-    description:
-      'Ship async APIs, database-backed services, auth, logging, and deployment-ready glue between AI layers and business systems.',
-    proof: 'FastAPI, REST integrations, MongoDB/MySQL data layers, Docker, AWS delivery',
-    tags: ['FastAPI', 'REST', 'MongoDB', 'MySQL', 'Docker'],
-    accent: 'emerald',
-  },
 ]
 
 export const STATS: StatItem[] = [

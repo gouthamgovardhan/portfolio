@@ -82,10 +82,6 @@ export default function Contact({ personal }: ContactProps) {
   return (
     <>
     <section id="contact" className="section-shell overflow-hidden px-6 py-24">
-      <div className="contact-section-field" aria-hidden="true">
-        <span />
-        <span />
-      </div>
       <div className="pointer-events-none absolute inset-x-0 top-0 overflow-hidden border-y border-border-dim/40 bg-card/15 py-3 opacity-80">
         <div className="tech-marquee tech-marquee-reverse flex w-max gap-3">
           {[...WORKFLOW_STEPS, ...WORKFLOW_STEPS].map((step, index) => (
@@ -108,10 +104,6 @@ export default function Contact({ personal }: ContactProps) {
           />
           <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr]">
             <div className="relative overflow-hidden rounded-[1.4rem] border border-accent/30 bg-bg/45 p-5">
-              <div className="contact-card-circuit" aria-hidden="true">
-                <span />
-                <span />
-              </div>
               <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">Contact channel</p>
               <h3 className="mt-4 text-2xl font-black leading-tight text-text">{personal.openToHire}</h3>
               <p className="mt-3 text-sm leading-6 text-muted">

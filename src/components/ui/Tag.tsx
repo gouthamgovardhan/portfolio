@@ -6,13 +6,16 @@ interface TagProps {
   variant?: 'default' | 'accent'
   /** Show a single tooltip on hover/focus only — off by default in dense layouts */
   tooltip?: boolean
+  /** Tighter padding/type size for dense card layouts */
+  compact?: boolean
 }
 
-export function Tag({ label, variant = 'default', tooltip = false }: TagProps) {
+export function Tag({ label, variant = 'default', tooltip = false, compact = false }: TagProps) {
   const Icon = getTechIcon(label)
   const explanation = TECH_EXPLANATIONS[label] ?? 'Related tool, concept, or workflow signal used in this portfolio.'
-  const base =
-    'inline-flex max-w-full items-center gap-1.5 rounded-full border px-3 py-1.5 font-mono text-xs font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber'
+  const base = `inline-flex max-w-full items-center gap-1.5 rounded-full border font-mono font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber ${
+    compact ? 'px-2 py-1 text-[0.65rem]' : 'px-3 py-1.5 text-xs'
+  }`
   const variants = {
     default: 'border-border-dim bg-card/50 text-muted hover:border-accent/40 hover:text-text',
     accent: 'border-accent/30 bg-emerald/10 text-emerald hover:border-emerald',
