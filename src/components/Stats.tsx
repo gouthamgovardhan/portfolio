@@ -43,7 +43,7 @@ export default function Stats({ stats }: StatsProps) {
               <span className="text-accent">{stat.suffix}</span>
             </p>
             <p className="mt-1 text-sm font-medium text-text">{stat.label}</p>
-            {stat.detail ? <p className="mt-1 text-xs leading-5 text-muted">{stat.detail}</p> : null}
+            <p className="mt-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-dim">View context</p>
           </button>
         ))}
       </div>

@@ -69,25 +69,13 @@ export default function Publications() {
                 </a>
               </div>
 
-              <p className="mt-6 text-sm leading-7 text-muted">{paper.summary}</p>
-
-              <div className="mt-6 grid gap-4 lg:grid-cols-2">
-                <div className="rounded-2xl border border-border-dim bg-bg/40 p-4">
-                  <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-dim">Authors</p>
-                  <p className="mt-2 text-sm leading-6 text-text">{paper.authors.join(' · ')}</p>
-                  {paper.authorListingNote ? (
-                    <p className="mt-2 text-xs leading-5 text-muted">{paper.authorListingNote}</p>
-                  ) : null}
-                  <p className="mt-4 font-mono text-xs leading-5 text-amber [overflow-wrap:anywhere]">DOI: {paper.doi}</p>
+              <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-border-dim pt-5">
+                <div className="flex flex-wrap gap-2">
+                  {paper.tags.slice(0, 4).map((tag) => (
+                    <Tag key={tag} label={tag} />
+                  ))}
                 </div>
-                <div className="rounded-2xl border border-border-dim bg-bg/40 p-4">
-                  <p className="mb-3 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-dim">Topics</p>
-                  <div className="flex flex-wrap gap-2">
-                    {paper.tags.map((tag) => (
-                      <Tag key={tag} label={tag} />
-                    ))}
-                  </div>
-                </div>
+                <span className="font-mono text-xs uppercase tracking-[0.14em] text-muted">Open publication details</span>
               </div>
             </article>
           ))}

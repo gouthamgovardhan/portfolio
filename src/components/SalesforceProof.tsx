@@ -93,7 +93,7 @@ export default function SalesforceProof() {
                 >
                   <p className="text-3xl font-black text-text">{metric.value}</p>
                   <p className="mt-1 font-mono text-xs uppercase tracking-[0.15em] text-amber">{metric.label}</p>
-                  <p className="mt-3 text-xs leading-5 text-muted">{metric.detail}</p>
+                  <p className="mt-3 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-dim">View context</p>
                 </button>
               ))}
             </div>
@@ -121,7 +121,7 @@ export default function SalesforceProof() {
                   >
                     <p className="font-mono text-xs uppercase tracking-[0.16em] text-rose">{badge.completed}</p>
                     <h3 className="mt-3 text-lg font-black leading-tight text-text">{badge.name}</h3>
-                    <p className="mt-3 text-sm leading-6 text-muted">{badge.description}</p>
+                    <p className="mt-3 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-dim">Open credential</p>
                   </button>
                 ))}
               </div>
