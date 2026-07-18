@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "CHOKIDAR_USEPOLLING=true vite --host 127.0.0.1",
     "build": "vite build",
+    "typecheck": "tsc -p tsconfig.app.json --noEmit",
     "preview": "vite preview",
     "deploy": "npm run build && gh-pages -d dist"
   },

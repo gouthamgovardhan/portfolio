@@ -18,13 +18,28 @@ type ViewTransitionDocument = Document & {
 }
 
 const THEME_EVENT = 'portfolio-theme-change'
+const THEME_STORAGE_KEY = 'portfolio-theme'
 
 function isTheme(value: string | null | undefined): value is Theme {
   return value === 'light' || value === 'dark'
 }
 
+function readSavedTheme(): Theme | null {
+  try {
+    const saved = window.localStorage.getItem(THEME_STORAGE_KEY)
+    return isTheme(saved) ? saved : null
+  } catch {
+    return null
+  }
+}
+
 function applyTheme(theme: Theme) {
   document.documentElement.dataset.theme = theme
+  try {
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme)
+  } catch {
+    // Theme switching still works when storage is unavailable.
+  }
   window.dispatchEvent(new CustomEvent<Theme>(THEME_EVENT, { detail: theme }))
 }
 
@@ -32,7 +47,7 @@ function getInitialTheme(): Theme {
   if (typeof window === 'undefined') return 'dark'
   const current = document.documentElement.dataset.theme
   if (isTheme(current)) return current
-  return 'dark'
+  return readSavedTheme() ?? 'dark'
 }
 
 function clipPathForVariant(variant: TransitionVariant, radius: number) {
