@@ -8,7 +8,7 @@ export default function Footer({ personal }: FooterProps) {
   return (
     <footer className="border-t border-border-dim px-6 py-7 text-center font-mono text-xs text-dim">
       <p>
-        {'©'} {personal.copyrightYear} {personal.name} · {personal.footerLine}
+        {'©'} {personal.copyrightYear} {personal.name} · <span className="signature-shiny-text">{personal.footerLine}</span>
       </p>
     </footer>
   )
