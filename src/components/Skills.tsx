@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { FaArrowRight, FaChevronDown } from 'react-icons/fa6'
+import { FaChevronDown } from 'react-icons/fa6'
 import { SECTION_TEXT, type SkillGroup } from '../data/portfolio'
 import { getTechIcon } from '../lib/techIcons'
 import { BlurFade } from './ui/BlurFade'
@@ -9,44 +9,29 @@ import { Tag } from './ui/Tag'
 import { IconCloud } from './ui/icon-cloud'
 
 const iconLabels = [
-  'TypeScript',
-  'JavaScript',
-  'React',
-  'Node.js',
   'Python',
   'FastAPI',
   'Flask',
   'OpenAI',
   'LangChain',
-  'Ollama',
-  'HuggingFace',
-  'LLaMA',
   'RAG',
-  'Vector Search',
-  'Embeddings',
   'Eval Loops',
   'Salesforce',
   'Agentforce',
+  'Prompt Builder',
   'Flow Builder',
   'Service Cloud',
   'Docker',
-  'AWS',
-  'PostgreSQL',
-  'MySQL',
   'MongoDB',
-  'Redis',
   'GitHub Actions',
-  'Linux',
   'REST APIs',
-  'Tailwind CSS',
 ]
 const iconColors = ['#4CC9F0', '#FF6B5F', '#F4C95D', '#47D18C', '#8EA2FF', '#FF7AAE']
 const workflowSteps = [
-  'Map the workflow',
-  'Choose the stack',
-  'Build the API',
-  'Wire Salesforce',
-  'Observe and improve',
+  'Frame the workflow',
+  'Build retrieval and APIs',
+  'Evaluate model outputs',
+  'Ship and improve',
 ]
 
 interface SkillsProps {
@@ -157,13 +142,6 @@ export default function Skills({ skills }: SkillsProps) {
                   </button>
                 ))}
               </div>
-              <a
-                href="#/skills-depth"
-                className="lift-card-subtle mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full border border-accent/45 bg-accent/10 px-5 py-3 text-sm font-black text-text transition hover:border-accent hover:bg-accent/20 hover:text-accent-h"
-              >
-                Read deeper skill breakdown
-                <FaArrowRight aria-hidden="true" />
-              </a>
             </div>
           </div>
         </div>
