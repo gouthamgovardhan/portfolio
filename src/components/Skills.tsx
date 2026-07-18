@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react'
-import { FaArrowRight } from 'react-icons/fa6'
-import { SECTION_TEXT, TECH_EXPLANATIONS, type SkillGroup } from '../data/portfolio'
+import { FaArrowRight, FaChevronDown } from 'react-icons/fa6'
+import { SECTION_TEXT, type SkillGroup } from '../data/portfolio'
 import { getTechIcon } from '../lib/techIcons'
 import { BlurFade } from './ui/BlurFade'
-import { DetailDialog, type DetailDialogContent, type DetailTone } from './ui/DetailDialog'
+import { DetailDialog, type DetailDialogContent } from './ui/DetailDialog'
 import { SectionHeader } from './ui/SectionHeader'
 import { Tag } from './ui/Tag'
 import { IconCloud } from './ui/icon-cloud'
@@ -53,26 +53,6 @@ interface SkillsProps {
   skills: SkillGroup[]
 }
 
-const skillTones: DetailTone[] = ['emerald', 'cyan', 'accent', 'amber', 'violet']
-
-function getSkillDetail(group: SkillGroup, index: number): DetailDialogContent {
-  return {
-    eyebrow: 'Skill category',
-    title: group.category,
-    description: `${group.skills.length} tools and concepts loaded in this lane.`,
-    tone: skillTones[index % skillTones.length],
-    sections: [
-      {
-        title: 'Tools',
-        items: group.skills.map((skill) => `${skill}: ${TECH_EXPLANATIONS[skill] ?? 'Portfolio-backed tool or concept used across projects, roles, or experience.'}`),
-      },
-      { title: 'How to use this', body: 'Open Skills Depth for interview-style proof points and deeper implementation notes.' },
-    ],
-    tags: group.skills,
-    actions: [{ label: 'Read deeper skill breakdown', href: '#/skills-depth', tone: 'cyan' }],
-  }
-}
-
 function getWorkflowDetail(step: string, index: number): DetailDialogContent {
   return {
     eyebrow: `Workflow step ${String(index + 1).padStart(2, '0')}`,
@@ -88,6 +68,7 @@ function getWorkflowDetail(step: string, index: number): DetailDialogContent {
 
 export default function Skills({ skills }: SkillsProps) {
   const [detail, setDetail] = useState<DetailDialogContent | null>(null)
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null)
   const cloudIcons = useMemo(
     () =>
       iconLabels.map((label, index) => {
@@ -108,22 +89,50 @@ export default function Skills({ skills }: SkillsProps) {
         />
         <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(18rem,0.92fr)]">
           <div className="grid gap-3 sm:grid-cols-2">
-            {skills.map((group, index) => (
-              <BlurFade key={group.category} delay={0.06 * index}>
-                <button
-                  type="button"
-                  onClick={() => setDetail(getSkillDetail(group, index))}
-                  className="lift-card-subtle flex h-full flex-col gap-3 rounded-xl border border-border-dim/80 bg-card/45 p-4 text-left outline-none hover:border-accent/40"
-                >
-                  <span className="font-mono text-xs uppercase tracking-[0.16em] text-accent">{group.category}</span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {group.skills.map((skill) => (
-                      <Tag key={skill} label={skill} compact />
-                    ))}
-                  </div>
-                </button>
-              </BlurFade>
-            ))}
+            {skills.map((group, index) => {
+              const expanded = expandedCategory === group.category
+              const contentId = `skill-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+
+              return (
+                <BlurFade key={group.category} delay={0.06 * index}>
+                  <article className="h-full overflow-hidden rounded-xl border border-border-dim/80 bg-card/45 transition hover:border-accent/40">
+                    <button
+                      type="button"
+                      aria-expanded={expanded}
+                      aria-controls={contentId}
+                      onClick={() => setExpandedCategory(expanded ? null : group.category)}
+                      className="flex w-full items-start justify-between gap-4 p-4 text-left outline-none"
+                    >
+                      <span>
+                        <span className="block font-mono text-xs uppercase tracking-[0.16em] text-accent">{group.category}</span>
+                        <span className="mt-2 block text-xs text-muted">
+                          {group.skills.slice(0, 3).join(' · ')}
+                          {group.skills.length > 3 ? ` · +${group.skills.length - 3}` : ''}
+                        </span>
+                      </span>
+                      <span className="flex shrink-0 items-center gap-2 rounded-full border border-border-dim bg-bg/45 px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-muted">
+                        {expanded ? 'Close' : 'Explore'}
+                        <FaChevronDown className={`transition-transform ${expanded ? 'rotate-180' : ''}`} aria-hidden="true" />
+                      </span>
+                    </button>
+                  <div
+                    id={contentId}
+                    aria-hidden={!expanded}
+                    inert={!expanded}
+                    className={`grid transition-[grid-template-rows,opacity] duration-300 ${expanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="flex flex-wrap gap-1.5 border-t border-border-dim px-4 py-4">
+                          {group.skills.map((skill) => (
+                            <Tag key={skill} label={skill} compact />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                </BlurFade>
+              )
+            })}
           </div>
           <div className="relative min-h-[34rem] overflow-hidden">
             <div className="pointer-events-none absolute inset-x-8 top-8 h-px bg-gradient-to-r from-transparent via-cyan/50 to-transparent" />

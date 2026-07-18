@@ -49,20 +49,19 @@ export default function RolePathways() {
               id={path.id}
               key={path.id}
               onClick={() => setSelectedRole(path)}
-              className={`magic-card lift-card group glass-card relative flex min-h-[380px] flex-col overflow-hidden rounded-[1.6rem] border p-5 text-left shadow-2xl outline-none sm:min-h-[400px] ${toneClasses[path.tone]} ${roleColSpan[index] ?? 'lg:col-span-2'}`}
+              className={`magic-card lift-card group glass-card relative flex min-h-[250px] flex-col overflow-hidden rounded-[1.6rem] border p-5 text-left shadow-2xl outline-none ${toneClasses[path.tone]} ${roleColSpan[index] ?? 'lg:col-span-2'}`}
             >
               <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-current opacity-10 blur-2xl transition-transform duration-500 group-hover:scale-125" />
               <p className="relative font-mono text-xs uppercase tracking-[0.2em] opacity-80">{path.role}</p>
               <h3 className="relative mt-5 text-xl font-black leading-tight text-text sm:text-2xl">{path.headline}</h3>
-              <p className="relative mt-4 text-sm leading-7 text-muted">{path.pitch}</p>
-              <p className="relative mt-5 rounded-2xl border border-border-dim bg-bg/60 p-4 text-sm font-semibold leading-6 text-text">
-                {path.proof}
-              </p>
               <div className="relative mt-auto flex flex-wrap gap-2 pt-5">
-                {path.stack.map((item) => (
+                {path.stack.slice(0, 3).map((item) => (
                   <Tag key={item} label={item} />
                 ))}
               </div>
+              <span className="relative mt-5 w-fit rounded-full border border-current/30 bg-bg/35 px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.14em]">
+                Explore role fit
+              </span>
             </button>
           ))}
         </div>

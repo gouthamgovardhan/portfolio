@@ -250,20 +250,18 @@ export const CONTACT_LINKS: ContactLinkItem[] = [
 export const SECTION_TEXT = {
   about: {
     label: 'Builder Profile',
-    title: 'Production-minded engineer with platform range.',
-    subtitle: 'Resume-backed highlights across AI systems, backend delivery, Salesforce work, and published research.',
+    title: 'Builder profile.',
+    subtitle: 'A quick view of how I think, build, and work.',
   },
   roles: {
     label: 'Role Fit',
-    title: 'One builder, multiple hiring lenses',
-    subtitle:
-      'Use this section to see how the same work maps to AI, Salesforce, backend, and software engineering roles.',
+    title: 'Five ways I can contribute.',
+    subtitle: 'Choose a role to see the full fit and supporting proof.',
   },
   skills: {
     label: 'Skills - 02',
-    title: 'Production stack, by category',
-    subtitle:
-      'Core skills are backed by projects, resume, Trailhead proof, and hands-on delivery.',
+    title: 'Core stack.',
+    subtitle: 'Open a category only when you want the full toolset.',
   },
   skillsDepth: {
     label: 'Interview Depth',
@@ -284,15 +282,13 @@ export const SECTION_TEXT = {
   },
   publications: {
     label: 'Published Work',
-    title: 'Research signal behind the builder story',
-    subtitle:
-      'Team-authored academic work connecting deep learning, NLP, chatbot design, and real-time conversational systems.',
+    title: 'Published work.',
+    subtitle: 'Open the paper for its summary, authors, topics, and DOI.',
   },
   salesforce: {
     label: 'Trailhead Credentials',
-    title: 'Salesforce proof: badges, superbadges, and Agentforce practice',
-    subtitle:
-      'Public Trailblazer profile with 102 badges, 4 superbadges, Agentforce work, Prompt Builder practice, and service workflow learning.',
+    title: 'Salesforce credentials, verified.',
+    subtitle: 'Public Trailblazer proof with expandable credential details.',
   },
   education: {
     label: 'Education - 04',

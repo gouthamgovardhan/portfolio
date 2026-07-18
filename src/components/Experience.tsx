@@ -92,7 +92,7 @@ export default function Experience({ experience }: ExperienceProps) {
                     </p>
 
                     <ul className="mb-5 grid gap-2.5">
-                      {item.bullets.map((bullet) => (
+                      {item.bullets.slice(0, 2).map((bullet) => (
                         <li key={bullet} className="flex gap-3 text-sm leading-6 text-muted">
                           <span className="shrink-0 font-mono text-accent">▸</span>
                           <span>{bullet}</span>
@@ -101,10 +101,14 @@ export default function Experience({ experience }: ExperienceProps) {
                     </ul>
 
                     <div className="border-t border-border-dim pt-4">
-                      <p className="mb-3 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-dim">Stack</p>
-                      <p className="font-mono text-xs leading-6 text-muted">
-                        ▸ {item.tags.map((tag) => tag.toLowerCase()).join(' · ')}
-                      </p>
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <p className="font-mono text-xs leading-6 text-muted">
+                          {item.tags.slice(0, 4).map((tag) => tag.toLowerCase()).join(' · ')}
+                        </p>
+                        <span className="rounded-full border border-amber/30 bg-amber/10 px-3 py-1.5 text-xs font-bold text-amber">
+                          View full role · {item.bullets.length} points
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -23,7 +23,8 @@ function getProfileDetail(personal: typeof PERSONAL): DetailDialogContent {
     tone: 'accent',
     sections: [
       { title: 'Location', body: `${personal.location} · ${personal.timezone}` },
-      { title: 'Working style', items: personal.highlightPoints.slice(0, 6) },
+      { title: 'Profile', body: personal.bio.join('\n\n') },
+      { title: 'Working highlights', items: [...personal.highlightPoints] },
     ],
     tags: [personal.openToHire, personal.country, 'AI', 'Salesforce', 'Backend'],
     actions: [{ label: 'Download Resume', href: personal.resumeUrl, tone: 'accent' }],
@@ -111,21 +112,22 @@ export default function About({ personal }: AboutProps) {
             ))}
           </div>
 
-          <div className="space-y-4">
-            {personal.bio.map((paragraph) => (
-              <p key={paragraph} className="text-base leading-8 text-muted">
-                {paragraph}
-              </p>
-            ))}
-          </div>
+          <p className="text-base leading-8 text-muted">{personal.bio[0]}</p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {personal.highlightPoints.map((point) => (
+            {personal.highlightPoints.slice(0, 4).map((point) => (
               <div key={point} className="flex items-start gap-3 text-sm text-muted">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                 <span>{point}</span>
               </div>
             ))}
           </div>
+          <button
+            type="button"
+            onClick={() => setDetail(getProfileDetail(personal))}
+            className="lift-card-subtle mt-6 inline-flex rounded-full border border-accent/40 bg-accent/10 px-5 py-3 text-sm font-bold text-text outline-none hover:bg-accent/20"
+          >
+            Expand profile · {personal.highlightPoints.length} highlights
+          </button>
           <p className="mt-8 border-l border-rose pl-5 text-lg font-medium text-text">{personal.aboutQuote}</p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {PERSONA_TRAITS.map((trait) => (
