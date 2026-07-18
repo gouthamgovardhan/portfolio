@@ -55,7 +55,7 @@ export default function Hero({ personal }: HeroProps) {
             </BlurFade>
             <BlurFade delay={0.24}>
               <p className="mb-5 min-h-[4.5rem] font-mono text-3xl font-bold leading-none text-muted sm:min-h-[5.5rem] sm:text-5xl lg:text-6xl">
-                <WordRotate words={['AI SYSTEMS', 'RAG & AGENTS', 'SCALABLE APIs']} />
+                <WordRotate words={['AI SYSTEMS', 'BACKEND & APIs', 'SALESFORCE']} />
               </p>
             </BlurFade>
             <BlurFade delay={0.32}>
@@ -114,7 +114,7 @@ export default function Hero({ personal }: HeroProps) {
               onClick={() =>
                 setDetail({
                   eyebrow: 'Current focus',
-                  title: 'Production AI systems',
+                  title: 'End-to-end AI systems',
                   description: personal.currentRole,
                   tone: 'cyan',
                   sections: [
@@ -127,7 +127,7 @@ export default function Hero({ personal }: HeroProps) {
               className="lift-card hero-focus-panel rounded-[1.1rem] border border-border bg-card/85 p-5 text-left shadow-xl shadow-accent/10 outline-none backdrop-blur"
             >
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-amber">Current focus</p>
-              <p className="mt-3 text-2xl font-black leading-tight text-text sm:text-3xl">Production AI systems</p>
+              <p className="mt-3 text-2xl font-black leading-tight text-text sm:text-3xl">End-to-end AI systems</p>
               <p className="mt-2 text-sm leading-6 text-muted">{personal.currentRole}</p>
             </button>
 

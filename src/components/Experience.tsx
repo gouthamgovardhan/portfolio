@@ -27,7 +27,7 @@ function getExperienceDetail(item: ExperienceItem): DetailDialogContent {
     description: `${item.period} · ${item.location}`,
     tone: detailTone[item.type],
     sections: [
-      { title: item.current ? 'Current work' : 'Role summary', body: item.current ? 'Active production engineering work with enterprise AI, Salesforce, and backend workflows.' : 'Completed role with resume-backed delivery and technical ownership.' },
+      { title: item.current ? 'Current work' : 'Role summary', body: item.current ? 'Active Salesforce consulting across platform development, automation, integrations, and AI-assisted workflows.' : 'Completed role with resume-backed delivery and technical ownership.' },
       { title: 'Impact points', items: item.bullets },
       { title: 'Stack context', body: item.tags.join(' · ') },
     ],
