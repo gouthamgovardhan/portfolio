@@ -75,9 +75,9 @@ const MEDIA_SLOTS = [
 
 const PROOF_TILES = [
   {
-    label: 'Production reach',
-    value: '1000+',
-    detail: 'users across team-delivered AI workflows and service automation.',
+    label: 'System range',
+    value: 'E2E',
+    detail: 'AI workflows, APIs, data, integrations, reliability, and delivery.',
     tone: 'text-cyan border-cyan/30 bg-cyan/10',
   },
   {
