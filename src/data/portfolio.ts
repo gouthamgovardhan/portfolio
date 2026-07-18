@@ -1131,7 +1131,6 @@ export const PROJECTS: ProjectItem[] = [
         { label: 'Grounded Answer', value: 'yes' },
       ],
     },
-    githubUrl: 'https://github.com/gouthamgovardhan/ai-wellness-support-chatbot',
     featured: true,
   },
   {
