@@ -1,18 +1,14 @@
 import { useMemo } from 'react'
-import { FaBookOpen, FaBrain, FaBriefcase, FaCircleUser, FaCode, FaGraduationCap, FaLayerGroup, FaPaperPlane, FaSalesforce, FaUser } from 'react-icons/fa6'
+import { FaBriefcase, FaCircleUser, FaCode, FaLayerGroup, FaPaperPlane, FaUser } from 'react-icons/fa6'
 import { NAV_LINKS } from '../data/portfolio'
 import { useScrollSpy } from '../hooks/useScrollSpy'
 
 const dockIcons = {
   roles: FaLayerGroup,
   projects: FaCode,
-  salesforce: FaSalesforce,
   experience: FaBriefcase,
   skills: FaUser,
-  'skills-depth': FaBrain,
   about: FaCircleUser,
-  publications: FaBookOpen,
-  education: FaGraduationCap,
   contact: FaPaperPlane,
 } as const
 
