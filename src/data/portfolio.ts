@@ -226,12 +226,9 @@ export const HERO_TERMINAL: TerminalLine[] = [
 export const NAV_LINKS: NavLinkItem[] = [
   { label: 'Roles', href: '#roles', id: 'roles' },
   { label: 'Projects', href: '#projects', id: 'projects' },
-  { label: 'Salesforce', href: '#salesforce', id: 'salesforce' },
   { label: 'Experience', href: '#experience', id: 'experience' },
   { label: 'Skills', href: '#skills', id: 'skills' },
   { label: 'About', href: '#about', id: 'about' },
-  { label: 'Publications', href: '#publications', id: 'publications' },
-  { label: 'Education', href: '#education', id: 'education' },
   { label: 'Contact', href: '#contact', id: 'contact' },
 ]
 

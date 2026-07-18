@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react'
+import { useState, type CSSProperties, type MouseEvent } from 'react'
 import { FaArrowUpRightFromSquare } from 'react-icons/fa6'
 import { ACTION_LABELS, SECTION_TEXT, type ProjectItem } from '../data/portfolio'
 import { SectionHeader } from './ui/SectionHeader'
@@ -64,11 +64,17 @@ function ProjectCard({ project, onOpen }: { project: ProjectItem; onOpen: () => 
   const previewHighlights = project.highlights.slice(0, 2)
   const previewTags = project.tags.slice(0, 3)
   const cardStyle = { '--project-accent': style.color } as CSSProperties
+  const updateSpotlight = (event: MouseEvent<HTMLButtonElement>) => {
+    const bounds = event.currentTarget.getBoundingClientRect()
+    event.currentTarget.style.setProperty('--spotlight-x', `${event.clientX - bounds.left}px`)
+    event.currentTarget.style.setProperty('--spotlight-y', `${event.clientY - bounds.top}px`)
+  }
 
   return (
     <button
       type="button"
       onClick={onOpen}
+      onMouseMove={updateSpotlight}
       className="project-bento-card group/card relative flex min-h-[32rem] flex-col overflow-hidden rounded-[1.45rem] border border-border/80 bg-card/65 text-left shadow-xl shadow-bg/25 outline-none"
       style={cardStyle}
     >

@@ -6,6 +6,7 @@ import { BlurFade } from './ui/BlurFade'
 import { DetailDialog, type DetailDialogContent } from './ui/DetailDialog'
 import { MagicGlobe } from './ui/MagicGlobe'
 import { RainbowButton } from './ui/RainbowButton'
+import { WordRotate } from './ui/WordRotate'
 
 interface HeroProps {
   personal: typeof PERSONAL
@@ -53,8 +54,8 @@ export default function Hero({ personal }: HeroProps) {
               </h1>
             </BlurFade>
             <BlurFade delay={0.24}>
-              <p className="mb-5 font-mono text-3xl font-bold leading-none text-muted sm:text-5xl lg:text-6xl">
-                AI · BACKEND · SALESFORCE
+              <p className="mb-5 min-h-[4.5rem] font-mono text-3xl font-bold leading-none text-muted sm:min-h-[5.5rem] sm:text-5xl lg:text-6xl">
+                <WordRotate words={['AI ENGINEERING', 'BACKEND SYSTEMS', 'SALESFORCE']} />
               </p>
             </BlurFade>
             <BlurFade delay={0.32}>
