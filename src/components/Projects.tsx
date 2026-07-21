@@ -1,6 +1,8 @@
-import { useState, type CSSProperties, type MouseEvent } from 'react'
+import { useMemo, useState, type CSSProperties, type MouseEvent } from 'react'
 import { FaArrowUpRightFromSquare } from 'react-icons/fa6'
-import { ACTION_LABELS, SECTION_TEXT, type ProjectItem } from '../data/portfolio'
+import { ACTION_LABELS, ROLE_PATHS, SECTION_TEXT, type ProjectItem } from '../data/portfolio'
+import { useActiveRole } from '../context/RoleContext'
+import { filterByRole } from '../lib/roleSort'
 import { SectionHeader } from './ui/SectionHeader'
 import { Tag } from './ui/Tag'
 import { DetailDialog, type DetailDialogAction, type DetailDialogContent } from './ui/DetailDialog'
@@ -202,6 +204,10 @@ function getProjectDetail(project: ProjectItem): DetailDialogContent {
 
 export default function Projects({ projects }: ProjectsProps) {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null)
+  const { activeRole } = useActiveRole()
+  const activeRolePath = ROLE_PATHS.find((path) => path.id === activeRole)
+  const sortedProjects = useMemo(() => filterByRole(projects, activeRole), [projects, activeRole])
+  const subtitle = activeRolePath?.sectionCopy.projects ?? SECTION_TEXT.projects.subtitle
 
   return (
     <section id="projects" className="section-shell px-6 py-24">
@@ -209,11 +215,11 @@ export default function Projects({ projects }: ProjectsProps) {
         <SectionHeader
           label={SECTION_TEXT.projects.label}
           title={SECTION_TEXT.projects.title}
-          subtitle={SECTION_TEXT.projects.subtitle}
+          subtitle={subtitle}
         />
 
         <BentoGrid className="grid-cols-1 auto-rows-auto gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {projects.map((project) => (
+          {sortedProjects.map((project) => (
             <ProjectCard 
               key={project.title} 
               project={project} 

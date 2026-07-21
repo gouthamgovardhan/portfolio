@@ -14,6 +14,7 @@ import SalesforceProof from './components/SalesforceProof'
 import Skills from './components/Skills'
 import Stats from './components/Stats'
 import { EXPERIENCE, PERSONAL, PROJECTS, SKILLS, STATS } from './data/portfolio'
+import { RoleProvider } from './context/RoleContext'
 import { useScrollReveal } from './hooks/useScrollReveal'
 
 function HomePage() {
@@ -38,7 +39,7 @@ export default function App() {
   useScrollReveal()
 
   return (
-    <>
+    <RoleProvider>
       <AmbientBackground />
       <div className="scroll-progress" aria-hidden="true" />
       <Navbar />
@@ -47,6 +48,6 @@ export default function App() {
       </main>
       <MagicDock />
       <Footer personal={PERSONAL} />
-    </>
+    </RoleProvider>
   )
 }

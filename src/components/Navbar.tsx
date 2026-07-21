@@ -3,6 +3,7 @@ import { FaBars, FaXmark } from 'react-icons/fa6'
 import { ACTION_LABELS, NAV_LINKS, PERSONAL } from '../data/portfolio'
 import { useScrollSpy } from '../hooks/useScrollSpy'
 import { AnimatedThemeToggler } from './ui/AnimatedThemeToggler'
+import RoleSwitcher from './RoleSwitcher'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -39,11 +40,11 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed inset-x-0 top-0 z-50 h-16 bg-bg/75 backdrop-blur-lg transition-colors ${
+      className={`fixed inset-x-0 top-0 z-50 bg-bg/75 backdrop-blur-lg transition-colors ${
         scrolled ? 'border-b border-border-dim' : 'border-b border-transparent'
       }`}
     >
-      <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-6">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <a href="#hero" className="nav-brand text-lg font-bold tracking-tight" onClick={() => setOpen(false)}>
           {PERSONAL.shortName}
           <span className="text-accent">.</span>
@@ -92,9 +93,15 @@ export default function Navbar() {
         </div>
       </div>
 
+      <div className="border-t border-border-dim/60 px-6">
+        <div className="mx-auto flex h-10 max-w-6xl items-center">
+          <RoleSwitcher />
+        </div>
+      </div>
+
       <div
         id="mobile-navigation"
-        className={`max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-border bg-bg px-6 py-4 shadow-2xl shadow-bg/60 lg:hidden ${
+        className={`max-h-[calc(100vh-6.5rem)] overflow-y-auto border-b border-border bg-bg px-6 py-4 shadow-2xl shadow-bg/60 lg:hidden ${
           open ? 'grid gap-2' : 'hidden'
         }`}
       >

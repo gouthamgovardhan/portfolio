@@ -1,6 +1,15 @@
 import { useState, type KeyboardEvent } from 'react'
 import { FaLocationDot } from 'react-icons/fa6'
-import { PERSONA_TRAITS, QUICK_FACTS, SECTION_TEXT, type PERSONAL, type PersonaTrait, type QuickFact } from '../data/portfolio'
+import {
+  PERSONA_TRAITS,
+  QUICK_FACTS,
+  ROLE_PATHS,
+  SECTION_TEXT,
+  type PERSONAL,
+  type PersonaTrait,
+  type QuickFact,
+} from '../data/portfolio'
+import { useActiveRole } from '../context/RoleContext'
 import { DetailDialog, type DetailDialogContent } from './ui/DetailDialog'
 import { SectionHeader } from './ui/SectionHeader'
 
@@ -15,7 +24,7 @@ function handleCardKeyDown(event: KeyboardEvent<HTMLElement>, onOpen: () => void
   }
 }
 
-function getProfileDetail(personal: typeof PERSONAL): DetailDialogContent {
+function getProfileDetail(personal: typeof PERSONAL, resumeUrl: string): DetailDialogContent {
   return {
     eyebrow: 'Builder profile',
     title: personal.currentRole,
@@ -27,7 +36,7 @@ function getProfileDetail(personal: typeof PERSONAL): DetailDialogContent {
       { title: 'Working highlights', items: [...personal.highlightPoints] },
     ],
     tags: [personal.openToHire, personal.country, 'AI', 'Salesforce', 'Backend'],
-    actions: [{ label: 'Download Resume', href: personal.resumeUrl, tone: 'accent' }],
+    actions: [{ label: 'Download Resume', href: resumeUrl, tone: 'accent' }],
   }
 }
 
@@ -57,6 +66,8 @@ function getTraitDetail(trait: PersonaTrait): DetailDialogContent {
 
 export default function About({ personal }: AboutProps) {
   const [detail, setDetail] = useState<DetailDialogContent | null>(null)
+  const { activeRole } = useActiveRole()
+  const resumeUrl = ROLE_PATHS.find((path) => path.id === activeRole)?.resumeUrl ?? personal.resumeUrl
 
   return (
     <section id="about" className="section-shell px-6 py-24">
@@ -66,8 +77,8 @@ export default function About({ personal }: AboutProps) {
             className="lift-card relative aspect-[4/5] cursor-pointer overflow-hidden rounded-[2rem] border border-border bg-card outline-none"
             role="button"
             tabIndex={0}
-            onClick={() => setDetail(getProfileDetail(personal))}
-            onKeyDown={(event) => handleCardKeyDown(event, () => setDetail(getProfileDetail(personal)))}
+            onClick={() => setDetail(getProfileDetail(personal, resumeUrl))}
+            onKeyDown={(event) => handleCardKeyDown(event, () => setDetail(getProfileDetail(personal, resumeUrl)))}
           >
             <img
               src={personal.profileImageUrl}
@@ -123,7 +134,7 @@ export default function About({ personal }: AboutProps) {
           </div>
           <button
             type="button"
-            onClick={() => setDetail(getProfileDetail(personal))}
+            onClick={() => setDetail(getProfileDetail(personal, resumeUrl))}
             className="lift-card-subtle mt-6 inline-flex rounded-full border border-accent/40 bg-accent/10 px-5 py-3 text-sm font-bold text-text outline-none hover:bg-accent/20"
           >
             Expand profile · {personal.highlightPoints.length} highlights

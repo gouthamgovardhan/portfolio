@@ -17,6 +17,8 @@ import { AnimatedList } from './ui/animated-list'
 import { BentoGrid } from './ui/bento-grid'
 import { BlurFade } from './ui/BlurFade'
 import { Marquee } from './ui/marquee'
+import { useActiveRole } from '../context/RoleContext'
+import { filterByRole } from '../lib/roleSort'
 
 type DepthGroupId = 'all' | 'ai' | 'backend' | 'salesforce' | 'leadership'
 
@@ -257,10 +259,15 @@ function DepthCard({
 export default function SkillsDepth() {
   const [activeGroup, setActiveGroup] = useState<DepthGroupId>('all')
   const [detail, setDetail] = useState<DetailDialogContent | null>(null)
+  const { activeRole } = useActiveRole()
 
   const visibleSkills = useMemo(
-    () => SKILL_DEPTH.filter((item) => activeGroup === 'all' || getDepthGroup(item.category) === activeGroup),
-    [activeGroup],
+    () =>
+      filterByRole(
+        SKILL_DEPTH.filter((item) => activeGroup === 'all' || getDepthGroup(item.category) === activeGroup),
+        activeRole,
+      ),
+    [activeGroup, activeRole],
   )
 
   const activeGroupData = DEPTH_GROUPS.find((group) => group.id === activeGroup) ?? DEPTH_GROUPS[0]

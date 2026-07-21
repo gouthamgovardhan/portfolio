@@ -21,6 +21,7 @@ export default {
         amber: 'var(--color-amber)',
         rose: 'var(--color-rose)',
         violet: 'var(--color-violet)',
+        azure: 'var(--color-azure)',
         lime: 'var(--color-lime)',
         text: 'var(--color-text)',
         muted: 'var(--color-muted)',

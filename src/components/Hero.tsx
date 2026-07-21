@@ -1,6 +1,15 @@
 import { useState } from 'react'
 import { FaLocationDot } from 'react-icons/fa6'
-import { ACTION_LABELS, HERO_TECH, HERO_TERMINAL, SOCIAL_LINKS, TECH_EXPLANATIONS, type PERSONAL } from '../data/portfolio'
+import {
+  ACTION_LABELS,
+  HERO_TECH,
+  HERO_TERMINAL,
+  ROLE_PATHS,
+  SOCIAL_LINKS,
+  TECH_EXPLANATIONS,
+  type PERSONAL,
+} from '../data/portfolio'
+import { useActiveRole } from '../context/RoleContext'
 import { getTechIcon } from '../lib/techIcons'
 import { BlurFade } from './ui/BlurFade'
 import { DetailDialog, type DetailDialogContent } from './ui/DetailDialog'
@@ -14,6 +23,12 @@ interface HeroProps {
 
 export default function Hero({ personal }: HeroProps) {
   const [detail, setDetail] = useState<DetailDialogContent | null>(null)
+  const { activeRole } = useActiveRole()
+  const activeRolePath = ROLE_PATHS.find((path) => path.id === activeRole)
+  const eyebrow = activeRolePath?.eyebrow ?? personal.eyebrow
+  const heroHeadline = activeRolePath?.heroHeadline ?? personal.heroHeadline
+  const heroDescription = activeRolePath?.heroDescription ?? personal.heroDescription
+  const resumeUrl = activeRolePath?.resumeUrl ?? personal.resumeUrl
 
   return (
     <section id="hero" className="hero-stage relative flex min-h-screen items-center overflow-hidden pt-28 sm:pt-32 lg:pt-36">
@@ -43,7 +58,7 @@ export default function Hero({ personal }: HeroProps) {
           <div className="min-w-0">
             <BlurFade delay={0.08}>
               <p className="mb-5 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.22em] text-amber before:h-px before:w-7 before:bg-amber">
-                {personal.eyebrow}
+                {eyebrow}
               </p>
             </BlurFade>
             <BlurFade delay={0.16}>
@@ -59,10 +74,10 @@ export default function Hero({ personal }: HeroProps) {
               </p>
             </BlurFade>
             <BlurFade delay={0.32}>
-              <p className="mb-3 max-w-2xl text-lg font-medium leading-8 text-text sm:text-xl">{personal.heroHeadline}</p>
+              <p className="mb-3 max-w-2xl text-lg font-medium leading-8 text-text sm:text-xl">{heroHeadline}</p>
             </BlurFade>
             <BlurFade delay={0.4}>
-              <p className="mb-9 max-w-xl text-base leading-7 text-muted">{personal.heroDescription}</p>
+              <p className="mb-9 max-w-xl text-base leading-7 text-muted">{heroDescription}</p>
             </BlurFade>
 
             <BlurFade delay={0.48} className="mb-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -76,7 +91,7 @@ export default function Hero({ personal }: HeroProps) {
                 View Role Fit
               </a>
               <a
-                href={personal.resumeUrl}
+                href={resumeUrl}
                 className="lift-card-subtle inline-flex items-center justify-center rounded-full border border-border px-6 py-3 text-sm font-medium text-text hover:text-violet"
               >
                 {ACTION_LABELS.downloadResume}

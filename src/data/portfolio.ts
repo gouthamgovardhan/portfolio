@@ -6,6 +6,7 @@ import type { LiveConsoleConfig, ShowcaseVariant } from '../types/LiveConsole'
 export interface SkillGroup {
   category: string
   skills: string[]
+  roles?: string[]
 }
 
 export interface ExperienceItem {
@@ -17,6 +18,7 @@ export interface ExperienceItem {
   current: boolean
   bullets: string[]
   tags: string[]
+  roles?: string[]
 }
 
 export interface ProjectItem {
@@ -38,6 +40,7 @@ export interface ProjectItem {
   proofUrl?: string
   proofLinkLabel?: string
   featured: boolean
+  roles?: string[]
 }
 
 export interface QuickFact {
@@ -119,11 +122,21 @@ export interface SuperbadgeItem {
 export interface RolePath {
   id: string
   role: string
+  shortLabel: string
   headline: string
   pitch: string
   proof: string
   stack: string[]
-  tone: 'cyan' | 'accent' | 'emerald' | 'amber' | 'rose' | 'violet'
+  tone: 'cyan' | 'accent' | 'emerald' | 'amber' | 'rose' | 'violet' | 'azure'
+  eyebrow: string
+  heroHeadline: string
+  heroDescription: string
+  resumeUrl: string
+  sectionCopy: {
+    projects?: string
+    skills?: string
+    experience?: string
+  }
 }
 
 export interface PublicationItem {
@@ -143,6 +156,7 @@ export interface SkillDepthItem {
   points: string[]
   interviewTest: string
   tone: 'cyan' | 'accent' | 'emerald' | 'amber' | 'rose' | 'violet'
+  roles?: string[]
 }
 
 export interface RangeItem {
@@ -240,8 +254,8 @@ export const SECTION_TEXT = {
   },
   roles: {
     label: 'Role Fit',
-    title: 'Three ways I can contribute.',
-    subtitle: 'Choose a role to see the full fit and supporting proof.',
+    title: 'Five ways I can contribute.',
+    subtitle: 'Choose a role to filter the whole portfolio around it, and see the full fit and supporting proof.',
   },
   skills: {
     label: 'Skills - 02',
@@ -416,29 +430,102 @@ export const ROLE_PATHS: RolePath[] = [
   {
     id: 'ai-engineer',
     role: 'AI Engineer',
+    shortLabel: 'AI',
     headline: 'LLMs, RAG, agents, and production automation.',
     pitch: 'Best fit for teams building AI features that must work beyond the demo.',
     proof: 'Collaborative AI platform work across LLM workflows, APIs, data, and production readiness',
     stack: ['RAG', 'LangChain', 'OpenAI', 'Python'],
     tone: 'violet',
+    eyebrow: 'AI Engineer · RAG & Agentic Systems · Bengaluru',
+    heroHeadline: 'I build complete AI products, from intelligent workflows to reliable production systems.',
+    heroDescription:
+      'LLM, RAG, and agentic AI workflows backed by APIs, data, observability, and deployment work that keeps them running past the demo.',
+    resumeUrl: assetUrl('assets/resume-ai-engineer.pdf'),
+    sectionCopy: {
+      projects: 'AI workflows, RAG pipelines, and agentic systems built to survive past the demo stage.',
+      skills: 'The LLM, retrieval, and evaluation stack behind production AI features.',
+      experience: 'Roles where AI workflows had to ship alongside real backend and platform constraints.',
+    },
   },
   {
-    id: 'backend-ai-engineer',
-    role: 'Backend AI Engineer',
+    id: 'backend-engineer',
+    role: 'Backend Engineer',
+    shortLabel: 'Backend',
     headline: 'Scalable APIs and automation behind AI products.',
     pitch: 'Best fit for AI products that need dependable integrations and backend workflows.',
     proof: 'REST integrations, decision automation, context capture, and intelligent routing',
     stack: ['Python', 'FastAPI', 'REST APIs', 'MongoDB'],
     tone: 'cyan',
+    eyebrow: 'Backend Engineer · APIs & Systems · Bengaluru',
+    heroHeadline: 'I build backend systems and APIs that keep AI-driven products dependable in production.',
+    heroDescription:
+      'FastAPI services, integrations, databases, caching, and observability work that supports AI features without becoming the fragile part of the stack.',
+    resumeUrl: assetUrl('assets/resume-backend-engineer.pdf'),
+    sectionCopy: {
+      projects: 'Backend services, integrations, and API-driven systems, including the layer underneath AI features.',
+      skills: 'API design, databases, async workers, and the infrastructure that keeps services reliable.',
+      experience: 'Roles that involved building and supporting APIs, integrations, and backend reliability.',
+    },
   },
   {
-    id: 'salesforce-ai-engineer',
-    role: 'Salesforce AI Engineer',
+    id: 'data-ml-engineer',
+    role: 'Data / ML Engineer',
+    shortLabel: 'Data/ML',
+    headline: 'Data pipelines, evaluation, and applied ML models.',
+    pitch: 'Best fit for teams that need data processing and ML modeling done with production-evaluation discipline.',
+    proof: 'Classification modeling, data pipelines, and evaluation frameworks across NLP and RAG systems',
+    stack: ['Python', 'Pandas', 'NLP', 'LSTM'],
+    tone: 'emerald',
+    eyebrow: 'Data / ML Engineer · Applied ML & Evaluation · Bengaluru',
+    heroHeadline: 'I process data and build ML models with evaluation built in from the start.',
+    heroDescription:
+      'Data pipelines, feature engineering, classification models, and evaluation frameworks that measure whether the output is actually good.',
+    resumeUrl: assetUrl('assets/resume-data-ml-engineer.pdf'),
+    sectionCopy: {
+      projects: 'Data processing pipelines and ML models, evaluated end to end rather than shipped on a hunch.',
+      skills: 'Data processing, feature engineering, evaluation frameworks, and the ML/NLP stack behind them.',
+      experience: 'Work that touched data pipelines, model training, or evaluation-driven development.',
+    },
+  },
+  {
+    id: 'forward-deployed-engineer',
+    role: 'Forward Deployed Engineer',
+    shortLabel: 'FDE',
+    headline: 'Embedded with teams to ship integrations and fixes fast.',
+    pitch: 'Best fit for teams that need someone embedded with the client or product team, shipping working solutions quickly.',
+    proof: 'Client-facing Salesforce and AI platform delivery: requirements, integration, automation, and release support',
+    stack: ['Apex', 'REST APIs', 'Agentforce', 'Flow'],
+    tone: 'amber',
+    eyebrow: 'Forward Deployed Engineer · Client Delivery · Bengaluru',
+    heroHeadline: 'I embed with teams to turn requirements into shipped integrations and fixes.',
+    heroDescription:
+      'Hands-on delivery across Salesforce workflows, integrations, and AI-assisted automation, from requirements gathering through production release.',
+    resumeUrl: assetUrl('assets/resume-forward-deployed-engineer.pdf'),
+    sectionCopy: {
+      projects: 'Client-facing delivery work: integrations, automation, and fixes shipped directly into production systems.',
+      skills: 'The practical delivery stack: platform development, integrations, automation, and release support.',
+      experience: 'Roles centered on embedded delivery: requirements, implementation, testing, and release.',
+    },
+  },
+  {
+    id: 'salesforce-consultant',
+    role: 'Salesforce Consultant',
+    shortLabel: 'Salesforce',
     headline: 'Agentforce, prompts, automation, and CRM workflows.',
     pitch: 'Best fit where AI capabilities need to connect with Salesforce workflows.',
     proof: 'Agentforce practice, Prompt Builder, Apex, LWC, Flow, and Service Cloud',
     stack: ['Agentforce', 'Prompt Builder', 'Apex', 'Flow'],
-    tone: 'accent',
+    tone: 'azure',
+    eyebrow: 'Salesforce Consultant · Agentforce & Platform · Bengaluru',
+    heroHeadline: 'I build Salesforce solutions, from Apex and Flow to Agentforce automation.',
+    heroDescription:
+      'Salesforce consulting across Apex, LWC, Flow, and Agentforce, with Trailhead-verified credentials and production release experience.',
+    resumeUrl: assetUrl('assets/resume-salesforce-consultant.pdf'),
+    sectionCopy: {
+      projects: 'Salesforce platform work: development, automation, integrations, and release support.',
+      skills: 'The Salesforce stack: Apex, LWC, Flow, Agentforce, and Service Cloud.',
+      experience: 'Salesforce consulting roles, from requirements through production support.',
+    },
   },
 ]
 
@@ -489,6 +576,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: 'Compare LangGraph, CrewAI, and AutoGen for a production multi-agent workflow.',
     tone: 'violet',
+    roles: ['ai-engineer'],
   },
   {
     category: 'Infrastructure & Observability',
@@ -503,6 +591,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: "Walk me through how you'd set up observability for a backend API.",
     tone: 'cyan',
+    roles: ['backend-engineer'],
   },
   {
     category: 'Cloud & Cost Optimization',
@@ -517,6 +606,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: 'How would you design a multi-vendor cost tracking system for LLM APIs and cloud services?',
     tone: 'amber',
+    roles: ['backend-engineer', 'forward-deployed-engineer'],
   },
   {
     category: 'Vector Databases & Search',
@@ -531,6 +621,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: 'How would you diagnose why a RAG system is returning irrelevant documents?',
     tone: 'emerald',
+    roles: ['ai-engineer', 'data-ml-engineer'],
   },
   {
     category: 'LLM & Prompt Optimization',
@@ -545,6 +636,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: 'Design a reliable prompt and model configuration strategy for a high-volume LLM workflow.',
     tone: 'rose',
+    roles: ['ai-engineer'],
   },
   {
     category: 'Data Processing & Evaluation',
@@ -559,6 +651,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: "What metrics would you use to evaluate a RAG system's retrieval quality?",
     tone: 'emerald',
+    roles: ['data-ml-engineer'],
   },
   {
     category: 'API & System Design',
@@ -573,6 +666,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: "Walk me through how you'd design an API that needs to handle rate limits and retry logic.",
     tone: 'accent',
+    roles: ['backend-engineer'],
   },
   {
     category: 'Database & Migration Patterns',
@@ -587,6 +681,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: 'How would you design a schema and migration strategy for cost tracking across multiple services?',
     tone: 'cyan',
+    roles: ['backend-engineer'],
   },
   {
     category: 'Async & Worker Patterns',
@@ -601,6 +696,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: 'Design an async worker system with retries, idempotency, and dead letter handling.',
     tone: 'amber',
+    roles: ['backend-engineer'],
   },
   {
     category: 'Data & Security',
@@ -615,6 +711,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: 'How would you design credential storage for integrating with multiple third-party APIs?',
     tone: 'rose',
+    roles: ['backend-engineer', 'forward-deployed-engineer'],
   },
   {
     category: 'Advanced Salesforce Patterns',
@@ -629,6 +726,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: 'How would you design a bulk-safe Salesforce integration that respects governor limits?',
     tone: 'cyan',
+    roles: ['salesforce-consultant', 'forward-deployed-engineer'],
   },
   {
     category: 'Agentforce & Service Cloud Automation',
@@ -643,6 +741,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: 'Design an Agentforce service workflow that routes cases and uses knowledge context safely.',
     tone: 'violet',
+    roles: ['salesforce-consultant', 'ai-engineer'],
   },
   {
     category: 'Technical Writing & Playbooks',
@@ -657,6 +756,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: 'How would you document a RAG pipeline so another engineer can debug it in production?',
     tone: 'emerald',
+    roles: ['forward-deployed-engineer'],
   },
   {
     category: 'Problem-Solving & Production Debugging',
@@ -671,6 +771,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: "Walk me through how you'd debug a slow API endpoint or low-quality RAG response.",
     tone: 'amber',
+    roles: ['backend-engineer', 'ai-engineer'],
   },
   {
     category: 'Mentoring & Leadership',
@@ -683,6 +784,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: 'How do you mentor a developer through a production debugging or architecture problem?',
     tone: 'accent',
+    roles: ['forward-deployed-engineer'],
   },
   {
     category: 'Delivery Evidence',
@@ -695,6 +797,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: 'Which engineering metrics prove that your AI/backend work improved production outcomes?',
     tone: 'rose',
+    roles: ['forward-deployed-engineer', 'backend-engineer'],
   },
   {
     category: 'FinOps & Enterprise Automation',
@@ -709,6 +812,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: 'How would you design a cost governance workflow for AI and cloud usage across teams?',
     tone: 'cyan',
+    roles: ['forward-deployed-engineer', 'backend-engineer'],
   },
   {
     category: 'Tooling, Testing & Data Tools',
@@ -722,6 +826,7 @@ export const SKILL_DEPTH: SkillDepthItem[] = [
     ],
     interviewTest: 'How would you set up testing and developer tooling around a backend API project?',
     tone: 'emerald',
+    roles: ['backend-engineer', 'data-ml-engineer'],
   },
 ]
 
@@ -864,26 +969,32 @@ export const SKILLS: SkillGroup[] = [
   {
     category: 'AI / LLM Systems',
     skills: ['rag', 'agents', 'langchain', 'openai-api', 'prompt-engineering'],
+    roles: ['ai-engineer'],
   },
   {
     category: 'Evaluation',
     skills: ['LLM Evaluation', 'Eval Loops', 'OpenAI', 'Grok', 'Perplexity'],
+    roles: ['ai-engineer', 'data-ml-engineer'],
   },
   {
     category: 'Backend',
     skills: ['python', 'fastapi', 'flask', 'pydantic', 'rest-apis'],
+    roles: ['backend-engineer', 'ai-engineer'],
   },
   {
     category: 'Data / ML',
     skills: ['Machine Learning', 'NLP', 'pandas', 'numpy', 'mongodb'],
+    roles: ['data-ml-engineer'],
   },
   {
     category: 'Salesforce',
     skills: ['agentforce', 'apex', 'lwc', 'flow-builder', 'prompt-builder', 'service-cloud'],
+    roles: ['salesforce-consultant', 'forward-deployed-engineer'],
   },
   {
     category: 'Delivery',
     skills: ['docker', 'github-actions', 'postman', 'debugging', 'mentoring'],
+    roles: ['forward-deployed-engineer', 'backend-engineer'],
   },
 ]
 
@@ -904,6 +1015,7 @@ export const EXPERIENCE: ExperienceItem[] = [
       'Translate requirements into maintainable platform solutions with engineering teams',
     ],
     tags: ['Salesforce', 'Apex', 'LWC', 'Flow', 'Agentforce', 'REST APIs'],
+    roles: ['salesforce-consultant', 'forward-deployed-engineer', 'ai-engineer'],
   },
   {
     company: 'Visionet Systems Inc.',
@@ -917,6 +1029,7 @@ export const EXPERIENCE: ExperienceItem[] = [
       'Supported backend integrations, application testing, debugging, and reliability improvements',
     ],
     tags: ['Apex', 'LWC', 'Agentforce', 'Automation'],
+    roles: ['salesforce-consultant', 'forward-deployed-engineer'],
   },
   {
     company: 'InternPe',
@@ -930,6 +1043,7 @@ export const EXPERIENCE: ExperienceItem[] = [
       'Improved reliability through debugging, testing, error handling, and documentation',
     ],
     tags: ['Python', 'Debugging', 'Optimization'],
+    roles: ['backend-engineer', 'data-ml-engineer'],
   },
 ]
 
@@ -952,6 +1066,7 @@ export const PROJECTS: ProjectItem[] = [
     proofStatus: 'Collaborative project',
     disclaimer: 'Built collaboratively. Organization, client, and internal product details are intentionally omitted.',
     featured: true,
+    roles: ['ai-engineer', 'backend-engineer'],
   },
   {
     title: 'Salesforce Consulting & Automation',
@@ -971,6 +1086,7 @@ export const PROJECTS: ProjectItem[] = [
     proofStatus: 'Professional experience',
     disclaimer: 'Client, company, and internal project details are intentionally omitted.',
     featured: true,
+    roles: ['salesforce-consultant', 'forward-deployed-engineer'],
   },
   {
     title: 'AI Wellness Support Chatbot',
@@ -1132,6 +1248,7 @@ export const PROJECTS: ProjectItem[] = [
       ],
     },
     featured: true,
+    roles: ['ai-engineer', 'backend-engineer'],
   },
   {
     title: 'AI Service Recommendation System',
@@ -1266,6 +1383,7 @@ export const PROJECTS: ProjectItem[] = [
     proofUrl: PERSONAL.resumeUrl,
     proofLinkLabel: 'Architecture on resume',
     featured: true,
+    roles: ['ai-engineer', 'backend-engineer'],
   },
   {
     title: 'Fake News Detection System',
@@ -1413,5 +1531,6 @@ export const PROJECTS: ProjectItem[] = [
     proofUrl: PERSONAL.resumeUrl,
     proofLinkLabel: 'Architecture on resume',
     featured: false,
+    roles: ['data-ml-engineer'],
   },
 ]

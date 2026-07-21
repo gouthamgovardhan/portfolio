@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { FaLocationDot } from 'react-icons/fa6'
-import { SECTION_TEXT, type ExperienceItem } from '../data/portfolio'
+import { ROLE_PATHS, SECTION_TEXT, type ExperienceItem } from '../data/portfolio'
+import { useActiveRole } from '../context/RoleContext'
+import { sortByRole } from '../lib/roleSort'
 import { DetailDialog, type DetailDialogContent, type DetailTone } from './ui/DetailDialog'
 import { SectionHeader } from './ui/SectionHeader'
 
@@ -37,6 +39,10 @@ function getExperienceDetail(item: ExperienceItem): DetailDialogContent {
 
 export default function Experience({ experience }: ExperienceProps) {
   const [selectedExperience, setSelectedExperience] = useState<ExperienceItem | null>(null)
+  const { activeRole } = useActiveRole()
+  const activeRolePath = ROLE_PATHS.find((path) => path.id === activeRole)
+  const sortedExperience = useMemo(() => sortByRole(experience, activeRole), [experience, activeRole])
+  const subtitle = activeRolePath?.sectionCopy.experience ?? SECTION_TEXT.experience.subtitle
 
   return (
     <section id="experience" className="section-shell px-6 py-24">
@@ -44,10 +50,10 @@ export default function Experience({ experience }: ExperienceProps) {
         <SectionHeader
           label={SECTION_TEXT.experience.label}
           title={SECTION_TEXT.experience.title}
-          subtitle={SECTION_TEXT.experience.subtitle}
+          subtitle={subtitle}
         />
         <div className="experience-timeline grid gap-5">
-          {experience.map((item, index) => {
+          {sortedExperience.map((item, index) => {
             return (
               <div key={`${item.company}-${item.period}`} className="experience-timeline-entry relative grid gap-4 pl-10 sm:grid-cols-[8rem_minmax(0,1fr)] sm:pl-0">
                 <div className="hidden pt-5 text-right sm:block">

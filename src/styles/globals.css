@@ -20,6 +20,7 @@
     --color-amber: #F4C95D;
     --color-rose: #FF7AAE;
     --color-violet: #8EA2FF;
+    --color-azure: #4DA6FF;
     --color-lime: #B8F26A;
     --color-text: #F7FBFF;
     --color-muted: #B8C5D2;
@@ -66,6 +67,7 @@
     --color-amber: #A66A00;
     --color-rose: #BB3A73;
     --color-violet: #5267C8;
+    --color-azure: #0176D3;
     --color-lime: #4D7C0F;
     --color-text: #111827;
     --color-muted: #485868;
@@ -96,6 +98,31 @@
     --city-overlay: linear-gradient(180deg, rgba(255, 248, 240, 0.02), rgba(255, 248, 240, 0.44));
     --city-ground-bg: #d8b8a8;
     --city-window-line: rgba(33, 21, 29, 0.15);
+  }
+
+  :root[data-role='ai-engineer'] {
+    --color-accent: var(--color-violet);
+    --color-accent-h: var(--color-violet);
+  }
+
+  :root[data-role='backend-engineer'] {
+    --color-accent: var(--color-cyan);
+    --color-accent-h: var(--color-cyan);
+  }
+
+  :root[data-role='data-ml-engineer'] {
+    --color-accent: var(--color-emerald);
+    --color-accent-h: var(--color-emerald);
+  }
+
+  :root[data-role='forward-deployed-engineer'] {
+    --color-accent: var(--color-amber);
+    --color-accent-h: var(--color-amber);
+  }
+
+  :root[data-role='salesforce-consultant'] {
+    --color-accent: var(--color-azure);
+    --color-accent-h: var(--color-azure);
   }
 
   html {
@@ -1007,7 +1034,7 @@
 
   main section {
     position: relative;
-    scroll-margin-top: 5rem;
+    scroll-margin-top: 7rem;
   }
 
   .scroll-reveal {

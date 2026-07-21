@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react'
 import { FaChevronDown } from 'react-icons/fa6'
-import { SECTION_TEXT, type SkillGroup } from '../data/portfolio'
+import { ROLE_PATHS, SECTION_TEXT, type SkillGroup } from '../data/portfolio'
+import { useActiveRole } from '../context/RoleContext'
 import { getTechIcon } from '../lib/techIcons'
+import { filterByRole } from '../lib/roleSort'
 import { BlurFade } from './ui/BlurFade'
 import { DetailDialog, type DetailDialogContent } from './ui/DetailDialog'
 import { SectionHeader } from './ui/SectionHeader'
@@ -54,6 +56,10 @@ function getWorkflowDetail(step: string, index: number): DetailDialogContent {
 export default function Skills({ skills }: SkillsProps) {
   const [detail, setDetail] = useState<DetailDialogContent | null>(null)
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null)
+  const { activeRole } = useActiveRole()
+  const activeRolePath = ROLE_PATHS.find((path) => path.id === activeRole)
+  const sortedSkills = useMemo(() => filterByRole(skills, activeRole), [skills, activeRole])
+  const subtitle = activeRolePath?.sectionCopy.skills ?? SECTION_TEXT.skills.subtitle
   const cloudIcons = useMemo(
     () =>
       iconLabels.map((label, index) => {
@@ -70,11 +76,11 @@ export default function Skills({ skills }: SkillsProps) {
         <SectionHeader
           label={SECTION_TEXT.skills.label}
           title={SECTION_TEXT.skills.title}
-          subtitle={SECTION_TEXT.skills.subtitle}
+          subtitle={subtitle}
         />
         <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(18rem,0.92fr)]">
           <div className="grid gap-3 sm:grid-cols-2">
-            {skills.map((group, index) => {
+            {sortedSkills.map((group, index) => {
               const expanded = expandedCategory === group.category
               const contentId = `skill-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
 

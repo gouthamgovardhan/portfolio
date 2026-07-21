@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { FaArrowUpRightFromSquare, FaXmark } from 'react-icons/fa6'
 
-export type DetailTone = 'cyan' | 'accent' | 'emerald' | 'amber' | 'rose' | 'violet'
+export type DetailTone = 'cyan' | 'accent' | 'emerald' | 'amber' | 'rose' | 'violet' | 'azure'
 
 export interface DetailDialogAction {
   label: string
@@ -65,6 +65,11 @@ const toneClasses: Record<DetailTone, { chip: string; bar: string; action: strin
     chip: 'border-violet/40 bg-violet/10 text-violet',
     bar: 'from-violet via-violet/35 to-transparent',
     action: 'border-violet/40 text-violet hover:bg-violet/10',
+  },
+  azure: {
+    chip: 'border-azure/40 bg-azure/10 text-azure',
+    bar: 'from-azure via-azure/35 to-transparent',
+    action: 'border-azure/40 text-azure hover:bg-azure/10',
   },
 }
 
