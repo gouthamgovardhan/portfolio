@@ -7,15 +7,20 @@ import {
   ROLE_PATHS,
   SOCIAL_LINKS,
   TECH_EXPLANATIONS,
+  getTrackContext,
   type PERSONAL,
 } from '../data/portfolio'
 import { useActiveRole } from '../context/RoleContext'
+import { useCareerTrack } from '../context/CareerTrackContext'
 import { getTechIcon } from '../lib/techIcons'
 import { BlurFade } from './ui/BlurFade'
 import { DetailDialog, type DetailDialogContent } from './ui/DetailDialog'
 import { MagicGlobe } from './ui/MagicGlobe'
 import { RainbowButton } from './ui/RainbowButton'
 import { WordRotate } from './ui/WordRotate'
+import { Tag } from './ui/Tag'
+import { motion } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
 
 interface HeroProps {
   personal: typeof PERSONAL
@@ -24,14 +29,18 @@ interface HeroProps {
 export default function Hero({ personal }: HeroProps) {
   const [detail, setDetail] = useState<DetailDialogContent | null>(null)
   const { activeRole } = useActiveRole()
+  const { activeTrack } = useCareerTrack()
   const activeRolePath = ROLE_PATHS.find((path) => path.id === activeRole)
   const eyebrow = activeRolePath?.eyebrow ?? personal.eyebrow
   const heroHeadline = activeRolePath?.heroHeadline ?? personal.heroHeadline
   const heroDescription = activeRolePath?.heroDescription ?? personal.heroDescription
   const resumeUrl = activeRolePath?.resumeUrl ?? personal.resumeUrl
+  const trackContext = getTrackContext(activeTrack)
 
   return (
-    <section id="hero" className="hero-stage relative flex min-h-screen items-center overflow-hidden pt-28 sm:pt-32 lg:pt-36">
+    <section id="hero" className="relative flex flex-col overflow-hidden">
+      {/* Main Hero Section */}
+      <div className="hero-stage relative flex min-h-screen items-center overflow-hidden pt-28 sm:pt-32 lg:pt-36">
       <div className="hero-stage-grid pointer-events-none absolute inset-0" />
       <div className="hero-stage-signal pointer-events-none absolute inset-0" />
       <div className="pointer-events-none absolute left-0 right-0 top-20 overflow-hidden border-y border-border-dim/70 bg-bg/35 py-3 backdrop-blur">
@@ -211,6 +220,78 @@ export default function Hero({ personal }: HeroProps) {
         </div>
       </div>
       {detail ? <DetailDialog content={detail} onClose={() => setDetail(null)} /> : null}
+      </div>
+
+      {/* Flagship Projects Teasers */}
+      <section className="relative z-10 bg-gradient-to-b from-bg/50 to-bg py-20 sm:py-28 lg:py-36">
+        <div className="mx-auto w-full max-w-6xl px-6">
+          <BlurFade delay={0.6} className="mb-16 text-center">
+            <h2 className="text-3xl font-black uppercase leading-tight tracking-tight text-text sm:text-5xl lg:text-6xl">
+              Featured Work
+            </h2>
+            <p className="mt-4 text-lg text-muted">
+              {activeTrack === 'ai-engineer'
+                ? 'Production AI systems, from RAG to multi-agent orchestration'
+                : activeTrack === 'salesforce-consultant'
+                  ? 'Enterprise Salesforce automation and integration work'
+                  : 'Full-stack systems spanning AI, Salesforce, and backend'}
+            </p>
+          </BlurFade>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {trackContext.flagshipProjects.map((project, index) => (
+              <motion.a
+                key={project.title}
+                href="#projects"
+                className="group lift-card-subtle relative overflow-hidden rounded-xl border border-border bg-card/60 p-6 backdrop-blur transition-all hover:border-violet hover:bg-card/80"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className="absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100">
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: `linear-gradient(135deg, var(--color-${project.accent}) / 0.1, transparent)`,
+                    }}
+                  />
+                </div>
+
+                <div className="relative z-10">
+                  <div className="mb-4 flex items-start justify-between">
+                    <div
+                      className="flex h-12 w-12 items-center justify-center rounded-lg border border-border"
+                      style={{ borderColor: `var(--color-${project.accent})` }}
+                    >
+                      <span className="font-mono text-sm font-bold" style={{ color: `var(--color-${project.accent})` }}>
+                        {project.icon}
+                      </span>
+                    </div>
+                    <ArrowRight className="h-5 w-5 text-muted opacity-0 transition-all group-hover:opacity-100 group-hover:text-violet" />
+                  </div>
+
+                  <h3 className="mb-2 text-xl font-black uppercase tracking-tight text-text">{project.title}</h3>
+                  <p className="mb-4 leading-6 text-muted">{project.outcomeHeadline || project.description}</p>
+
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.slice(0, 3).map((tag) => (
+                      <Tag key={tag} label={tag} />
+                    ))}
+                    {project.tags.length > 3 && <Tag label={`+${project.tags.length - 3}`} />}
+                  </div>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+
+          <BlurFade delay={0.8} className="mt-12 text-center">
+            <p className="text-sm text-muted">
+              Click on any project to dive deep into the architecture, outcomes, and technical details
+            </p>
+          </BlurFade>
+        </div>
+      </section>
     </section>
   )
 }

@@ -11,6 +11,9 @@ interface TagProps {
 }
 
 export function Tag({ label, variant = 'default', tooltip = false, compact = false }: TagProps) {
+  if (!label || typeof label !== 'string') {
+    return null
+  }
   const Icon = getTechIcon(label)
   const explanation = TECH_EXPLANATIONS[label] ?? 'Related tool, concept, or workflow signal used in this portfolio.'
   const base = `inline-flex max-w-full items-center gap-1.5 rounded-full border font-mono font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber ${

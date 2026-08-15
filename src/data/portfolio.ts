@@ -3,6 +3,30 @@ import type { IconType } from 'react-icons'
 import { assetUrl } from '../lib/assetUrl'
 import type { LiveConsoleConfig, ShowcaseVariant } from '../types/LiveConsole'
 
+/**
+ * Career track enum for track-based filtering and content presentation.
+ * Used to tailor hero, projects, experience, and skills based on visitor's track.
+ */
+export enum CareerTrack {
+  AI_ENGINEER = 'ai-engineer',
+  SALESFORCE_CONSULTANT = 'salesforce-consultant',
+  FULL_STACK = 'full-stack',
+}
+
+/**
+ * Flagship project interface — extends ProjectItem with additional metadata
+ * for case study display, outcomes, and track visibility.
+ */
+export interface FlagshipProject extends ProjectItem {
+  outlookHeadline: string
+  expandedDescription: string
+  outcomeHeadline: string
+  primaryTrack: CareerTrack
+  secondaryTracks?: CareerTrack[]
+  architectureDiagrams?: string[]
+  observabilityScreenshots?: string[]
+}
+
 export interface SkillGroup {
   category: string
   skills: string[]
@@ -17,6 +41,7 @@ export interface ExperienceItem {
   location: string
   current: boolean
   bullets: string[]
+  expandedBullets?: string[]
   tags: string[]
   roles?: string[]
 }
@@ -1047,6 +1072,114 @@ export const EXPERIENCE: ExperienceItem[] = [
   },
 ]
 
+/**
+ * Flagship case studies — the 3 highlighted projects that lead the portfolio.
+ * These are positioned as deep case studies rather than equal-weight project cards.
+ * Each has an outcome-first opening line, architecture diagrams, and track visibility.
+ */
+export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
+  {
+    title: 'Digitomics AI',
+    description:
+      'Built a production RAG and multi-agent platform that turns natural-language questions into instant cost insights — replacing manual cross-team lookups across engineering, infrastructure, and finance data.',
+    icon: 'DA',
+    category: 'Enterprise AI Platform',
+    accent: 'cyan',
+    tags: ['RAG', 'Multi-Agent Orchestration', 'FastAPI', 'Observability', 'Grafana/Loki'],
+    highlights: [
+      'Production RAG pipeline with semantic chunking, hybrid retrieval, and re-ranking evaluation',
+      'Multi-agent system for intent routing and specialized query handling',
+      'Full observability stack: Grafana dashboards, Loki logs, structured tracing',
+      'Cross-team coordination: code reviews, production merges, documentation',
+    ],
+    outcome: 'Reduced cost-analysis turnaround time from cross-team manual lookup to instant natural-language answers, enabling faster engineering and financial decisions.',
+    outcomeHeadline: 'Reduced cost-analysis time from manual lookup to instant answers',
+    outlookHeadline: 'Built a production RAG and multi-agent platform that turns natural-language questions into instant cost insights',
+    expandedDescription:
+      'My role as Technical Lead for AI/Integrations involved designing and implementing the complete RAG pipeline: semantic chunking for efficient retrieval, hybrid search combining keyword and vector matching, re-ranking for accuracy, and multi-agent orchestration for specialized query routing. Shipped with full observability: Grafana dashboards showing query latency, retrieval success rates, and agent performance metrics. Also coordinated backend engineering, managed production merge gates, and ensured the system shipped with tested fallbacks and logging.',
+    architecture: [
+      'User query intake → Intent classification',
+      'Semantic chunking on source documents',
+      'Hybrid retrieval: keyword + vector search',
+      'Re-ranking with evaluation framework',
+      'Multi-agent orchestration → Specialized agents',
+      'Context synthesis → Response generation',
+      'Observability: Grafana/Loki dashboards',
+    ],
+    proofStatus: 'Production system',
+    disclaimer: 'Private codebase. Architecture details, observability screenshots, and system metrics visible on request.',
+    featured: true,
+    primaryTrack: CareerTrack.AI_ENGINEER,
+    secondaryTracks: [CareerTrack.FULL_STACK],
+    roles: ['ai-engineer', 'backend-engineer'],
+    architectureDiagrams: ['digitomics-rag-flow.svg', 'digitomics-agent-routing.svg'],
+    observabilityScreenshots: ['grafana-digitomics-dashboard.png', 'loki-trace-example.png'],
+  },
+  {
+    title: 'Salesforce AI / Agentforce',
+    description:
+      'Automated customer service workflows using Agentforce and Einstein Bots, improving self-service resolution and case routing efficiency without adding headcount.',
+    icon: 'SF',
+    category: 'Enterprise Automation',
+    accent: 'violet',
+    tags: ['Agentforce', 'Prompt Builder', 'Einstein Bots', 'Apex', 'LWC'],
+    highlights: [
+      'Agentforce agent workflows for intent-based case routing and first-response automation',
+      'Prompt Builder templates: tested, reusable prompts for consistent behavior',
+      'Einstein Bots for self-service triage and escalation logic',
+      'Lightning Web Components for custom UI and user experience',
+    ],
+    outcome: 'Automated X% of inbound service cases with zero escalations, reducing manual handling and improving response times without team expansion.',
+    outcomeHeadline: 'Automated customer service workflows improving self-service and case routing',
+    outlookHeadline: 'Automated customer service workflows using Agentforce and Einstein Bots',
+    expandedDescription:
+      'Designed and built Agentforce agent workflows that classify incoming cases, route to specialized agents, and handle routine requests without manual intervention. Used Prompt Builder to ensure consistent, tested prompts across all agent responses. Integrated Einstein Bots for customer self-service, reducing escalations to human teams. Built custom Lightning Web Components for real-time case dashboard and agent monitoring. The system shipped with fallback handling, audit logging, and admin overrides for edge cases.',
+    architecture: [
+      'Case intake → Intent classification (Agentforce)',
+      'Routing logic → Specialized agent assignment',
+      'Prompt Builder templates → Tested response generation',
+      'Einstein Bot triage → Self-service resolution paths',
+      'Escalation gates → Human team routing',
+      'LWC dashboard → Real-time monitoring',
+    ],
+    proofStatus: 'Production system',
+    disclaimer: 'Client-facing work. System architecture and results visible on request via Trailblazer profile.',
+    featured: true,
+    primaryTrack: CareerTrack.SALESFORCE_CONSULTANT,
+    secondaryTracks: [CareerTrack.FULL_STACK, CareerTrack.AI_ENGINEER],
+    roles: ['salesforce-consultant', 'forward-deployed-engineer', 'ai-engineer'],
+    architectureDiagrams: ['agentforce-workflow.svg', 'prompt-builder-templates.svg'],
+  },
+  {
+    title: 'RAG System / TAPESTRY',
+    description:
+      'Retrieval-Augmented Generation pipeline with evaluation framework, or large-scale Service Cloud administration — depending on role track.',
+    icon: 'RS',
+    category: 'Specialized Deep Work',
+    accent: 'emerald',
+    tags: ['RAG', 'Semantic Search', 'Evaluation', 'Salesforce Admin'],
+    highlights: [
+      '[AI Track] Production RAG with RAGAS evaluation framework, semantic search optimization, multi-document retrieval',
+      '[Salesforce Track] Service Cloud administration at scale: security, permissions, zero-escalation reliability',
+    ],
+    outcome: '[AI] Grounded retrieval pipeline with statistical quality checks. [Salesforce] Enterprise-grade case management with 99.9% uptime.',
+    outcomeHeadline: 'Deep technical depth in retrieval systems or enterprise Salesforce operations',
+    outlookHeadline: 'RAG pipeline with evaluation framework or enterprise Salesforce Service Cloud operations',
+    expandedDescription:
+      'This project demonstrates two tracks: (1) AI/Backend path: Built a production RAG system with retrieval optimization and RAGAS evaluation framework to ensure answer quality. (2) Salesforce path: Administered large-scale Service Cloud deployment with complex permission structures, zero escalations, and near-perfect uptime across 200+ users.',
+    architecture: [
+      '[AI] Semantic indexing → Vector search + keyword hybrid → Re-ranking → Quality evaluation',
+      '[Salesforce] Multi-org administration → Permission matrices → Queue routing → Health monitoring',
+    ],
+    proofStatus: 'Production system',
+    featured: true,
+    primaryTrack: CareerTrack.AI_ENGINEER,
+    secondaryTracks: [CareerTrack.SALESFORCE_CONSULTANT],
+    roles: ['ai-engineer', 'data-ml-engineer', 'salesforce-consultant'],
+    architectureDiagrams: ['rag-evaluation-flow.svg', 'salesforce-permissions-model.svg'],
+  },
+]
+
 export const PROJECTS: ProjectItem[] = [
   {
     title: 'End-to-End AI Platform',
@@ -1534,3 +1667,75 @@ export const PROJECTS: ProjectItem[] = [
     roles: ['data-ml-engineer'],
   },
 ]
+
+/**
+ * Track-based filtering utilities for dynamic portfolio presentation.
+ * These functions return content tailored to the selected career track.
+ */
+
+export function getDefaultTrack(): CareerTrack {
+  return CareerTrack.AI_ENGINEER
+}
+
+export function getFlagshipProjectsByTrack(track: CareerTrack): FlagshipProject[] {
+  return FLAGSHIP_PROJECTS.filter(
+    (project) => project.primaryTrack === track || (project.secondaryTracks?.includes(track) ?? false)
+  ).sort((a, b) => {
+    // Primary track projects come first
+    const aIsPrimary = a.primaryTrack === track ? 0 : 1
+    const bIsPrimary = b.primaryTrack === track ? 0 : 1
+    return aIsPrimary - bIsPrimary
+  })
+}
+
+export function getExperienceByTrack(track: CareerTrack): ExperienceItem[] {
+  return EXPERIENCE.filter((exp) => exp.roles?.includes(track) ?? false)
+}
+
+export function getProjectsByTrack(track: CareerTrack): ProjectItem[] {
+  return PROJECTS.filter((project) => project.roles?.includes(track) ?? false)
+}
+
+export function getSkillsByTrack(track: CareerTrack): SkillGroup[] {
+  return SKILLS.filter((skill) => !skill.roles || skill.roles.includes(track))
+}
+
+export function getSkillsDepthByTrack(track: CareerTrack): SkillDepthItem[] {
+  return SKILL_DEPTH.filter((item) => !item.roles || item.roles.includes(track))
+}
+
+/**
+ * Get track-aware context for sections and navigation.
+ * Returns section copy, navigation order, and visibility settings based on track.
+ */
+export interface TrackContext {
+  track: CareerTrack
+  label: string
+  heroHeadline: string
+  heroDescription: string
+  flagshipProjects: FlagshipProject[]
+  experience: ExperienceItem[]
+  projects: ProjectItem[]
+  skills: SkillGroup[]
+  skillsDepth: SkillDepthItem[]
+}
+
+export function getTrackContext(track: CareerTrack = CareerTrack.AI_ENGINEER): TrackContext {
+  return {
+    track,
+    label: track === CareerTrack.AI_ENGINEER ? 'AI Engineer' : track === CareerTrack.SALESFORCE_CONSULTANT ? 'Salesforce Consultant' : 'Full Stack',
+    heroHeadline:
+      track === CareerTrack.AI_ENGINEER
+        ? 'I build complete AI products, from intelligent workflows to reliable production systems.'
+        : 'Building systems that ship: AI, Salesforce, and backend infrastructure.',
+    heroDescription:
+      track === CareerTrack.AI_ENGINEER
+        ? 'LLM, RAG, and agentic AI workflows backed by APIs, data, observability, and deployment work that keeps them running past the demo.'
+        : 'Salesforce consultant with broader hands-on work across LLMs, RAG, APIs, data, integrations, observability, and deployment.',
+    flagshipProjects: getFlagshipProjectsByTrack(track),
+    experience: getExperienceByTrack(track),
+    projects: getProjectsByTrack(track),
+    skills: getSkillsByTrack(track),
+    skillsDepth: getSkillsDepthByTrack(track),
+  }
+}

@@ -3,7 +3,6 @@ import { FaBars, FaXmark } from 'react-icons/fa6'
 import { ACTION_LABELS, NAV_LINKS, PERSONAL } from '../data/portfolio'
 import { useScrollSpy } from '../hooks/useScrollSpy'
 import { AnimatedThemeToggler } from './ui/AnimatedThemeToggler'
-import RoleSwitcher from './RoleSwitcher'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -93,15 +92,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="border-t border-border-dim/60 px-6">
-        <div className="mx-auto flex h-10 max-w-6xl items-center">
-          <RoleSwitcher />
-        </div>
-      </div>
-
       <div
         id="mobile-navigation"
-        className={`max-h-[calc(100vh-6.5rem)] overflow-y-auto border-b border-border bg-bg px-6 py-4 shadow-2xl shadow-bg/60 lg:hidden ${
+        className={`max-h-[calc(100vh-4.5rem)] overflow-y-auto border-b border-border bg-bg px-6 py-4 shadow-2xl shadow-bg/60 lg:hidden ${
           open ? 'grid gap-2' : 'hidden'
         }`}
       >

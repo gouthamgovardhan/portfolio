@@ -1,19 +1,19 @@
 import About from './components/About'
 import AmbientBackground from './components/AmbientBackground'
+import CareerTrackSwitcher from './components/CareerTrackSwitcher'
 import Contact from './components/Contact'
 import Education from './components/Education'
 import Experience from './components/Experience'
+import FlagshipProjects from './components/FlagshipProjects'
 import Footer from './components/Footer'
 import Hero from './components/Hero'
 import MagicDock from './components/MagicDock'
 import Navbar from './components/Navbar'
-import Projects from './components/Projects'
-import Publications from './components/Publications'
-import RolePathways from './components/RolePathways'
 import SalesforceProof from './components/SalesforceProof'
 import Skills from './components/Skills'
 import Stats from './components/Stats'
-import { EXPERIENCE, PERSONAL, PROJECTS, SKILLS, STATS } from './data/portfolio'
+import { EXPERIENCE, PERSONAL, SKILLS, STATS } from './data/portfolio'
+import { CareerTrackProvider } from './context/CareerTrackContext'
 import { RoleProvider } from './context/RoleContext'
 import { useScrollReveal } from './hooks/useScrollReveal'
 
@@ -22,13 +22,15 @@ function HomePage() {
     <>
       <Hero personal={PERSONAL} />
       <Stats stats={STATS} />
-      <RolePathways />
-      <Projects projects={PROJECTS} />
+      <FlagshipProjects />
+      {/* RolePathways and SkillsDepth hidden in Phase 4 */}
+      {/* <RolePathways /> */}
       <SalesforceProof />
       <Experience experience={EXPERIENCE} />
       <Skills skills={SKILLS} />
       <About personal={PERSONAL} />
-      <Publications />
+      {/* Publications moved to footer in Phase 4 */}
+      {/* <Publications /> */}
       <Education />
       <Contact personal={PERSONAL} />
     </>
@@ -39,15 +41,18 @@ export default function App() {
   useScrollReveal()
 
   return (
-    <RoleProvider>
-      <AmbientBackground />
-      <div className="scroll-progress" aria-hidden="true" />
-      <Navbar />
-      <main className="relative z-[1]">
-        <HomePage />
-      </main>
-      <MagicDock />
-      <Footer personal={PERSONAL} />
-    </RoleProvider>
+    <CareerTrackProvider>
+      <RoleProvider>
+        <AmbientBackground />
+        <div className="scroll-progress" aria-hidden="true" />
+        <Navbar />
+        <CareerTrackSwitcher />
+        <main className="relative z-[1]">
+          <HomePage />
+        </main>
+        <MagicDock />
+        <Footer personal={PERSONAL} />
+      </RoleProvider>
+    </CareerTrackProvider>
   )
 }

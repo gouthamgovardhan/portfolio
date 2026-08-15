@@ -1,0 +1,88 @@
+.container {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(10px);
+}
+
+.content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+}
+
+.switcher {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.option {
+  position: relative;
+  padding: 0.5rem 1.25rem;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  border-radius: 0.5rem;
+}
+
+.option:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.option.active {
+  color: rgb(99, 102, 241);
+  font-weight: 600;
+}
+
+.indicator {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 0.5rem;
+  z-index: -1;
+}
+
+.optionLabel {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .switcher {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .option {
+    flex: 1;
+    min-width: 150px;
+  }
+}
